@@ -1,0 +1,80 @@
+@import "../../scss/colors.scss";
+
+.app-page {
+
+    .container {
+        margin-right: 320px;
+        padding: 60px 70px;
+
+        .entries {
+            .entry {
+                background-color: $ldark;
+                padding: 20px 30px;
+                border-radius: 10px;
+                overflow: hidden;
+                max-height: 150px;
+                cursor: pointer;
+                transition: background-color 0.2s, box-shadow 0.2s;
+                box-shadow: 0 5px 4px rgba($color: #000, $alpha: 0.25);
+
+                &:hover {
+                    background-color: $l2dark;
+                    box-shadow: 0 6px 5px rgba($color: #000, $alpha: 0.3);
+                }
+
+                .date {
+                    font-size: 1.3rem;
+                    &-day {
+                        color: $dblue;
+                        font-weight: 600;
+                    }
+
+                    &-month {
+                        margin-left: 5px;
+                    }
+
+                    &-time {
+                        color: $dblue;
+                        font-weight: 600;
+                    }
+
+                    &-week-day {
+                        font-size: 0.9rem;
+                        color: $white50;
+                        margin-left: 5px;
+                    }
+                }
+
+                &-title {
+                    font-size: 1.3rem;
+                    font-size: 600;
+                    margin: 8px 0;
+                }
+
+                .text-preview {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    max-height: 2.3em;
+                }
+
+                & + .entry {
+                    margin-top: 25px;
+                }
+            }
+        }
+    }
+
+    .side {
+        width: 320px;
+        height: 100vh;
+        background-color: $dark;
+        position: fixed;
+        top: 0;
+        right: 0;
+        box-shadow: -5px 2px 6px rgba($color: #000, $alpha: 0.25);
+
+        .calendar {
+            margin: 0 auto;
+        }
+    }
+}

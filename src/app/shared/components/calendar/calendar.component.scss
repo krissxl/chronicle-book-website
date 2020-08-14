@@ -1,0 +1,140 @@
+@import "../../../../scss/colors.scss";
+
+:host {
+    margin: 0 auto;
+}
+
+.calendar {
+    margin-top: 50px;
+    .top {
+        text-align: center;
+
+        .year-panel {
+            display: inline-flex;
+            justify-content: space-between;
+            width: 70%;
+            margin-bottom: 7px;
+
+            .prev,
+            .next {
+                font-size: 1.3rem;
+                line-height: 1.7rem;
+                padding: 1px 7px;
+                cursor: pointer;
+                border-radius: 10px;
+
+                &:hover {
+                    background-color: $white25;
+                }
+            }
+
+            .prev {
+                transform: rotate(180deg);
+            }
+
+            .year {
+                padding: 0 7px;
+                font-size: 1.6rem;
+                cursor: pointer;
+                border-radius: 10px;
+                font-weight: 600;
+
+                &:hover {
+                    background-color: $white25;
+                }
+            }
+        }
+
+        .month-panel {
+            display: inline-flex;
+            justify-content: space-between;
+            width: 82%;
+            margin-bottom: 7px;
+
+            .prev,
+            .next {
+                font-size: 1.5rem;
+                line-height: 1.7rem;
+                padding: 1px 7px;
+                cursor: pointer;
+                border-radius: 10px;
+
+                &:hover {
+                    background-color: $white25;
+                }
+            }
+
+            .prev {
+                transform: rotate(180deg);
+            }
+
+            .month {
+                padding: 0 7px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                border-radius: 10px;
+
+                &:hover {
+                    background-color: $white25;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        .week-days {
+            display: grid;
+            grid-template-columns: repeat(7, 35px);
+            grid-template-rows: 35px;
+            column-gap: 5px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 35px;
+            color: $white50;
+            width: 275px;
+            margin: 0 auto;
+        }
+
+        .days {
+            display: grid;
+            margin: 0 auto;
+            grid-template-columns: repeat(7, 35px);
+            grid-template-rows: repeat(6, 35px);
+            width: 275px;
+            column-gap: 5px;
+            row-gap: 5px;
+
+            .day:not(.empty-day) {
+                text-align: center;
+                vertical-align: middle;
+                background-color: $ldark;
+                line-height: 35px;
+                border-radius: 50px;
+                transition: background-color 0.1s;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $l2dark;
+                }
+
+                &.selected {
+                    background-color: $l3dark;
+                }
+            }
+        }
+
+        .today {
+            text-align: center;
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin: 20px 35px 0;
+            cursor: pointer;
+            border: 1px solid $white25;
+
+            &:hover {
+                background-color: $white25;
+                border: 1px solid transparent;
+            }
+        }
+    }
+}
