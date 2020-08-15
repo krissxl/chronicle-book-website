@@ -3,8 +3,16 @@ $dark: #0e1020;
 $ldark: #151729;
 $l2dark: #272C48;
 $l3dark: #324064;
+$light: #737CA2;
 $blue: #4b7bec;
 $dblue: #3867d6;
+$lred: #FC5C65;
+$red: #EB3B5A;
+$green: #26DE81;
+$dgreen: #20BF6B;
 $white75: rgba($color: #fff, $alpha: 0.75);
 $white50: rgba($color: #fff, $alpha: 0.5);
 $white25: rgba($color: #fff, $alpha: 0.25);
+
+
+$bluegrad: linear-gradient(-45deg, $dblue, $blue);

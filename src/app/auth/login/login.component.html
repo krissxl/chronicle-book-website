@@ -1,0 +1,77 @@
+<div class="login">
+  <div class="sign-up">
+    <div class="content">
+      <div class="title">Don't have an account?</div>
+      <app-button (click)="redirectToSignUp()" color="dark" [center]="true"
+        >Sign up</app-button
+      >
+    </div>
+  </div>
+  <div class="sign-in">
+    <div class="content">
+      <div class="title">Sign in</div>
+      <form [formGroup]="loginForm">
+        <div class="email-block">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            formControlName="email"
+            placeholder="Email"
+          />
+          <div
+            class="error"
+            *ngIf="
+              loginForm.get('email').invalid && loginForm.get('email').touched
+            "
+          >
+            <div
+              class="email-error"
+              *ngIf="loginForm.get('email').errors.email"
+            >
+              This isn't looks like email
+            </div>
+            <div
+              class="email-req-error"
+              *ngIf="loginForm.get('email').errors.required"
+            >
+              Email is required
+            </div>
+          </div>
+        </div>
+        <div class="password-block">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <div
+            class="error"
+            *ngIf="
+              loginForm.get('password').invalid &&
+              loginForm.get('password').touched
+            "
+          >
+            <div
+              class="password-req-error"
+              *ngIf="loginForm.get('password').errors.required"
+            >
+              Password is required
+            </div>
+          </div>
+        </div>
+
+        <app-button
+          type="submit"
+          (click)="signIn($event)"
+          [disabled]="loginForm.status !== 'VALID'"
+          [fullsize]="true"
+          class="sign-in-btn"
+          >Sign in</app-button
+        >
+      </form>
+    </div>
+  </div>
+</div>
