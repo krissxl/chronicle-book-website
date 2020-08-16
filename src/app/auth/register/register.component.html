@@ -2,6 +2,7 @@
   <div class="sign-up">
     <div class="content">
       <div class="title">Create new account</div>
+      <div class="be-error" *ngIf="errorMessage">{{ errorMessage }}</div>
       <form [formGroup]="registerForm">
         <div class="username-block">
           <input
@@ -116,13 +117,12 @@
           </div>
         </div>
 
-        <app-button
+        <button
           type="submit"
           (click)="signUp($event)"
-          [disabled]="registerForm.status !== 'VALID'"
-          [fullsize]="true"
-          class="sign-in-btn"
-          >Create account</app-button
+          [disabled]="registerForm.status !== 'VALID' || waiting"
+          class="btn btn-fullsize"
+          >Create account</button
         >
       </form>
     </div>
@@ -130,8 +130,8 @@
   <div class="sign-in">
     <div class="content">
       <div class="title">Already have an account?</div>
-      <app-button (click)="redirectToSignIn()" color="dark" [center]="true"
-        >Sign in</app-button
+      <button (click)="redirectToSignIn()" class="btn btn-center btn-dark"
+        >Sign in</button
       >
     </div>
   </div>

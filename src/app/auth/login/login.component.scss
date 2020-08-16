@@ -45,6 +45,17 @@
             left: 50%;
             transform: translate(-50%, -50%);
 
+            .be-error {
+                width: 100%;
+                padding: 8px 15px;
+                border-left: 6px solid $red;
+                border-right: 6px solid $red;
+                background-color: $l2dark;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                font-weight: 600;
+            }
+
             .title {
                 font-size: 1.8rem;
                 font-weight: 600;

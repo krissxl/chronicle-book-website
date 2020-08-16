@@ -6,11 +6,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import {NoAuthGuard} from '../no-auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    canActivate: [NoAuthGuard],
     children: [
       {
         path: 'login',

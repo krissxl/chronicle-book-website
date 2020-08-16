@@ -352,54 +352,7 @@ template {
 
 /* ===========ICONS=========== */
 
-@font-face {
-    font-family: "icomoon";
-    src: url("fonts/icomoon.eot?3sdwyf");
-    src: url("fonts/icomoon.eot?3sdwyf#iefix") format("embedded-opentype"),
-        url("fonts/icomoon.ttf?3sdwyf") format("truetype"), url("fonts/icomoon.woff?3sdwyf") format("woff"),
-        url("fonts/icomoon.svg?3sdwyf#icomoon") format("svg");
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-}
-
-[class^="icon-"],
-[class*=" icon-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: "icomoon" !important;
-    speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-user:before {
-    content: "\f007";
-}
-.icon-chevron-right:before {
-    content: "\f054";
-}
-.icon-sign-in:before {
-    content: "\f090";
-}
-.icon-angle-double-right:before {
-    content: "\f101";
-}
-.icon-plus-square-o:before {
-    content: "\f196";
-}
-.icon-hourglass-o:before {
-    content: "\f250";
-}
-.icon-hourglass:before {
-    content: "\f254";
-}
+@import 'icons.css';
 
 /* ===========CUSTOM=========== */
 @import "./scss/colors.scss";
@@ -420,4 +373,46 @@ body {
 
 a {
     color: $dblue;
+}
+
+.btn {
+    display: block;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #fff;
+    outline: none;
+    background-color: $dblue;
+
+    &:hover {
+        background-color: $blue;
+    }
+
+    &.btn-dark {
+        background-color: $dark;
+
+        &:hover {
+            background-color: $ldark;
+        }
+    }
+
+    &:disabled {
+        background-color: $l3dark;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: $l3dark;
+        }
+    }
+
+    &.btn-center {
+        margin: 0 auto;
+    }
+
+    &.btn-fullsize {
+        width: 100%;
+    }
 }

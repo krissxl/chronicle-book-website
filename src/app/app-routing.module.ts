@@ -6,16 +6,19 @@ const routes: Routes = [
   {
     path: '',
     component: AppComponent,
+    children: [
+      {
+        path: 'app',
+        loadChildren: () =>
+          import('./app-page/app-page.module').then((m) => m.AppPageModule),
+      },
+      {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+      },
+    ]
   },
-  {
-    path: 'app',
-    loadChildren: () =>
-      import('./app-page/app-page.module').then((m) => m.AppPageModule),
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  },
+ 
 ];
 
 @NgModule({

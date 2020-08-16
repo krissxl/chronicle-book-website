@@ -3,7 +3,11 @@
 
     <div class="account">
         <i class="account-icon icon-user"></i>
-        <div class="account-name">user name</div>
+        <div class="account-name">{{ authService.user.name }}</div>
+        <div class="logout" (click)="signOut()">
+            <i class="icn icon-log-out"></i>
+            <div class="title">Sign out</div>
+        </div>
     </div>
 
     <div class="actions">

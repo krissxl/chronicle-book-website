@@ -4,11 +4,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { ButtonComponent } from './components/UI/button/button.component';
 
 
 @NgModule({
-  declarations: [SidebarComponent, MainLayoutComponent, MainLayoutComponent, CalendarComponent, ButtonComponent],
+  declarations: [SidebarComponent, MainLayoutComponent, CalendarComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -17,8 +16,7 @@ import { ButtonComponent } from './components/UI/button/button.component';
     SidebarComponent,
     RouterModule,
     MainLayoutComponent,
-    CalendarComponent,
-    ButtonComponent
+    CalendarComponent
   ]
 })
 export class SharedModule { }

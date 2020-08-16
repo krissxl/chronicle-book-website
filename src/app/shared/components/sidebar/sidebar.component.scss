@@ -1,4 +1,4 @@
-@import '../../../../scss/colors.scss';
+@import "../../../../scss/colors.scss";
 
 .sidebar {
     height: 100vh;
@@ -14,9 +14,9 @@
         position: absolute;
         top: 15px;
         right: -45px;
-        font-size: 2rem;
+        font-size: 1.2rem;
         cursor: pointer;
-        padding: 0 7px;
+        padding: 8px 8px;
         border-radius: 10px;
         transition: transform 0.3s;
         transform: rotate(0deg);
@@ -49,10 +49,32 @@
             margin-top: 10px;
             font-size: 1.3rem;
         }
+
+        .logout {
+            display: inline-flex;
+            margin: 15px auto 0;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 10px;
+
+            &:hover {
+                color: $red;
+            }
+
+            .icn {
+                font-size: 1.1rem;
+            }
+
+            .title {
+                margin-left: 5px;
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+        }
     }
 
     .actions {
-
         .action {
             border-top: 2px solid $l2dark;
             padding: 20px 20px;

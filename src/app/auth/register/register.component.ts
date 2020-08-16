@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/auth.service';
+import { BackendResponse } from 'src/app/shared/interfaces';
+import { interval, Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -21,16 +25,57 @@ export class RegisterComponent implements OnInit {
     again: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router) {}
+  errorMessage: String = '';
+  waiting: Boolean = false;
+  errorTimer: Subscription;
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
 
-  signUp(event: Event) {
+  async signUp(event: Event) {
     event.preventDefault();
-    console.log(this.registerForm);
+
+    this.waiting = true;
+
+    const username = this.registerForm.value.username;
+    const email = this.registerForm.value.email;
+    const password = this.registerForm.value.password;
+    const again = this.registerForm.value.again;
+
+    if (password === again) {
+      const response: BackendResponse = await this.authService.signUpUser(
+        email,
+        password,
+        username
+      );
+      if (response.error) {
+        this.errorMessage = response.message;
+
+        this.startErrorTimer();
+      } else {
+        this.router.navigate(['/app']);
+      }
+    } else {
+      this.errorMessage = "Passwords aren't match";
+
+      this.startErrorTimer();
+    }
+
+    this.waiting = false;
+  }
+
+  startErrorTimer() {
+    if (this.errorTimer) {
+      this.errorTimer.unsubscribe();
+    }
+
+    this.errorTimer = interval(4000)
+      .pipe(take(1))
+      .subscribe(() => (this.errorMessage = ''));
   }
 
   redirectToSignIn() {
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/auth', 'login']);
   }
 }
