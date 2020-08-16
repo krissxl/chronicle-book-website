@@ -1,0 +1,40 @@
+<div class="entry">
+  <div class="container">
+    <div class="top">
+      <div class="date">
+        <div class="line-1">
+          <span class="date-day">{{ time | date: "dd" }}</span>
+          <span class="date-month">{{ time | date: "MMMM" }}, </span>
+          <span>{{ time | date: "yyyy" }} </span>
+        </div>
+        <div class="line-2">
+          <span class="date-time">
+            {{ time | date: "h" }}:{{ time | date: "mm" }}
+            {{ time | date: "aa" }}
+          </span>
+          <span class="date-week-day">{{ time | date: "EEEE" }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="write-block">
+        <textarea
+          class="txta txta-no-border txta-no-padding write"
+          (input)="inputTriger($event)"
+          placeholder="Write here.."
+          [(ngModel)]="text"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action action-ready">
+    <i class="icon-check icn"></i>
+</div>
+<div class="action action-cancel">
+    <i class="icon-times icn"></i>
+</div>
+<div class="action action-delete">
+    <i class="icon-trash icn"></i>
+</div>

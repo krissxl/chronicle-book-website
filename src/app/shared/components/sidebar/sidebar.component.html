@@ -12,26 +12,26 @@
 
     <div class="actions">
         <div class="action">
-            <a [routerLink]="['/app']" class="link">
+            <a [routerLink]="['/app']" [routerLinkActiveOptions]="{exact: true}" class="link" routerLinkActive="link-active">
                 <i class="action-icon icon-hourglass-o"></i>
                 <span class="action-name">Month view</span>
             </a>
         </div>
         <div class="action">
-            <a [routerLink]="['/app', '']" class="link">
+            <a [routerLink]="['/app', 'year']" class="link" routerLinkActive="link-active">
                 <i class="action-icon icon-hourglass"></i>
                 <span class="action-name">Year view</span>
             </a>
         </div>
         <div class="action">
-            <a [routerLink]="['/app']" class="link">
-                <i class="action-icon icon-user"></i>
-                <span class="action-name">Account</span>
+            <a [routerLink]="['/app', 'preferences']" class="link" routerLinkActive="link-active">
+                <i class="action-icon icon-cog"></i>
+                <span class="action-name">Preferences</span>
             </a>
         </div>
     </div>
 
-    <div class="version">v0.1.0</div>
+    <div class="version">v0.2.0</div>
 
     <i class="oc-icon icon-angle-double-right" (click)="toggleOpenState()"></i>
 </div>

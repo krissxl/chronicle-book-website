@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?27321f');
-  src:  url('fonts/icomoon.eot?27321f#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?27321f') format('truetype'),
-    url('fonts/icomoon.woff?27321f') format('woff'),
-    url('fonts/icomoon.svg?27321f#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?lb7kyj');
+  src:  url('fonts/icomoon.eot?lb7kyj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?lb7kyj') format('truetype'),
+    url('fonts/icomoon.woff?lb7kyj') format('woff'),
+    url('fonts/icomoon.svg?lb7kyj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -13,7 +13,6 @@
 i {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -31,6 +30,18 @@ i {
 .icon-user:before {
   content: "\f007";
 }
+.icon-check:before {
+  content: "\f00c";
+}
+.icon-close:before {
+  content: "\f00d";
+}
+.icon-remove:before {
+  content: "\f00d";
+}
+.icon-times:before {
+  content: "\f00d";
+}
 .icon-cog:before {
   content: "\f013";
 }
@@ -42,6 +53,9 @@ i {
 }
 .icon-angle-double-right:before {
   content: "\f101";
+}
+.icon-trash:before {
+  content: "\f1f8";
 }
 .icon-hourglass-o:before {
   content: "\f250";

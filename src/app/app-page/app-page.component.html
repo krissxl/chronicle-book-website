@@ -25,5 +25,9 @@
     </div>
     <div class="side">
         <app-calendar class="calendar" [selectedDate]="selectedDate" (dateChange)="dateChange($event)"></app-calendar>
+        <button class="btn btn-blue btn-center btn-icon btn-new-entry" (click)="navigateToEntry()">
+            <i class="icon-plus icn"></i>
+            New entry
+        </button>
     </div>
 </div>

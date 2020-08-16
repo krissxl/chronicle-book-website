@@ -352,7 +352,7 @@ template {
 
 /* ===========ICONS=========== */
 
-@import 'icons.css';
+@import "icons.css";
 
 /* ===========CUSTOM=========== */
 @import "./scss/colors.scss";
@@ -377,7 +377,7 @@ a {
 
 .btn {
     display: block;
-    padding: 7px 12px;
+    padding: 8px 20px;
     border: none;
     border-radius: 10px;
     user-select: none;
@@ -408,11 +408,45 @@ a {
         }
     }
 
+    &.btn-icon {
+        display: flex;
+        align-items: center;
+
+        .icn {
+            margin-right: 7px;
+        }
+    }
+
     &.btn-center {
         margin: 0 auto;
     }
 
     &.btn-fullsize {
         width: 100%;
+    }
+}
+
+.txta {
+    border: 2px solid $l3dark;
+    border-radius: 10px;
+    padding: 7px 10px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    outline: none;
+    width: 100%;
+    color: #fff;
+    resize: none;
+
+    &::placeholder {
+        color: $light;
+    }
+
+    &.txta-no-border {
+        border: none;
+    }
+
+    &.txta-no-padding {
+        padding: 0;
+        border-radius: 0;
     }
 }

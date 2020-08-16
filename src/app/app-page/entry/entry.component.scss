@@ -1,0 +1,95 @@
+@import '../../../scss/colors.scss';
+
+.entry {
+    background-color: $dark;
+    min-height: 100vh;
+
+    .container {
+        padding: 50px 200px;
+
+        .top {
+            .date {
+                .line-1 {
+                    margin-bottom: 10px;
+                }
+
+                font-size: 1.3rem;
+                &-day {
+                    color: $dblue;
+                    font-weight: 600;
+                }
+
+                &-month {
+                    margin-left: 5px;
+                }
+
+                &-time {
+                    color: $dblue;
+                    font-weight: 600;
+                }
+
+                &-week-day {
+                    font-size: 0.9rem;
+                    color: $white50;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .bottom {
+            .write-block {
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+.action {
+    height: 3.1rem;
+    width: 3.1rem;
+    position: fixed;
+    border-radius: 10px;
+    cursor: pointer;
+
+    .icn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.8rem;
+    }
+
+    &-ready {
+        top: 0.7rem;
+        right: 0.7rem;
+        background-color: $dgreen;
+
+        &:hover {
+            background-color: $green;
+        }
+    }
+
+    &-cancel {
+        background-color: $light;
+        bottom: 4.5rem;
+        right: 0.7rem;
+
+        .icn {
+            font-size: 1.6rem;
+        }
+
+        &:hover {
+            background-color: $llight;
+        }
+    }
+
+    &-delete {
+        background-color: $red;
+        bottom: 0.7rem;
+        right: 0.7rem;
+
+        &:hover {
+            background-color: $lred;
+        }
+    }
+}

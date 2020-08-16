@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { MainLayoutComponent } from '../shared/components/main-layout/main-layout.component';
 import { AuthGuard } from '../auth.guard';
+import { EntryComponent } from './entry/entry.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -16,13 +18,17 @@ const routes: Routes = [
         path: '',
         component: AppPageComponent,
       },
+      {
+        path: 'entry',
+        component: EntryComponent
+      }
     ],
   },
 ];
 
 @NgModule({
-  declarations: [AppPageComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
+  declarations: [AppPageComponent, EntryComponent],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedModule, FormsModule],
   exports: [RouterModule],
 })
 export class AppPageModule {}

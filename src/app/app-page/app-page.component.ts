@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import entries from './entries';
 import { Entry } from '../shared/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-page',
@@ -12,7 +13,7 @@ export class AppPageComponent implements OnInit {
   filteredEntries: Entry[];
   selectedDate: Date;
 
-  constructor() {
+  constructor(private router: Router) {
     const now = new Date();
     this.selectedDate = new Date(
       now.getFullYear(),
@@ -40,6 +41,17 @@ export class AppPageComponent implements OnInit {
 
       return isMatched;
     });
+  }
+
+  navigateToEntry() {
+    const time = new Date(
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth(),
+      this.selectedDate.getDate(),
+      new Date().getHours(),
+      new Date().getMinutes()
+    ).getTime()
+    this.router.navigate(['/app', 'entry', {time}])
   }
 
   dateChange(newDate: Date) {
