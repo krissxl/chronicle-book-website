@@ -69,3 +69,47 @@ export async function signOut() {
     return { error: true, message: error.message };
   }
 }
+
+export async function addNewEntry(uid, entry) {
+  try {
+    const entriesRef = firebase.firestore().collection("entries");
+    const entryObj = {
+      user_id: uid,
+      text: entry.text,
+      created_at: entry.created_at,
+    };
+
+    const res = await entriesRef.add(entryObj);
+    entryObj.id = res.id;
+
+    return {
+      error: false,
+      message: "Entry successfully created",
+      data: { entry: entryObj },
+    };
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+}
+
+export async function getUserEntries(uid, timeStart, timeEnd) {
+  try {
+    const entriesRef = firebase.firestore().collection("entries");
+    const entriesSnaps = await entriesRef.where("user_id", "==", uid).where('created_at', '>=', timeStart).where('created_at', '<=', timeEnd).get();
+    const entries = [];
+
+    entriesSnaps.forEach((entry) => {
+      const entryData = entry.data();
+
+      entryData.id = entry.id;
+      delete entryData.user_id
+      entryData.created_at = new Date(entryData.created_at.seconds * 1000)
+
+      entries.unshift(entryData)
+    });
+
+    return { error: false, message: "Entry successfully created", data: {entries} };
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+}

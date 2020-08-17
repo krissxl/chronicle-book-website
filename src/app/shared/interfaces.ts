@@ -1,5 +1,5 @@
 export interface Entry {
-  id: Number;
+  id?: Number;
   title?: String;
   text: String;
   created_at: Date;

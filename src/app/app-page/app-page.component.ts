@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import entries from './entries';
-import { Entry } from '../shared/interfaces';
 import { Router } from '@angular/router';
+import { EntriesService } from '../shared/services/entries.service';
 
 @Component({
   selector: 'app-app-page',
@@ -9,11 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app-page.component.scss'],
 })
 export class AppPageComponent implements OnInit {
-  entries: Entry[];
-  filteredEntries: Entry[];
   selectedDate: Date;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public entriesService: EntriesService) {
     const now = new Date();
     this.selectedDate = new Date(
       now.getFullYear(),
@@ -22,25 +19,8 @@ export class AppPageComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.entries = entries;
-    this.entries.sort((a, b) => {
-      return +b.created_at - +a.created_at;
-    });
-
-    this.filterEntries();
-  }
-
-  filterEntries() {
-    this.filteredEntries = entries.filter((entry) => {
-      const entryDate = new Date(+entry.created_at);
-
-      const isMatched =
-        entryDate.getMonth() === this.selectedDate.getMonth() &&
-        entryDate.getFullYear() === this.selectedDate.getFullYear();
-
-      return isMatched;
-    });
+  async ngOnInit(): Promise<void> {
+    await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
   }
 
   navigateToEntry() {
@@ -50,13 +30,18 @@ export class AppPageComponent implements OnInit {
       this.selectedDate.getDate(),
       new Date().getHours(),
       new Date().getMinutes()
-    ).getTime()
-    this.router.navigate(['/app', 'entry', {time}])
+    ).getTime();
+    this.router.navigate(['/app', 'entry', { time }]);
   }
 
-  dateChange(newDate: Date) {
-    this.selectedDate = newDate;
+  async dateChange(newDate: Date) {
+    if (
+      this.selectedDate.getFullYear() !== newDate.getFullYear() ||
+      this.selectedDate.getMonth() !== newDate.getMonth()
+    ) {
+      await this.entriesService.fetchUserEntriesByDate(newDate);
+    }
 
-    this.filterEntries();
+    this.selectedDate = newDate;
   }
 }

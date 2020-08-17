@@ -1,7 +1,7 @@
 <div class="app-page">
     <div class="container">
         <div class="entries">
-            <div class="entry" *ngFor="let entry of filteredEntries">
+            <div class="entry" *ngFor="let entry of entriesService.entries">
                 <div class="date">
                     <span class="date-day">{{ entry.created_at | date:'dd' }}</span>
                     <span class="date-month">{{ entry.created_at | date:'MMMM'  }},</span>
