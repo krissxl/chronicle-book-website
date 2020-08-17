@@ -18,11 +18,13 @@
     </div>
     <div class="bottom">
       <div class="write-block">
+        <div class="txta txta-no-border txta-no-padding invisible-write" #invisible></div>
         <textarea
           class="txta txta-no-border txta-no-padding write"
-          (input)="inputTriger($event)"
-          placeholder="Write here.."
+          placeholder="Write here..."
           [(ngModel)]="text"
+          maxlength="10000"
+          (input)="resizeTrigger($event)"
         ></textarea>
       </div>
     </div>
@@ -30,11 +32,11 @@
 </div>
 
 <div class="action action-ready">
-    <i class="icon-check icn"></i>
+  <i class="icon-check icn"></i>
 </div>
 <div class="action action-cancel">
-    <i class="icon-times icn"></i>
+  <i class="icon-times icn"></i>
 </div>
 <div class="action action-delete">
-    <i class="icon-trash icn"></i>
+  <i class="icon-trash icn"></i>
 </div>

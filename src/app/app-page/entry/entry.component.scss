@@ -1,4 +1,4 @@
-@import '../../../scss/colors.scss';
+@import "../../../scss/colors.scss";
 
 .entry {
     background-color: $dark;
@@ -39,14 +39,25 @@
         .bottom {
             .write-block {
                 margin-top: 10px;
+                position: relative;
+
+                .invisible-write {
+                    word-wrap: break-word;
+                    white-space: pre-wrap;
+                    visibility: hidden;
+                    position: absolute;
+                    top: -9999px;
+                    width: 100%;
+                    overflow: hidden;
+                }
             }
         }
     }
 }
 
 .action {
-    height: 3.1rem;
-    width: 3.1rem;
+    height: 2.9rem;
+    width: 2.9rem;
     position: fixed;
     border-radius: 10px;
     cursor: pointer;
@@ -56,7 +67,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     &-ready {
@@ -71,11 +82,11 @@
 
     &-cancel {
         background-color: $light;
-        bottom: 4.5rem;
+        bottom: 4.3rem;
         right: 0.7rem;
 
         .icn {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
         }
 
         &:hover {
