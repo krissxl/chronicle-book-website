@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EntriesService } from '../shared/services/entries.service';
+import { Entry } from '../shared/interfaces';
 
 @Component({
   selector: 'app-app-page',
@@ -9,6 +10,7 @@ import { EntriesService } from '../shared/services/entries.service';
 })
 export class AppPageComponent implements OnInit {
   selectedDate: Date;
+  selectedEntry: Entry;
 
   constructor(private router: Router, public entriesService: EntriesService) {
     const now = new Date();
@@ -32,6 +34,16 @@ export class AppPageComponent implements OnInit {
       new Date().getMinutes()
     ).getTime();
     this.router.navigate(['/app', 'entry', { time }]);
+  }
+
+  selectEntry(entry: Entry) {
+    this.selectedEntry = entry;
+  }
+
+  closeEntry(event: Event) {
+    if (event.currentTarget == event.target) {
+      this.selectedEntry = null;
+    }
   }
 
   async dateChange(newDate: Date) {

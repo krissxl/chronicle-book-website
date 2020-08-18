@@ -1,33 +1,70 @@
 <div class="app-page">
-    <div class="container">
-        <div class="entries">
-            <div class="entry" *ngFor="let entry of entriesService.entries">
-                <div class="date">
-                    <span class="date-day">{{ entry.created_at | date:'dd' }}</span>
-                    <span class="date-month">{{ entry.created_at | date:'MMMM'  }},</span>
-                    <span class="date-time">
-                        {{ entry.created_at | date:'h' }}:{{ entry.created_at | date:'mm' }}
-                        {{ entry.created_at | date:'aa' }},
-                    </span>
-                    <span>{{ entry.created_at | date:'yyyy' }} </span>
-                    <span class="date-week-day">{{ entry.created_at | date:'EEEE' }}</span>
-                </div>
-
-                <div class="entry-title">
-                    {{entry.title}}
-                </div>
-
-                <div class="text-preview">
-                    {{entry.text}}
-                </div>
-            </div>
+  <div class="container">
+    <div class="entries">
+      <div class="entry" *ngFor="let entry of entriesService.entries" (click)="selectEntry(entry)">
+        <div class="date">
+          <span class="date-day">{{ entry.created_at | date: "dd" }}</span>
+          <span class="date-month">{{ entry.created_at | date: "MMMM" }},</span>
+          <span class="date-time">
+            {{ entry.created_at | date: "h" }}:{{
+              entry.created_at | date: "mm"
+            }}
+            {{ entry.created_at | date: "aa" }},
+          </span>
+          <span>{{ entry.created_at | date: "yyyy" }} </span>
+          <span class="date-week-day">{{
+            entry.created_at | date: "EEEE"
+          }}</span>
         </div>
+
+        <div class="entry-title">
+          {{ entry.title }}
+        </div>
+
+        <div class="text-preview">
+          {{ entry.text }}
+        </div>
+      </div>
     </div>
-    <div class="side">
-        <app-calendar class="calendar" [selectedDate]="selectedDate" (dateChange)="dateChange($event)"></app-calendar>
-        <button class="btn btn-blue btn-center btn-icon btn-new-entry" (click)="navigateToEntry()">
-            <i class="icon-plus icn"></i>
-            New entry
-        </button>
+  </div>
+  <div class="side">
+    <app-calendar
+      class="calendar"
+      [selectedDate]="selectedDate"
+      (dateChange)="dateChange($event)"
+    ></app-calendar>
+    <button
+      class="btn btn-blue btn-center btn-icon btn-new-entry"
+      (click)="navigateToEntry()"
+    >
+      <i class="icon-plus icn"></i>
+      New entry
+    </button>
+  </div>
+</div>
+
+<div class="backdrop" *ngIf="selectedEntry" (click)="closeEntry($event)">
+  <div class="modal">
+      <i class="icon-times close" (click)="closeEntry($event)"></i>
+    <div class="date">
+      <span class="date-day">{{ selectedEntry.created_at | date: "dd" }}</span>
+      <span class="date-month"
+        >{{ selectedEntry.created_at | date: "MMMM" }},</span
+      >
+      <span class="date-time">
+        {{ selectedEntry.created_at | date: "h" }}:{{
+          selectedEntry.created_at | date: "mm"
+        }}
+        {{ selectedEntry.created_at | date: "aa" }},
+      </span>
+      <span>{{ selectedEntry.created_at | date: "yyyy" }} </span>
+      <span class="date-week-day">{{
+        selectedEntry.created_at | date: "EEEE"
+      }}</span>
     </div>
+    <div class="title" *ngIf="selectedEntry.title">
+      {{ selectedEntry.title }}
+    </div>
+    <div class="text">{{ selectedEntry.text }}</div>
+  </div>
 </div>

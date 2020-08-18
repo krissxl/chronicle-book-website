@@ -1,7 +1,6 @@
 @import "../../scss/colors.scss";
 
 .app-page {
-
     .container {
         margin-right: 320px;
         padding: 60px 70px;
@@ -84,6 +83,79 @@
         .btn-new-entry {
             margin-bottom: 40px;
             font-weight: 600;
+        }
+    }
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color: #000, $alpha: 0.35);
+
+    .modal {
+        position: absolute;
+        width: 50vw;
+        height: 80vh;
+        background-color: $ldark;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 50px 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 6px 6px rgba($color: #000, $alpha: 0.3);
+
+        .date {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+
+            &-day {
+                color: $dblue;
+                font-weight: 600;
+            }
+
+            &-month {
+                margin-left: 5px;
+            }
+
+            &-time {
+                color: $dblue;
+                font-weight: 600;
+            }
+
+            &-week-day {
+                font-size: 0.9rem;
+                color: $white50;
+                margin-left: 5px;
+            }
+        }
+
+        .title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 7px;
+        }
+
+        .text {
+            margin-top: 9px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            height: 95%;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            cursor: pointer;
+            color: $white75;
+            padding: 5px;
+
+            &:hover {
+                color: $red;
+            }
         }
     }
 }
