@@ -1,20 +1,20 @@
 export interface Entry {
-  id?: Number;
-  title?: String;
-  text: String;
+  id?: string;
+  title?: string;
+  text: string;
   created_at: Date;
   updated_at?: Date;
 }
 
 export interface User {
-  id: String | null,
-  name: String | null,
-  email: String | null
+  id: string | null,
+  name: string | null,
+  email: string | null
 }
 
 export interface BackendResponse {
-  error: Boolean,
-  message: String,
-  code?: String,
+  error: boolean,
+  message: string,
+  code?: string,
   data?: any;
 }

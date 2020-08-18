@@ -95,20 +95,74 @@ export async function addNewEntry(uid, entry) {
 export async function getUserEntries(uid, timeStart, timeEnd) {
   try {
     const entriesRef = firebase.firestore().collection("entries");
-    const entriesSnaps = await entriesRef.where("user_id", "==", uid).where('created_at', '>=', timeStart).where('created_at', '<=', timeEnd).get();
+    const entriesSnaps = await entriesRef
+      .where("user_id", "==", uid)
+      .where("created_at", ">=", timeStart)
+      .where("created_at", "<=", timeEnd)
+      .get();
     const entries = [];
 
     entriesSnaps.forEach((entry) => {
       const entryData = entry.data();
 
       entryData.id = entry.id;
-      delete entryData.user_id
-      entryData.created_at = new Date(entryData.created_at.seconds * 1000)
+      delete entryData.user_id;
+      entryData.created_at = new Date(entryData.created_at.seconds * 1000);
 
-      entries.unshift(entryData)
+      entries.unshift(entryData);
     });
 
-    return { error: false, message: "Entry successfully created", data: {entries} };
+    return {
+      error: false,
+      message: "Entry successfully created",
+      data: { entries },
+    };
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+}
+
+export async function updateEntry(entryId, newEntry) {
+  try {
+    const db = firebase.firestore();
+    const update = { text: newEntry.text, updated_at: new Date() };
+    if (newEntry.title) update.title = "";
+
+    await db.collection("entries").doc(entryId).update(update);
+
+    return { error: false, message: "Entry successfully updated" };
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+}
+
+export async function getEntryById(uid, entryId) {
+  try {
+    const db = firebase.firestore();
+    const entry = await db.collection("entries").doc(entryId).get();
+    const entryData = entry.data();
+
+    if (entryData.user_id !== uid)
+      throw new Error("You are don't have access to entry with this ID");
+    if (!entry.exists) throw new Error("Entry with that ID isn't exists");
+
+    delete entryData.user_id
+    entryData.created_at = new Date(entryData.created_at.seconds * 1000)
+    entryData.id = entry.id;
+    if (entryData.updated_at) entryData.updated_at = new Date(entryData.updated_at.seconds * 1000)
+
+    return { error: false, message: "Entry successfully fetched", data: {entry: entryData} };
+  } catch (error) {
+    return { error: true, message: error.message };
+  }
+}
+
+export async function deleteEntry(entryId) {
+  try {
+    const db = firebase.firestore();
+    await db.collection("entries").doc(entryId).delete();
+
+    return { error: false, message: "Entry successfully deleted" };
   } catch (error) {
     return { error: true, message: error.message };
   }

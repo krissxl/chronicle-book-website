@@ -3,26 +3,37 @@
     <div class="top">
       <div class="date">
         <div class="line-1">
-          <span class="date-day">{{ time | date: "dd" }}</span>
-          <span class="date-month">{{ time | date: "MMMM" }}, </span>
-          <span>{{ time | date: "yyyy" }} </span>
+          <span class="date-day">{{
+            entryService.entryCreated | date: "dd"
+          }}</span>
+          <span class="date-month"
+            >{{ entryService.entryCreated | date: "MMMM" }},
+          </span>
+          <span>{{ entryService.entryCreated | date: "yyyy" }} </span>
         </div>
         <div class="line-2">
           <span class="date-time">
-            {{ time | date: "h" }}:{{ time | date: "mm" }}
-            {{ time | date: "aa" }}
+            {{ entryService.entryCreated | date: "h" }}:{{
+              entryService.entryCreated | date: "mm"
+            }}
+            {{ entryService.entryCreated | date: "aa" }}
           </span>
-          <span class="date-week-day">{{ time | date: "EEEE" }}</span>
+          <span class="date-week-day">{{
+            entryService.entryCreated | date: "EEEE"
+          }}</span>
         </div>
       </div>
     </div>
     <div class="bottom">
       <div class="write-block">
-        <div class="txta txta-no-border txta-no-padding invisible-write" #invisible></div>
+        <div
+          class="txta txta-no-border txta-no-padding invisible-write"
+          #invisible
+        ></div>
         <textarea
           class="txta txta-no-border txta-no-padding write"
           placeholder="Write here..."
-          [(ngModel)]="text"
+          [(ngModel)]="entryService.entryText"
           maxlength="10000"
           (input)="resizeTrigger($event)"
         ></textarea>
@@ -31,12 +42,20 @@
   </div>
 </div>
 
-<div class="action action-ready" (click)="createNewEntry()">
+<button
+  class="action action-ready"
+  (click)="entryService.entryId ? update() : create()"
+  [disabled]="loading"
+>
   <i class="icon-check icn"></i>
-</div>
-<div class="action action-cancel">
+</button>
+<button class="action action-cancel" (click)="cancel()" [disabled]="loading">
   <i class="icon-times icn"></i>
-</div>
-<div class="action action-delete">
+</button>
+<button
+  class="action action-delete"
+  (click)="entryService.entryId ? deleteEntry() : cancel()"
+  [disabled]="loading"
+>
   <i class="icon-trash icn"></i>
-</div>
+</button>

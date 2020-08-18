@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import { BackendResponse } from '../../interfaces';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +17,7 @@ export class SidebarComponent implements OnInit {
 
   isOpened: Boolean = false;
   sidebar: HTMLElement;
+  env = environment;
 
   constructor(public authService: AuthService, private router: Router) {}
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EntriesService } from '../shared/services/entries.service';
+import { EntryService } from '../shared/services/entry.service';
 import { Entry } from '../shared/interfaces';
 
 @Component({
@@ -12,7 +13,11 @@ export class AppPageComponent implements OnInit {
   selectedDate: Date;
   selectedEntry: Entry;
 
-  constructor(private router: Router, public entriesService: EntriesService) {
+  constructor(
+    private router: Router,
+    public entriesService: EntriesService,
+    private entryService: EntryService
+  ) {
     const now = new Date();
     this.selectedDate = new Date(
       now.getFullYear(),
@@ -36,12 +41,27 @@ export class AppPageComponent implements OnInit {
     this.router.navigate(['/app', 'entry', { time }]);
   }
 
+  navigateToEditEntry() {
+    this.entryService.setEntry(this.selectedEntry);
+    this.router.navigate(['/app', 'entry', { id: this.selectedEntry.id }]);
+  }
+
   selectEntry(entry: Entry) {
     this.selectedEntry = entry;
   }
 
+  async deleteEntry() {
+    this.entryService.setEntry(this.selectedEntry);
+    const response = await this.entryService.deleteEntry();
+
+    if (!response.error) {
+      this.selectedEntry = undefined;
+      await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
+    }
+  }
+
   closeEntry(event: Event) {
-    if (event.currentTarget == event.target) {
+    if (event.currentTarget === event.target) {
       this.selectedEntry = null;
     }
   }

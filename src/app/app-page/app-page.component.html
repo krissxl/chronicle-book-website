@@ -46,6 +46,8 @@
 <div class="backdrop" *ngIf="selectedEntry" (click)="closeEntry($event)">
   <div class="modal">
       <i class="icon-times close" (click)="closeEntry($event)"></i>
+      <i class="icon-pencil edit" (click)="navigateToEditEntry()"></i>
+      <i class="icon-trash delete" (click)="deleteEntry()"></i>
     <div class="date">
       <span class="date-day">{{ selectedEntry.created_at | date: "dd" }}</span>
       <span class="date-month"

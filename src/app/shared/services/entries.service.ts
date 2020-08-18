@@ -41,4 +41,13 @@ export class EntriesService {
       end: new Date(year, month + 1, 0, 23, 59, 59, 999),
     };
   }
+
+  getById(id: string): Entry | undefined {
+    if (this.entries) {
+      const entry = this.entries.find((entry) => entry.id === id);
+      return entry;
+    } else {
+      return undefined;
+    }
+  }
 }
