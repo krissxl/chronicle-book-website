@@ -9,8 +9,49 @@
 
         .top {
             .date {
-                .line-1 {
-                    margin-bottom: 10px;
+                position: relative;
+
+                .calendar {
+                    position: relative;
+                    display: inline-flex;
+
+                    .line-1 {
+                        margin-bottom: 5px;
+                        border-radius: 10px;
+                        display: inline-flex;
+                        cursor: pointer;
+                        padding: 5px;
+                        transition: background-color 0.08s;
+                        user-select: none;
+
+                        &:hover {
+                            background-color: $white25;
+                        }
+                    }
+
+                    .calendar-block {
+                        position: absolute;
+                        padding: 20px;
+                        border-radius: 10px;
+                        background-color: $ldark;
+                        box-shadow: 0 6px 6px rgba($color: #000000, $alpha: 0.3);
+                        z-index: 20;
+                        left: 50%;
+                        top: 2.8rem;
+                        transform: translateX(-50%);
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: -20px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 20px;
+                            height: 20px;
+                            border: 10px solid transparent;
+                            border-bottom: 10px solid $ldark;
+                        }
+                    }
                 }
 
                 font-size: 1.3rem;
@@ -26,6 +67,53 @@
                 &-time {
                     color: $dblue;
                     font-weight: 600;
+                    padding: 0 5px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: background-color 0.08s;
+                    user-select: none;
+
+                    &:hover {
+                        background-color: $white25;
+                    }
+                }
+
+                .time-selector {
+                    position: relative;
+
+                    &-block {
+                        position: absolute;
+                        top: 2.8rem;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        z-index: 20;
+                        padding: 20px;
+                        background-color: $ldark;
+                        border-radius: 10px;
+                        min-width: 100px;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: -20px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 20px;
+                            height: 20px;
+                            border: 10px solid transparent;
+                            border-bottom: 10px solid $ldark;
+                        }
+
+                        .body {
+                            .minutes-input {
+                                margin: 10px 0;
+                            }
+
+                            label[for="pm"], label[for="am"] {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
                 }
 
                 &-week-day {

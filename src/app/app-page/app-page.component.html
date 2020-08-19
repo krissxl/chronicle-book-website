@@ -3,17 +3,17 @@
     <div class="entries">
       <div class="entry" *ngFor="let entry of entriesService.entries" (click)="selectEntry(entry)">
         <div class="date">
-          <span class="date-day">{{ entry.created_at | date: "dd" }}</span>
-          <span class="date-month">{{ entry.created_at | date: "MMMM" }},</span>
+          <span class="date-day">{{ entry.time | date: "dd" }}</span>
+          <span class="date-month">{{ entry.time | date: "MMMM" }},</span>
           <span class="date-time">
-            {{ entry.created_at | date: "h" }}:{{
-              entry.created_at | date: "mm"
+            {{ entry.time | date: "h" }}:{{
+              entry.time | date: "mm"
             }}
-            {{ entry.created_at | date: "aa" }},
+            {{ entry.time | date: "aa" }},
           </span>
-          <span>{{ entry.created_at | date: "yyyy" }} </span>
+          <span>{{ entry.time | date: "yyyy" }} </span>
           <span class="date-week-day">{{
-            entry.created_at | date: "EEEE"
+            entry.time | date: "EEEE"
           }}</span>
         </div>
 
@@ -49,19 +49,19 @@
       <i class="icon-pencil edit" (click)="navigateToEditEntry()"></i>
       <i class="icon-trash delete" (click)="deleteEntry()"></i>
     <div class="date">
-      <span class="date-day">{{ selectedEntry.created_at | date: "dd" }}</span>
+      <span class="date-day">{{ selectedEntry.time | date: "dd" }}</span>
       <span class="date-month"
-        >{{ selectedEntry.created_at | date: "MMMM" }},</span
+        >{{ selectedEntry.time | date: "MMMM" }},</span
       >
       <span class="date-time">
-        {{ selectedEntry.created_at | date: "h" }}:{{
-          selectedEntry.created_at | date: "mm"
+        {{ selectedEntry.time | date: "h" }}:{{
+          selectedEntry.time | date: "mm"
         }}
-        {{ selectedEntry.created_at | date: "aa" }},
+        {{ selectedEntry.time | date: "aa" }},
       </span>
-      <span>{{ selectedEntry.created_at | date: "yyyy" }} </span>
+      <span>{{ selectedEntry.time | date: "yyyy" }} </span>
       <span class="date-week-day">{{
-        selectedEntry.created_at | date: "EEEE"
+        selectedEntry.time | date: "EEEE"
       }}</span>
     </div>
     <div class="title" *ngIf="selectedEntry.title">

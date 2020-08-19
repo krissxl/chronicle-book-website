@@ -77,6 +77,8 @@ export async function addNewEntry(uid, entry) {
       user_id: uid,
       text: entry.text,
       created_at: entry.created_at,
+      time: entry.time,
+      title: entry.title ? entry.title : "",
     };
 
     const res = await entriesRef.add(entryObj);
@@ -97,8 +99,8 @@ export async function getUserEntries(uid, timeStart, timeEnd) {
     const entriesRef = firebase.firestore().collection("entries");
     const entriesSnaps = await entriesRef
       .where("user_id", "==", uid)
-      .where("created_at", ">=", timeStart)
-      .where("created_at", "<=", timeEnd)
+      .where("time", ">=", timeStart)
+      .where("time", "<=", timeEnd)
       .get();
     const entries = [];
 
@@ -108,6 +110,9 @@ export async function getUserEntries(uid, timeStart, timeEnd) {
       entryData.id = entry.id;
       delete entryData.user_id;
       entryData.created_at = new Date(entryData.created_at.seconds * 1000);
+      entryData.time = new Date(entryData.time.seconds * 1000);
+      if (entryData.updated_at)
+        entryData.updated_at = new Date(entryData.updated_at.seconds * 1000);
 
       entries.unshift(entryData);
     });
@@ -125,7 +130,7 @@ export async function getUserEntries(uid, timeStart, timeEnd) {
 export async function updateEntry(entryId, newEntry) {
   try {
     const db = firebase.firestore();
-    const update = { text: newEntry.text, updated_at: new Date() };
+    const update = { text: newEntry.text, updated_at: new Date(), time: newEntry.time };
     if (newEntry.title) update.title = "";
 
     await db.collection("entries").doc(entryId).update(update);
@@ -146,12 +151,18 @@ export async function getEntryById(uid, entryId) {
       throw new Error("You are don't have access to entry with this ID");
     if (!entry.exists) throw new Error("Entry with that ID isn't exists");
 
-    delete entryData.user_id
-    entryData.created_at = new Date(entryData.created_at.seconds * 1000)
+    delete entryData.user_id;
+    entryData.created_at = new Date(entryData.created_at.seconds * 1000);
+    entryData.time = new Date(entryData.time.seconds * 1000);
     entryData.id = entry.id;
-    if (entryData.updated_at) entryData.updated_at = new Date(entryData.updated_at.seconds * 1000)
+    if (entryData.updated_at)
+      entryData.updated_at = new Date(entryData.updated_at.seconds * 1000);
 
-    return { error: false, message: "Entry successfully fetched", data: {entry: entryData} };
+    return {
+      error: false,
+      message: "Entry successfully fetched",
+      data: { entry: entryData },
+    };
   } catch (error) {
     return { error: true, message: error.message };
   }

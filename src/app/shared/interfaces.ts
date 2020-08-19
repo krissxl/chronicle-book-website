@@ -4,6 +4,7 @@ export interface Entry {
   text: string;
   created_at: Date;
   updated_at?: Date;
+  time: Date;
 }
 
 export interface User {

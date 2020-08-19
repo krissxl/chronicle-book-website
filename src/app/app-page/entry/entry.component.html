@@ -2,24 +2,91 @@
   <div class="container">
     <div class="top">
       <div class="date">
-        <div class="line-1">
-          <span class="date-day">{{
-            entryService.entryCreated | date: "dd"
-          }}</span>
-          <span class="date-month"
-            >{{ entryService.entryCreated | date: "MMMM" }},
-          </span>
-          <span>{{ entryService.entryCreated | date: "yyyy" }} </span>
+        <div class="calendar">
+          <div class="line-1" (click)="isCalendarOpened = !isCalendarOpened">
+            <span class="date-day">{{
+              entryService.entryTime | date: "dd"
+            }}</span>
+            <span class="date-month"
+              >{{ entryService.entryTime | date: "MMMM" }},
+            </span>
+            <span>&nbsp;{{ entryService.entryTime | date: "yyyy" }} </span>
+          </div>
+          <div class="calendar-block" *ngIf="isCalendarOpened" #calendar>
+            <app-calendar
+              (dateChange)="dateChange($event)"
+              [selectedDate]="entryService.entryTime"
+            ></app-calendar>
+          </div>
         </div>
+
         <div class="line-2">
-          <span class="date-time">
-            {{ entryService.entryCreated | date: "h" }}:{{
-              entryService.entryCreated | date: "mm"
-            }}
-            {{ entryService.entryCreated | date: "aa" }}
+          <span class="time-selector">
+            <span class="date-time" (click)="isTimeSelectorOpened = !isTimeSelectorOpened">
+              {{ entryService.entryTime | date: "h" }}:{{
+                entryService.entryTime | date: "mm"
+              }}
+              {{ entryService.entryTime | date: "aa" }}
+            </span>
+            <div class="time-selector-block" *ngIf="isTimeSelectorOpened">
+              <div class="body">
+                <div class="hours">
+                  <label for="hours"></label>
+                  <input
+                    type="number"
+                    class="input input-small-padding"
+                    #hours
+                    id="hours"
+                    maxlength="2"
+                    min="1"
+                    max="12"
+                    [value]="
+                      this.entryService.entryTime.getHours() % 12 === 0
+                        ? 12
+                        : this.entryService.entryTime.getHours() % 12
+                    "
+                    (input)="hoursInputTrigger($event)"
+                  />
+                </div>
+                <div class="minutes">
+                  <label for="minutes"></label>
+                  <input
+                    type="number"
+                    class="input input-small-padding minutes-input"
+                    #minutes
+                    id="minutes"
+                    maxlength="2"
+                    min="0"
+                    max="59"
+                    [value]="this.entryService.entryTime.getMinutes()"
+                    (input)="minutesInputTrigger($event)"
+                  />
+                </div>
+                <div class="am-pm">
+                  <label for="pm">AM</label>
+                  <input
+                    type="radio"
+                    id="am"
+                    name="ampm"
+                    [checked]="entryService.entryTime.getHours() < 12"
+                    (input)="amTrigger()"
+                    #am
+                  />
+                  <label for="pm">PM</label>
+                  <input
+                    type="radio"
+                    id="pm"
+                    name="ampm"
+                    [checked]="entryService.entryTime.getHours() >= 12"
+                    (input)="pmTrigger()"
+                    #pm
+                  />
+                </div>
+              </div>
+            </div>
           </span>
           <span class="date-week-day">{{
-            entryService.entryCreated | date: "EEEE"
+            entryService.entryTime | date: "EEEE"
           }}</span>
         </div>
       </div>
