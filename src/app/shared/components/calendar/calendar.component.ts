@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Entry } from '../../interfaces';
+import { EntriesService } from '../../services/entries.service';
 
 @Component({
   selector: 'app-calendar',
@@ -8,7 +9,7 @@ import { Entry } from '../../interfaces';
 })
 export class CalendarComponent implements OnInit {
   @Input() selectedDate: Date;
-  @Input() entries: Entry[];
+  @Input() occupiedDays: number[];
   days: number[];
   startWeekDay: number;
 

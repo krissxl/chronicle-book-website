@@ -110,15 +110,23 @@
                 background-color: $ldark;
                 line-height: 35px;
                 border-radius: 50px;
-                transition: background-color 0.1s;
+                transition: background-color 0.1s, color 0.1s;
                 cursor: pointer;
 
                 &:hover {
                     background-color: $l2dark;
                 }
 
+                &.have-entries {
+                    background-color: $dblue;
+                }
+
                 &.selected {
                     background-color: $l3dark;
+
+                    &.have-entries {
+                        background-color: $blue;
+                    }
                 }
             }
         }

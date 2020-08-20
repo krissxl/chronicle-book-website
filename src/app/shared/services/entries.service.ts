@@ -50,4 +50,11 @@ export class EntriesService {
       return undefined;
     }
   }
+
+  getOccupiedDays(): number[] {
+    const mappedDays: number[] = this.entries.map(entry => entry.time.getDate() + 1);
+    const daysSet: Set<number> = new Set(mappedDays);
+    const days: number[] = [...daysSet];
+    return days
+  }
 }

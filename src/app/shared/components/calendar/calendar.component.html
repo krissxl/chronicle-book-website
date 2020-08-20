@@ -27,6 +27,7 @@
         *ngFor="let day of days"
         [class.empty-day]="day <= 0"
         [class.selected]="day === selectedDate.getDate()"
+        [class.have-entries]="occupiedDays ? occupiedDays.includes(day) : false"
         (click)="selectDay($event, day)"
       >
         {{ day <= 0 ? "" : day }}
