@@ -46,15 +46,18 @@
 
                 &-title {
                     font-size: 1.3rem;
-                    font-size: 600;
+                    font-weight: 600;
                     margin: 8px 0;
+                    word-wrap: break-word;
                 }
 
                 .text-preview {
                     text-overflow: ellipsis;
                     overflow: hidden;
+                    word-wrap: break-word;
                     max-height: 2.3em;
-                    white-space: pre-wrap;
+                    white-space: pre-line;
+                    margin-top: 8px;
                 }
 
                 & + .entry {
@@ -110,7 +113,7 @@
 
         .date {
             font-size: 1.3rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
 
             &-day {
                 color: $dblue;
@@ -136,7 +139,7 @@
         .title {
             font-size: 1.3rem;
             font-weight: 600;
-            margin-top: 7px;
+            word-wrap: break-word;
         }
 
         .text {
@@ -144,6 +147,8 @@
             overflow-y: auto;
             white-space: pre-wrap;
             height: 95%;
+            word-wrap: break-word;
+            line-height: 1.3rem;
         }
 
         .close {

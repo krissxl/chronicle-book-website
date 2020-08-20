@@ -26,7 +26,7 @@ export class EntryComponent implements OnInit {
   isCalendarOpened: boolean = false;
   isTimeSelectorOpened: boolean = false;
 
-  @HostListener('document:click', ['$event']) docClick(event: Event) {
+  @HostListener('document:click', ['$event']) docClick(event: Event): void {
     const path = event.composedPath();
 
     if (this.isCalendarOpened) {
@@ -67,16 +67,17 @@ export class EntryComponent implements OnInit {
     });
   }
 
-  resizeTrigger(event) {
+  resizeTrigger(event: Event): void {
     const inv = this.invBlock.nativeElement as HTMLElement;
-    const target = event.target as HTMLElement;
+    const target = event.target as HTMLTextAreaElement;
 
     inv.innerText = this.entryService.entryText;
+    const hght = inv.scrollHeight ? inv.scrollHeight : 25;
 
-    target.style.height = inv.scrollHeight + 25 + 'px';
+    target.style.height = hght + 24 + 'px';
   }
 
-  async fetchEntry(id: string) {
+  async fetchEntry(id: string): Promise<void> {
     this.loading = true;
     const response: BackendResponse = await this.entryService.fetchEntry(id);
     this.loading = false;
@@ -93,7 +94,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  async update() {
+  async update(): Promise<void> {
     const response: BackendResponse = await this.entryService.updateEntry();
 
     if (!response.error) {
@@ -102,7 +103,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  async create() {
+  async create(): Promise<void> {
     const response: BackendResponse = await this.entryService.createNewEntry();
 
     if (!response.error) {
@@ -111,12 +112,12 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  cancel() {
+  cancel(): void {
     this.entryService.reset();
     this.router.navigate(['/app']);
   }
 
-  async deleteEntry() {
+  async deleteEntry(): Promise<void> {
     const response: BackendResponse = await this.entryService.deleteEntry();
 
     if (!response.error) {
@@ -125,7 +126,7 @@ export class EntryComponent implements OnInit {
     }
   }
 
-  dateChange(newDate: Date) {
+  dateChange(newDate: Date): void {
     this.entryService.setNewDate(newDate);
   }
 

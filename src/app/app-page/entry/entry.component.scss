@@ -41,7 +41,7 @@
                         transform: translateX(-50%);
 
                         &::before {
-                            content: '';
+                            content: "";
                             position: absolute;
                             top: -20px;
                             left: 50%;
@@ -93,7 +93,7 @@
                         min-width: 100px;
 
                         &::before {
-                            content: '';
+                            content: "";
                             position: absolute;
                             top: -20px;
                             left: 50%;
@@ -109,7 +109,8 @@
                                 margin: 10px 0;
                             }
 
-                            label[for="pm"], label[for="am"] {
+                            label[for="pm"],
+                            label[for="am"] {
                                 margin-right: 5px;
                             }
                         }
@@ -125,8 +126,16 @@
         }
 
         .bottom {
+            margin-top: 10px;
+            .title-block {
+                .title {
+                    font-weight: 600;
+                    font-size: 1.3rem;
+                    margin-bottom: 8px;
+                }
+            }
+
             .write-block {
-                margin-top: 10px;
                 position: relative;
 
                 .invisible-write {
@@ -137,6 +146,11 @@
                     top: -9999px;
                     width: 100%;
                     overflow: hidden;
+                    font-size: 1rem;
+                }
+
+                .write {
+                    font-size: 1rem;
                 }
             }
         }

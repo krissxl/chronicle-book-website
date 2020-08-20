@@ -22,7 +22,10 @@
 
         <div class="line-2">
           <span class="time-selector">
-            <span class="date-time" (click)="isTimeSelectorOpened = !isTimeSelectorOpened">
+            <span
+              class="date-time"
+              (click)="isTimeSelectorOpened = !isTimeSelectorOpened"
+            >
               {{ entryService.entryTime | date: "h" }}:{{
                 entryService.entryTime | date: "mm"
               }}
@@ -92,6 +95,15 @@
       </div>
     </div>
     <div class="bottom">
+      <div class="title-block">
+        <input
+          type="text"
+          maxlength="180"
+          class="input input-no-padding input-no-border title"
+          placeholder="Title... (optional)"
+          [(ngModel)]="entryService.entryTitle"
+        />
+      </div>
       <div class="write-block">
         <div
           class="txta txta-no-border txta-no-padding invisible-write"
@@ -102,6 +114,7 @@
           placeholder="Write here..."
           [(ngModel)]="entryService.entryText"
           maxlength="10000"
+          style="height: 1.5rem;"
           (input)="resizeTrigger($event)"
         ></textarea>
       </div>

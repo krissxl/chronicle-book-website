@@ -55,6 +55,7 @@ export class AppPageComponent implements OnInit {
     const response = await this.entryService.deleteEntry();
 
     if (!response.error) {
+      this.entryService.reset();
       this.selectedEntry = undefined;
       await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
     }

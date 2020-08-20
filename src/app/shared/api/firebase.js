@@ -131,7 +131,7 @@ export async function updateEntry(entryId, newEntry) {
   try {
     const db = firebase.firestore();
     const update = { text: newEntry.text, updated_at: new Date(), time: newEntry.time };
-    if (newEntry.title) update.title = "";
+    update.title = newEntry.title ? newEntry.title : "";
 
     await db.collection("entries").doc(entryId).update(update);
 

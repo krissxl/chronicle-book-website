@@ -65,6 +65,7 @@ export class EntryService {
       created_at: new Date(),
       text: this.entryText,
       time: this.entryTime,
+      title: this.entryTitle
     };
 
     const response: BackendResponse = await addNewEntry(
