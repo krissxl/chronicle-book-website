@@ -26,7 +26,7 @@ export class EntryService {
   ) {}
 
   setEntry(entry: Entry) {
-    this.entryId = entry?.id;
+    this.entryId = entry.id;
     this.entryText = entry.text;
     this.entryTitle = entry?.title;
     this.entryCreated = entry.created_at;
@@ -55,8 +55,11 @@ export class EntryService {
 
   setNewTime(time: { hours: number; minutes: number }) {
     const newTime = new Date(this.entryTime);
-    newTime.setHours(time.hours);
-    newTime.setMinutes(time.minutes);
+    const hours = time.hours >= 0 && time.hours < 24 ? time.hours : 0;
+    const minutes = time.minutes >= 0 && time.minutes < 60 ? time.minutes : 0;
+
+    newTime.setHours(hours);
+    newTime.setMinutes(minutes);
     this.entryTime = newTime;
   }
 
@@ -65,7 +68,7 @@ export class EntryService {
       created_at: new Date(),
       text: this.entryText,
       time: this.entryTime,
-      title: this.entryTitle
+      title: this.entryTitle,
     };
 
     const response: BackendResponse = await addNewEntry(
