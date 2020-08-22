@@ -33,6 +33,7 @@ export class AppPageComponent implements OnInit {
   }
 
   navigateToEntry() {
+    this.entryService.reset();
     const time = new Date(
       this.selectedDate.getFullYear(),
       this.selectedDate.getMonth(),
@@ -44,6 +45,7 @@ export class AppPageComponent implements OnInit {
   }
 
   navigateToEditEntry() {
+    this.entryService.reset();
     this.entryService.setEntry(this.selectedEntry);
     this.router.navigate(['/app', 'entry', { id: this.selectedEntry.id }]);
   }
