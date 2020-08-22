@@ -24,6 +24,10 @@
         <div class="text-preview">
           {{ entry.text }}
         </div>
+
+        <div class="tags" *ngIf="entry.tags">
+          <span class="tag" *ngFor="let tag of entry.tags"><i class="tag-icon icon-tag"></i>{{tag}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -69,5 +73,8 @@
       {{ selectedEntry.title }}
     </div>
     <div class="text">{{ selectedEntry.text }}</div>
+    <div class="tags" *ngIf="selectedEntry.tags">
+      <span class="tag" *ngFor="let tag of selectedEntry.tags"><i class="tag-icon icon-tag"></i>{{tag}}</span>
+    </div>
   </div>
 </div>

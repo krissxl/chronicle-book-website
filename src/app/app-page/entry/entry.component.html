@@ -95,28 +95,55 @@
       </div>
     </div>
     <div class="bottom">
-      <div class="title-block">
-        <input
-          type="text"
-          maxlength="180"
-          class="input input-no-padding input-no-border title"
-          placeholder="Title... (optional)"
-          [(ngModel)]="entryService.entryTitle"
-        />
+      <div class="text">
+        <div class="title-block">
+          <input
+            type="text"
+            maxlength="180"
+            class="input input-no-padding input-no-border title"
+            placeholder="Title... (optional)"
+            [(ngModel)]="entryService.entryTitle"
+          />
+        </div>
+        <div class="write-block">
+          <div
+            class="txta txta-no-border txta-no-padding invisible-write"
+            #invisible
+          ></div>
+          <textarea
+            class="txta txta-no-border txta-no-padding write"
+            placeholder="Write here..."
+            [(ngModel)]="entryService.entryText"
+            maxlength="10000"
+            style="height: 1.5rem;"
+            (input)="resizeTrigger($event)"
+          ></textarea>
+        </div>
       </div>
-      <div class="write-block">
-        <div
-          class="txta txta-no-border txta-no-padding invisible-write"
-          #invisible
-        ></div>
-        <textarea
-          class="txta txta-no-border txta-no-padding write"
-          placeholder="Write here..."
-          [(ngModel)]="entryService.entryText"
-          maxlength="10000"
-          style="height: 1.5rem;"
-          (input)="resizeTrigger($event)"
-        ></textarea>
+      <div class="tags-block">
+        <div class="tag-input">
+          <label for="tag">Add tag</label>
+          <input
+            type="text"
+            [(ngModel)]="tagInput"
+            id="tag"
+            placeholder="Tag name..."
+            class="input"
+            (keydown)="tagKeydownTrigger($event)"
+            (input)="tagInputTrigger($event)"
+          />
+        </div>
+        <div class="tags-list">
+          <div class="title">{{entryService.entryTags.length > 0 ? 'Tags:' : 'No tags yet'}}</div>
+          <div class="list" *ngIf="entryService.entryTags">
+            <span
+              class="tag"
+              *ngFor="let tag of entryService.entryTags"
+              (click)="entryService.deleteTag(tag)"
+              >{{ tag }} <i class="icon-times delete"></i
+            ></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

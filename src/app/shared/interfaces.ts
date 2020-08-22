@@ -5,6 +5,7 @@ export interface Entry {
   created_at: Date;
   updated_at?: Date;
   time: Date;
+  tags?: string[];
 }
 
 export interface User {

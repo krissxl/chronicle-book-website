@@ -127,6 +127,13 @@
 
         .bottom {
             margin-top: 10px;
+            display: flex;
+            position: relative;
+
+            .text {
+                flex: 0 0 75%;
+            }
+
             .title-block {
                 .title {
                     font-weight: 600;
@@ -151,6 +158,62 @@
 
                 .write {
                     font-size: 1rem;
+                }
+            }
+
+            .tags-block {
+                flex: 0 0 25%;
+                margin-left: 20px;
+                width: 100%;
+
+                .tag-input {
+                    margin-bottom: 10px;
+                    label {
+                        font-size: 1.2rem;
+                        font-weight: 600;
+                    }
+
+                    input {
+                        margin-top: 5px;
+                    }
+                }
+
+                .tags-list {
+                    .title {
+                        font-size: 1.2rem;
+                        float: left;
+                        margin-top: 0.45rem;
+                        margin-right: 3px;
+                    }
+
+                    .list {
+                        display: flex;
+                        flex-wrap: wrap;
+                        overflow: hidden;
+
+                        .tag {
+                            padding: 9px 18px 5px 5px;
+                            border-radius: 10px;
+                            background-color: $l2dark;
+                            margin: 3px;
+                            position: relative;
+                            cursor: pointer;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            max-width: 10rem;
+
+                            &:hover {
+                                background-color: $l3dark;
+                            }
+
+                            .delete {
+                                position: absolute;
+                                font-size: 0.55rem;
+                                top: 0.4rem;
+                                right: 0.4rem;
+                            }
+                        }
+                    }
                 }
             }
         }

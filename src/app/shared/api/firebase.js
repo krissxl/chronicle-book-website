@@ -79,6 +79,7 @@ export async function addNewEntry(uid, entry) {
       created_at: entry.created_at,
       time: entry.time,
       title: entry.title ? entry.title : "",
+      tags: entry.tags ? entry.tags : []
     };
 
     const res = await entriesRef.add(entryObj);
@@ -132,6 +133,7 @@ export async function updateEntry(entryId, newEntry) {
     const db = firebase.firestore();
     const update = { text: newEntry.text, updated_at: new Date(), time: newEntry.time };
     update.title = newEntry.title ? newEntry.title : "";
+    update.tags = newEntry.tags ? newEntry.tags : [];
 
     await db.collection("entries").doc(entryId).update(update);
 

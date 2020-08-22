@@ -19,6 +19,7 @@ export class EntryService {
   entryCreated: Date;
   entryUpdated: Date;
   entryTime: Date;
+  entryTags: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -32,6 +33,7 @@ export class EntryService {
     this.entryCreated = entry.created_at;
     this.entryUpdated = entry?.updated_at;
     this.entryTime = entry.time;
+    this.entryTags = entry?.tags;
   }
 
   reset() {
@@ -41,6 +43,7 @@ export class EntryService {
     this.entryCreated = undefined;
     this.entryUpdated = undefined;
     this.entryTime = undefined;
+    this.entryTags = [];
   }
 
   setNewDate(date: Date): void {
@@ -69,6 +72,7 @@ export class EntryService {
       text: this.entryText,
       time: this.entryTime,
       title: this.entryTitle,
+      tags: this.entryTags
     };
 
     const response: BackendResponse = await addNewEntry(
@@ -82,8 +86,8 @@ export class EntryService {
   async fetchEntry(id: string): Promise<BackendResponse> {
     if (this.entryId !== id) {
       this.reset();
-      const findedEntry = this.entriesService.getById(id);
-      if (!findedEntry) {
+      const foundEntry = this.entriesService.getById(id);
+      if (!foundEntry) {
         const response: BackendResponse = await getEntryById(
           this.authService.user.id,
           id
@@ -93,7 +97,7 @@ export class EntryService {
         }
         this.setEntry(response.data.entry);
       } else {
-        this.setEntry(findedEntry);
+        this.setEntry(foundEntry);
       }
     }
 
@@ -105,6 +109,7 @@ export class EntryService {
       text: this.entryText,
       title: this.entryTitle,
       time: this.entryTime,
+      tags: this.entryTags
     };
     const response: BackendResponse = await updateEntry(this.entryId, updating);
     return response;
@@ -114,5 +119,13 @@ export class EntryService {
     const response: BackendResponse = await deleteEntry(this.entryId);
 
     return response;
+  }
+
+  addTag(text: string): void {
+      this.entryTags.unshift(text);
+  }
+
+  deleteTag(toDeleteTag: string): void {
+    this.entryTags = this.entryTags.filter(tag => tag !== toDeleteTag)
   }
 }

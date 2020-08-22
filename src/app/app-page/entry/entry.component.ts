@@ -25,6 +25,7 @@ export class EntryComponent implements OnInit {
   loading: boolean = false;
   isCalendarOpened: boolean = false;
   isTimeSelectorOpened: boolean = false;
+  tagInput: string;
 
   @HostListener('document:click', ['$event']) docClick(event: Event): void {
     const path = event.composedPath();
@@ -41,7 +42,7 @@ export class EntryComponent implements OnInit {
 
     if (this.isTimeSelectorOpened) {
       const timeLine = document.querySelector('.date-time');
-      const timeSelectorBlock = document.querySelector('.time-selector-block')
+      const timeSelectorBlock = document.querySelector('.time-selector-block');
       if (!path.includes(timeLine) && !path.includes(timeSelectorBlock)) {
         this.isTimeSelectorOpened = false;
       }
@@ -58,11 +59,11 @@ export class EntryComponent implements OnInit {
     this.route.params.subscribe((params) => {
       if (params.id) {
         this.fetchEntry(params.id);
-        return
+        return;
       }
       if (params.time) {
         this.entryService.setNewDate(new Date(+params.time));
-        return
+        return;
       }
     });
   }
@@ -145,7 +146,7 @@ export class EntryComponent implements OnInit {
   hoursInputTrigger(event: Event): void {
     let hours = +(event.target as HTMLInputElement).value;
     if (!hours) {
-      return
+      return;
     }
     const minutes = +(this.minutesInput.nativeElement as HTMLInputElement)
       .value;
@@ -178,6 +179,32 @@ export class EntryComponent implements OnInit {
       this.entryService.setNewTime({ hours: +hours + 12, minutes: +minutes });
     } else {
       this.entryService.setNewTime({ hours: 0, minutes: 0 });
+    }
+  }
+
+  tagKeydownTrigger(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.addNewTag();
+    }
+  }
+
+  tagInputTrigger(event: InputEvent) {
+    const target = event.target as HTMLInputElement;
+    const spaceIndex: number = this.tagInput.indexOf(' ');
+
+    this.tagInput =
+      spaceIndex !== -1
+        ? this.tagInput.substring(0, spaceIndex).trim()
+        : this.tagInput.trim();
+
+    target.value = this.tagInput;
+  }
+
+  addNewTag() {
+    if (!this.entryService.entryTags.includes(this.tagInput.toLowerCase()) && this.tagInput) {
+      this.entryService.addTag(this.tagInput.toLowerCase());
+
+      this.tagInput = '';
     }
   }
 }
