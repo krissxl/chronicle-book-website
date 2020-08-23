@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { EntryService } from 'src/app/shared/services/entry.service';
 import { BackendResponse } from 'src/app/shared/interfaces';
+import { EntriesService } from 'src/app/shared/services/entries.service';
 
 @Component({
   selector: 'app-entry',
@@ -52,7 +53,8 @@ export class EntryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public entryService: EntryService
+    public entryService: EntryService,
+    private entriesService: EntriesService
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +101,8 @@ export class EntryComponent implements OnInit {
     const response: BackendResponse = await this.entryService.updateEntry();
 
     if (!response.error) {
+      this.entriesService.updateEntry(response.data.entry);
+
       this.entryService.reset();
       this.router.navigate(['/app']);
     }
@@ -108,6 +112,8 @@ export class EntryComponent implements OnInit {
     const response: BackendResponse = await this.entryService.createNewEntry();
 
     if (!response.error) {
+      this.entriesService.addEntry(response.data.entry);
+
       this.entryService.reset();
       this.router.navigate(['/app']);
     }
@@ -122,6 +128,10 @@ export class EntryComponent implements OnInit {
     const response: BackendResponse = await this.entryService.deleteEntry();
 
     if (!response.error) {
+      const date = this.entryService.entryTime;
+      const id = this.entryService.entryId;
+      this.entriesService.deleteEntry(date, id);
+
       this.entryService.reset();
       this.router.navigate(['/app']);
     }
@@ -201,7 +211,10 @@ export class EntryComponent implements OnInit {
   }
 
   addNewTag() {
-    if (!this.entryService.entryTags.includes(this.tagInput.toLowerCase()) && this.tagInput) {
+    if (
+      !this.entryService.entryTags.includes(this.tagInput.toLowerCase()) &&
+      this.tagInput
+    ) {
       this.entryService.addTag(this.tagInput.toLowerCase());
 
       this.tagInput = '';

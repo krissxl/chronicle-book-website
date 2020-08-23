@@ -7,11 +7,15 @@ import { getUserEntries } from '../api/firebase';
   providedIn: 'root',
 })
 export class EntriesService {
-  entries: Entry[];
+  entries: { [key: string]: Entry[] } = {};
 
   constructor(private authService: AuthService) {}
 
+  // Fetch entries from server if necessary
   async fetchUserEntriesByDate(date: Date): Promise<BackendResponse> {
+    const dateName = this.getDateName(date);
+    if (this.entries[dateName]) return;
+
     const monthBorders = this.getMonthBorders(
       date.getFullYear(),
       date.getMonth()
@@ -23,7 +27,7 @@ export class EntriesService {
     );
 
     if (!response.error) {
-      this.entries = response.data.entries;
+      this.entries[dateName] = response.data.entries;
 
       return {
         error: false,
@@ -42,19 +46,62 @@ export class EntriesService {
     };
   }
 
+  // Get already fetched entries by date
+  getEntriesByDate(date: Date): Entry[] {
+    const dateName = this.getDateName(date);
+    return this.entries[dateName];
+  }
+
+  private getDateName(date: Date): string {
+    return date.getFullYear().toString() + '-' + date.getMonth().toString();
+  }
+
   getById(id: string): Entry | undefined {
-    if (this.entries) {
-      const entry = this.entries.find((entry) => entry.id === id);
-      return entry;
-    } else {
-      return undefined;
+    if (!this.entries) return undefined;
+
+    for (const key in this.entries) {
+      const monthEntries: Entry[] = this.entries[key];
+
+      const entry = monthEntries.find((entry) => entry.id === id);
+      if (entry) return entry;
+    }
+    return undefined;
+  }
+
+  updateEntry(newEntry: Entry): void {
+    const dateName: string = this.getDateName(newEntry.time);
+    const entries: Entry[] = this.entries[dateName];
+    if (entries) {
+      const index: number = entries.findIndex(entry => entry.id === newEntry.id);
+      this.entries[dateName][index] = newEntry;
     }
   }
 
-  getOccupiedDays(): number[] {
-    const mappedDays: number[] = this.entries.map(entry => entry.time.getDate() + 1);
+  addEntry(entry: Entry): void {
+    const dateName: string = this.getDateName(entry.time);
+    const entries: Entry[] = this.entries[dateName];
+    if (entries) {
+      this.entries[dateName].unshift(entry);
+      this.entries[dateName].sort((a,b) => b.time.getTime() - a.time.getTime())
+    }
+  }
+
+  deleteEntry(date: Date, id: string): void {
+    const dateName: string = this.getDateName(date);
+    const entries: Entry[] = this.entries[dateName];
+    if (entries) {
+      this.entries[dateName] = entries.filter(e => e.id !== id);
+    }
+  }
+
+  getOccupiedDays(date: Date): number[] {
+    const dateName = this.getDateName(date);
+    const entries: Entry[] = this.entries[dateName];
+
+    const mappedDays: number[] = entries.map((entry) => entry.time.getDate());
+    // Set needs to remove duplicates
     const daysSet: Set<number> = new Set(mappedDays);
     const days: number[] = [...daysSet];
-    return days
+    return days;
   }
 }

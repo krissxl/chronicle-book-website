@@ -72,35 +72,39 @@ export class EntryService {
       text: this.entryText,
       time: this.entryTime,
       title: this.entryTitle,
-      tags: this.entryTags
+      tags: this.entryTags,
     };
 
-    const response: BackendResponse = await addNewEntry(
-      this.authService.user.id,
-      entry
-    );
-
-    return response;
+    try {
+      const response: BackendResponse = await addNewEntry(
+        this.authService.user.id,
+        entry
+      );
+      return response;
+    } catch (error) {
+      return {error: true, message: error.message}
+    }
   }
 
   async fetchEntry(id: string): Promise<BackendResponse> {
-    if (this.entryId !== id) {
-      this.reset();
-      const foundEntry = this.entriesService.getById(id);
-      if (!foundEntry) {
-        const response: BackendResponse = await getEntryById(
-          this.authService.user.id,
-          id
-        );
-        if (response.error) {
-          return { error: true, message: response.message };
-        }
-        this.setEntry(response.data.entry);
-      } else {
-        this.setEntry(foundEntry);
-      }
-    }
+    if (this.entryId === id)
+      return { error: false, message: 'Entry with ID ' + id + ' already set' };
 
+    this.reset();
+    // Trying to find in entries service
+    const foundEntry = this.entriesService.getById(id);
+    if (foundEntry) {
+      this.setEntry(foundEntry);
+      return { error: false, message: 'Entry with ID ' + id + ' fetched' };
+    }
+    // Fetching from server, if no entry was found anywhere
+    const response: BackendResponse = await getEntryById(
+      this.authService.user.id,
+      id
+    );
+    if (response.error) return { error: true, message: response.message };
+
+    this.setEntry(response.data.entry);
     return { error: false, message: 'Entry with ID ' + id + ' fetched' };
   }
 
@@ -109,10 +113,15 @@ export class EntryService {
       text: this.entryText,
       title: this.entryTitle,
       time: this.entryTime,
-      tags: this.entryTags
+      tags: this.entryTags,
     };
-    const response: BackendResponse = await updateEntry(this.entryId, updating);
-    return response;
+
+    try {
+      const response: BackendResponse = await updateEntry(this.entryId, updating);
+      return response;
+    } catch (error) {
+      return {error: true, message: error.message}
+    }
   }
 
   async deleteEntry() {
@@ -122,10 +131,10 @@ export class EntryService {
   }
 
   addTag(text: string): void {
-      this.entryTags.unshift(text);
+    this.entryTags.unshift(text);
   }
 
   deleteTag(toDeleteTag: string): void {
-    this.entryTags = this.entryTags.filter(tag => tag !== toDeleteTag)
+    this.entryTags = this.entryTags.filter((tag) => tag !== toDeleteTag);
   }
 }

@@ -29,7 +29,7 @@ export class AppPageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
-    this.occupiedDays = this.entriesService.getOccupiedDays();
+    this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
   }
 
   navigateToEntry() {
@@ -59,10 +59,14 @@ export class AppPageComponent implements OnInit {
     const response = await this.entryService.deleteEntry();
 
     if (!response.error) {
+      const date = this.entryService.entryTime;
+      const id = this.entryService.entryId;
+      this.entriesService.deleteEntry(date, id);
+      
       this.entryService.reset();
       this.selectedEntry = undefined;
       await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
-      this.occupiedDays = this.entriesService.getOccupiedDays();
+      this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
     }
   }
 
@@ -78,7 +82,7 @@ export class AppPageComponent implements OnInit {
       this.selectedDate.getMonth() !== newDate.getMonth()
     ) {
       await this.entriesService.fetchUserEntriesByDate(newDate);
-      this.occupiedDays = this.entriesService.getOccupiedDays();
+      this.occupiedDays = this.entriesService.getOccupiedDays(newDate);
     }
 
     this.selectedDate = newDate;

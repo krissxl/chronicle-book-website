@@ -106,15 +106,11 @@ export async function getUserEntries(uid, timeStart, timeEnd) {
     const entries = [];
 
     entriesSnaps.forEach((entry) => {
-      const entryData = entry.data();
+      let entryData = entry.data();
 
       entryData.id = entry.id;
-      delete entryData.user_id;
-      entryData.created_at = new Date(entryData.created_at.seconds * 1000);
-      entryData.time = new Date(entryData.time.seconds * 1000);
-      if (entryData.updated_at)
-        entryData.updated_at = new Date(entryData.updated_at.seconds * 1000);
-
+      entryData = formatEntry(entryData);
+      
       entries.unshift(entryData);
     });
 
@@ -135,9 +131,15 @@ export async function updateEntry(entryId, newEntry) {
     update.title = newEntry.title ? newEntry.title : "";
     update.tags = newEntry.tags ? newEntry.tags : [];
 
-    await db.collection("entries").doc(entryId).update(update);
+    const entryRef = db.collection("entries").doc(entryId);
+    await entryRef.update(update);
+    const entry = await entryRef.get();
+    let entryData = entry.data();
 
-    return { error: false, message: "Entry successfully updated" };
+    entryData.id = entry.id;
+    entryData = formatEntry(entryData)
+
+      return { error: false, message: "Entry successfully updated", data: { entry: entryData} };
   } catch (error) {
     return { error: true, message: error.message };
   }
@@ -147,18 +149,14 @@ export async function getEntryById(uid, entryId) {
   try {
     const db = firebase.firestore();
     const entry = await db.collection("entries").doc(entryId).get();
-    const entryData = entry.data();
+    let entryData = entry.data();
 
     if (entryData.user_id !== uid)
       throw new Error("You are don't have access to entry with this ID");
     if (!entry.exists) throw new Error("Entry with that ID isn't exists");
 
-    delete entryData.user_id;
-    entryData.created_at = new Date(entryData.created_at.seconds * 1000);
-    entryData.time = new Date(entryData.time.seconds * 1000);
     entryData.id = entry.id;
-    if (entryData.updated_at)
-      entryData.updated_at = new Date(entryData.updated_at.seconds * 1000);
+    entryData = formatEntry(entryData);
 
     return {
       error: false,
@@ -179,4 +177,14 @@ export async function deleteEntry(entryId) {
   } catch (error) {
     return { error: true, message: error.message };
   }
+}
+
+function formatEntry(entry) {
+  delete entry.user_id;
+  entry.created_at = new Date(entry.created_at.seconds * 1000);
+  entry.time = new Date(entry.time.seconds * 1000);
+  if (entry.updated_at)
+    entry.updated_at = new Date(entry.updated_at.seconds * 1000);
+
+  return entry
 }
