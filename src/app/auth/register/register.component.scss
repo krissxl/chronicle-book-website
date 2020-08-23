@@ -10,10 +10,12 @@
     width: 50vw;
     background-color: $ldark;
     border-radius: 10px 10px 50px 10px;
+    transition: height 0.2s, width 0.2s;
 
     .sign-up {
         flex: 0 0 50%;
         position: relative;
+        transition: flex 0.2s;
 
         .content {
             position: absolute;
@@ -63,7 +65,9 @@
                 }
             }
 
-            .email-block, .username-block, .password-block {
+            .email-block,
+            .username-block,
+            .password-block {
                 margin-bottom: 20px;
             }
 
@@ -86,13 +90,14 @@
         border-radius: 50px 10px 50px 10px;
         box-shadow: 6px 0 4px rgba($color: #000, $alpha: 0.3);
         position: relative;
+        transition: flex 0.2s;
 
         .content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;
+            width: 95%;
 
             .title {
                 text-align: center;
@@ -100,6 +105,46 @@
                 font-weight: 600;
                 margin-bottom: 10px;
             }
+        }
+    }
+}
+
+@media screen and (max-width: 991.98px) {
+    .register {
+        height: 85vh;
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 575.98px) {
+    .register {
+        flex-direction: column;
+        width: 75vw;
+
+        .sign-up {
+            flex: 0 0 70%;
+            .content {
+                .title {
+                    margin-bottom: 20px;
+                }
+
+                .be-error {
+                    margin-bottom: 15px;
+                }
+
+                .email-block,
+                .username-block,
+                .password-block {
+                    margin-bottom: 15px;
+                }
+
+                .again-block {
+                    margin-bottom: 25px;
+                }
+            }
+        }
+        .sign-in {
+            flex: 0 0 30%;
         }
     }
 }

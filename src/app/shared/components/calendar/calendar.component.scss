@@ -146,3 +146,40 @@
         }
     }
 }
+
+@media screen and (max-width: 450px) {
+    .calendar {
+        .top {
+            .year-panel {
+                width: 50%;
+            }
+    
+            .month-panel {
+                width: 65%;
+            }
+        }
+    
+        .bottom {
+            .week-days {
+                grid-template-columns: repeat(7, 30px);
+                grid-template-rows: 30px;
+                column-gap: 4px;
+                line-height: 30px;
+                width: 234px;
+            }
+    
+            .days {
+                margin: 0 auto;
+                grid-template-columns: repeat(7, 30px);
+                grid-template-rows: repeat(6, 30px);
+                width: 234px;
+                column-gap: 4px;
+                row-gap: 4px;
+    
+                .day:not(.empty-day) {
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+}

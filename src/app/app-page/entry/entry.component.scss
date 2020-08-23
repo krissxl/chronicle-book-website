@@ -6,10 +6,12 @@
 
     .container {
         padding: 50px 200px;
+        transition: padding 0.2s;
 
         .top {
             .date {
                 position: relative;
+                font-size: 1.3rem;
 
                 .calendar {
                     position: relative;
@@ -39,6 +41,7 @@
                         left: 50%;
                         top: 2.8rem;
                         transform: translateX(-50%);
+                        transition: padding 0.2s, left 0.2s;
 
                         &::before {
                             content: "";
@@ -50,11 +53,11 @@
                             height: 20px;
                             border: 10px solid transparent;
                             border-bottom: 10px solid $ldark;
+                            transition: left 0.2s;
                         }
                     }
                 }
 
-                font-size: 1.3rem;
                 &-day {
                     color: $dblue;
                     font-weight: 600;
@@ -175,6 +178,7 @@
 
                     input {
                         margin-top: 5px;
+                        transition: width 0.2s;
                     }
                 }
 
@@ -278,6 +282,79 @@
 
         &:hover {
             background-color: $lred;
+        }
+    }
+}
+
+@media screen and (max-width: 991.98px) {
+    .entry {
+        .container {
+            padding: 40px 100px;
+        }
+    }
+}
+
+@media screen and (max-width: 575.98px) {
+    .entry {
+        .container {
+            padding: 40px 80px;
+
+            .top {
+                .date {
+                    .calendar {
+                        .calendar-block {
+                            padding: 12px;
+                            left: 80%;
+                            top: 2.8rem;
+                            transform: translateX(-50%);
+
+                            &::before {
+                                left: 40%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .bottom {
+                flex-direction: column;
+                .text {
+                    flex: 0 0 auto;
+                }
+                .tags-block {
+                    flex: 0 0 auto;
+                    margin-left: 0;
+                    margin-top: 30px;
+
+                    .tag-input {
+                        label {
+                            display: block;
+                        }
+
+                        input {
+                            width: 50%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .entry {
+        .container {
+            padding: 40px 40px;
+
+            .bottom {
+                .tags-block {
+                    .tag-input {
+                        input {
+                            width: 75%;
+                        }
+                    }
+                }
+            }
         }
     }
 }

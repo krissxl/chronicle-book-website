@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { EntriesService } from '../shared/services/entries.service';
 import { EntryService } from '../shared/services/entry.service';
@@ -10,9 +16,17 @@ import { Entry } from '../shared/interfaces';
   styleUrls: ['./app-page.component.scss'],
 })
 export class AppPageComponent implements OnInit {
+  @ViewChild('side') side: ElementRef;
+
   selectedDate: Date;
   selectedEntry: Entry;
   occupiedDays: number[];
+  isSideOpened: boolean = false;
+
+  @HostListener('document:click', ['$event'])
+  clickObserver(event: Event) {
+    if (!event.composedPath().includes(this.side.nativeElement)) this.isSideOpened = false;
+  }
 
   constructor(
     private router: Router,
@@ -30,6 +44,10 @@ export class AppPageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
     this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
+  }
+
+  toggleSideState() {
+    this.isSideOpened = !this.isSideOpened;
   }
 
   navigateToEntry() {
@@ -62,11 +80,13 @@ export class AppPageComponent implements OnInit {
       const date = this.entryService.entryTime;
       const id = this.entryService.entryId;
       this.entriesService.deleteEntry(date, id);
-      
+
       this.entryService.reset();
       this.selectedEntry = undefined;
       await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
-      this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
+      this.occupiedDays = this.entriesService.getOccupiedDays(
+        this.selectedDate
+      );
     }
   }
 

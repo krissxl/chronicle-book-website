@@ -1,0 +1,437 @@
+.app-page .container {
+  margin-right: 320px;
+  padding: 60px 70px;
+}
+.app-page .container .entries .entry {
+  background-color: #151729;
+  padding: 20px 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 170px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 5px 4px rgba(0, 0, 0, 0.25);
+}
+.app-page .container .entries .entry:hover {
+  background-color: #272C48;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.3);
+}
+.app-page .container .entries .entry .date {
+  font-size: 1.3rem;
+}
+.app-page .container .entries .entry .date-day {
+  color: #3867d6;
+  font-weight: 600;
+}
+.app-page .container .entries .entry .date-month {
+  margin-left: 5px;
+}
+.app-page .container .entries .entry .date-time {
+  color: #3867d6;
+  font-weight: 600;
+}
+.app-page .container .entries .entry .date-week-day {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 5px;
+}
+.app-page .container .entries .entry-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 8px 0;
+  text-overflow: ellipsis;
+  max-height: 1.7rem;
+  width: 100%;
+  overflow: hidden;
+}
+.app-page .container .entries .entry .text-preview {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  max-height: 2.3rem;
+  white-space: pre-line;
+  margin-top: 5px;
+}
+.app-page .container .entries .entry + .entry {
+  margin-top: 25px;
+}
+.app-page .container .entries .entry .tags {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-top: 7px;
+  max-height: 2rem;
+}
+.app-page .container .entries .entry .tags .tag {
+  background-color: #272C48;
+  padding: 4px 7px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin: 3px;
+}
+.app-page .container .entries .entry .tags .tag .tag-icon {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 5px;
+}
+.app-page .side {
+  width: 320px;
+  height: 100vh;
+  background-color: #0e1020;
+  position: fixed;
+  top: 0;
+  right: 0;
+  box-shadow: -5px 2px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.app-page .side .oc-icon {
+  display: none;
+}
+.app-page .side .calendar {
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.app-page .side .btn-new-entry {
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.backdrop .modal {
+  position: absolute;
+  width: 50vw;
+  height: 80vh;
+  background-color: #151729;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 55px 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+.backdrop .modal .date {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.backdrop .modal .date-day {
+  color: #3867d6;
+  font-weight: 600;
+}
+.backdrop .modal .date-month {
+  margin-left: 5px;
+}
+.backdrop .modal .date-time {
+  color: #3867d6;
+  font-weight: 600;
+}
+.backdrop .modal .date-week-day {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 5px;
+}
+.backdrop .modal .title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  word-wrap: break-word;
+  max-height: 7.8%;
+  padding: 3px 0;
+  overflow: auto;
+  line-height: 1.6rem;
+}
+.backdrop .modal .text {
+  margin-top: 9px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  max-height: 80%;
+  word-wrap: break-word;
+  padding: 3px 0;
+}
+.backdrop .modal .tags {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-top: 7px;
+  max-height: 8%;
+  overflow-y: auto;
+}
+.backdrop .modal .tags .tag {
+  background-color: #272C48;
+  padding: 4px 7px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin: 3px;
+  transition: background-color 0.1s;
+  cursor: pointer;
+}
+.backdrop .modal .tags .tag:hover {
+  background-color: #324064;
+}
+.backdrop .modal .tags .tag .tag-icon {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 5px;
+}
+.backdrop .modal .close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 5px;
+}
+.backdrop .modal .close:hover {
+  color: #fff;
+}
+.backdrop .modal .edit {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 5px;
+}
+.backdrop .modal .edit:hover {
+  color: #fff;
+}
+.backdrop .modal .delete {
+  position: absolute;
+  top: 20px;
+  left: 60px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 5px;
+}
+.backdrop .modal .delete:hover {
+  color: #EB3B5A;
+}
+
+@media screen and (max-width: 575.98px) {
+  .app-page .container {
+    margin-right: 0;
+    padding: 50px 20px;
+  }
+  .app-page .container .entries .entry {
+    background-color: #151729;
+    padding: 20px 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 170px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.25);
+  }
+  .app-page .container .entries .entry:hover {
+    background-color: #272C48;
+    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.3);
+  }
+  .app-page .container .entries .entry .date {
+    font-size: 1.3rem;
+  }
+  .app-page .container .entries .entry .date-day {
+    color: #3867d6;
+    font-weight: 600;
+  }
+  .app-page .container .entries .entry .date-month {
+    margin-left: 5px;
+  }
+  .app-page .container .entries .entry .date-time {
+    color: #3867d6;
+    font-weight: 600;
+  }
+  .app-page .container .entries .entry .date-week-day {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+  }
+  .app-page .container .entries .entry-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 8px 0;
+    text-overflow: ellipsis;
+    max-height: 1.7rem;
+    width: 100%;
+    overflow: hidden;
+  }
+  .app-page .container .entries .entry .text-preview {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+    max-height: 2.3rem;
+    white-space: pre-line;
+    margin-top: 5px;
+  }
+  .app-page .container .entries .entry + .entry {
+    margin-top: 25px;
+  }
+  .app-page .container .entries .entry .tags {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin-top: 7px;
+    max-height: 2rem;
+  }
+  .app-page .container .entries .entry .tags .tag {
+    background-color: #272C48;
+    padding: 4px 7px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin: 3px;
+  }
+  .app-page .container .entries .entry .tags .tag .tag-icon {
+    color: rgba(255, 255, 255, 0.5);
+    margin-right: 5px;
+  }
+  .app-page .side {
+    width: 320px;
+    height: 100vh;
+    background-color: #0e1020;
+    position: fixed;
+    top: 0;
+    right: 0;
+    box-shadow: -5px 2px 6px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .app-page .side .oc-icon {
+    display: block;
+    font-size: 1.2rem;
+    transform: rotate(180deg);
+    position: absolute;
+    left: -20px;
+  }
+  .app-page .side .calendar {
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .app-page .side .btn-new-entry {
+    margin-bottom: 40px;
+    font-weight: 600;
+  }
+
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+  .backdrop .modal {
+    position: absolute;
+    width: 50vw;
+    height: 80vh;
+    background-color: #151729;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 55px 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+  }
+  .backdrop .modal .date {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  .backdrop .modal .date-day {
+    color: #3867d6;
+    font-weight: 600;
+  }
+  .backdrop .modal .date-month {
+    margin-left: 5px;
+  }
+  .backdrop .modal .date-time {
+    color: #3867d6;
+    font-weight: 600;
+  }
+  .backdrop .modal .date-week-day {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+  }
+  .backdrop .modal .title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    word-wrap: break-word;
+    max-height: 7.8%;
+    padding: 3px 0;
+    overflow: auto;
+    line-height: 1.6rem;
+  }
+  .backdrop .modal .text {
+    margin-top: 9px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    max-height: 80%;
+    word-wrap: break-word;
+    padding: 3px 0;
+  }
+  .backdrop .modal .tags {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin-top: 7px;
+    max-height: 8%;
+    overflow-y: auto;
+  }
+  .backdrop .modal .tags .tag {
+    background-color: #272C48;
+    padding: 4px 7px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin: 3px;
+    transition: background-color 0.1s;
+    cursor: pointer;
+  }
+  .backdrop .modal .tags .tag:hover {
+    background-color: #324064;
+  }
+  .backdrop .modal .tags .tag .tag-icon {
+    color: rgba(255, 255, 255, 0.5);
+    margin-right: 5px;
+  }
+  .backdrop .modal .close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    padding: 5px;
+  }
+  .backdrop .modal .close:hover {
+    color: #fff;
+  }
+  .backdrop .modal .edit {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    padding: 5px;
+  }
+  .backdrop .modal .edit:hover {
+    color: #fff;
+  }
+  .backdrop .modal .delete {
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    padding: 5px;
+  }
+  .backdrop .modal .delete:hover {
+    color: #EB3B5A;
+  }
+}

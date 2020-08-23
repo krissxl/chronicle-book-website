@@ -31,7 +31,8 @@
       </div>
     </div>
   </div>
-  <div class="side">
+  <div class="side" [class.opened]="isSideOpened" #side>
+    <i class="oc-icon icon-angle-double-right" (click)="toggleSideState()"></i>
     <app-calendar
       class="calendar"
       [selectedDate]="selectedDate"
