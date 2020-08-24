@@ -50,7 +50,7 @@
                     }
                 }
 
-                &+.mode-block {
+                & + .mode-block {
                     margin-top: 6px;
                 }
             }
@@ -137,6 +137,52 @@
                     }
                 }
             }
+        }
+    }
+}
+
+@media screen and (max-width: 1023.98px) {
+    @import "../../../scss/colors.scss";
+
+    .search {
+        flex-direction: column-reverse;
+        .container {
+            padding: 25px 20px 20px 20px;
+        }
+
+        .side {
+            flex: 0 0 20%;
+            padding: 0 100px;
+
+            .search-input-block {
+                margin-top: 40px;
+            }
+
+            .calendar {
+                .year-panel {
+                    width: 50%;
+                }
+
+                .month-panel {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    @import "../../../scss/colors.scss";
+
+    .search {
+        .side {
+            flex: 0 0 20%;
+            padding: 0 20px;
+
+            .search-input-block {
+                margin-top: 40px;
+            }
+
         }
     }
 }
