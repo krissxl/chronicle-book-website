@@ -4,10 +4,11 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { EntryComponent } from './components/entry/entry.component';
 
 
 @NgModule({
-  declarations: [SidebarComponent, MainLayoutComponent, CalendarComponent],
+  declarations: [SidebarComponent, MainLayoutComponent, CalendarComponent, EntryComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -16,7 +17,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     SidebarComponent,
     RouterModule,
     MainLayoutComponent,
-    CalendarComponent
+    CalendarComponent,
+    EntryComponent
   ]
 })
 export class SharedModule { }

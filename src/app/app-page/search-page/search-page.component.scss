@@ -1,0 +1,103 @@
+@import '../../../scss/colors.scss';
+
+.search {
+    display: flex;
+
+    .container {
+        padding: 50px 20px 30px 80px;
+        flex: 0 0 80%;
+
+        .entries {
+            .entry + .entry {
+                margin-top: 20px;
+            }
+        }
+    }
+
+    .side {
+        flex: 0 0 20%;
+
+        .calendar {
+            position: relative;
+            margin-top: 50px;
+
+            .year-panel {
+                text-align: center;
+                display: inline-flex;
+                justify-content: space-between;
+                width: 70%;
+                margin-bottom: 7px;
+
+                .prev,
+                .next {
+                    font-size: 1.3rem;
+                    padding: 5px 5px;
+                    cursor: pointer;
+                    border-radius: 10px;
+                    z-index: 10;
+                    position: relative;
+
+                    &:hover {
+                        background-color: $white25;
+                    }
+                }
+
+                .prev {
+                    transform: rotate(180deg);
+                }
+
+                .year {
+                    z-index: 10;
+                    position: relative;
+                    padding: 0 7px;
+                    font-size: 1.6rem;
+                    cursor: pointer;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    line-height: 2rem;
+
+                    &:hover {
+                        background-color: $white25;
+                    }
+                }
+            }
+
+            .month-panel {
+                text-align: center;
+                display: inline-flex;
+                justify-content: space-between;
+                width: 82%;
+                margin-bottom: 7px;
+
+                .prev,
+                .next {
+                    font-size: 1.5rem;
+                    line-height: 1.7rem;
+                    padding: 6px 6px;
+                    cursor: pointer;
+                    border-radius: 10px;
+
+                    &:hover {
+                        background-color: $white25;
+                    }
+                }
+
+                .prev {
+                    transform: rotate(180deg);
+                }
+
+                .month {
+                    padding: 0 7px;
+                    font-size: 1.5rem;
+                    line-height: 2.2rem;
+                    cursor: pointer;
+                    border-radius: 10px;
+
+                    &:hover {
+                        background-color: $white25;
+                    }
+                }
+            }
+        }
+    }
+}

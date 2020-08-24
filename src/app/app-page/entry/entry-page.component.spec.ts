@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EntryComponent } from './entry.component';
+import { EntryPageComponent } from './entry-page.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('EntryComponent', () => {
-  let component: EntryComponent;
-  let fixture: ComponentFixture<EntryComponent>;
+describe('EntryPageComponent', () => {
+  let component: EntryPageComponent;
+  let fixture: ComponentFixture<EntryPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EntryComponent],
+      declarations: [EntryPageComponent],
       imports: [RouterTestingModule],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EntryComponent);
+    fixture = TestBed.createComponent(EntryPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

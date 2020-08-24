@@ -48,16 +48,9 @@ export class CalendarComponent implements OnInit {
   }
 
   prevMonth() {
-    const isJanuary = this.selectedDate.getMonth() === 0;
-
-    const selectedYear = isJanuary
-      ? this.selectedDate.getFullYear() - 1
-      : this.selectedDate.getFullYear();
-    const selectedMonth = isJanuary ? 11 : this.selectedDate.getMonth() - 1;
-
     this.selectedDate = new Date(
-      selectedYear,
-      selectedMonth,
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth() - 1,
       this.selectedDate.getDate()
     );
     this.getMonthInfo();
@@ -66,16 +59,9 @@ export class CalendarComponent implements OnInit {
   }
 
   nextMonth() {
-    const isDecember = this.selectedDate.getMonth() === 11;
-
-    const selectedYear = isDecember
-      ? this.selectedDate.getFullYear() + 1
-      : this.selectedDate.getFullYear();
-    const selectedMonth = isDecember ? 0 : this.selectedDate.getMonth() + 1;
-
     this.selectedDate = new Date(
-      selectedYear,
-      selectedMonth,
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth() + 1,
       this.selectedDate.getDate()
     );
     this.getMonthInfo();

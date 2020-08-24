@@ -22,10 +22,16 @@ export class AppPageComponent implements OnInit {
   selectedEntry: Entry;
   occupiedDays: number[];
   isSideOpened: boolean = false;
+  search: string;
+  searchMode: string = 'month';
 
   @HostListener('document:click', ['$event'])
   clickObserver(event: Event) {
-    if (!event.composedPath().includes(this.side.nativeElement)) this.isSideOpened = false;
+    const path = event.composedPath();
+    if (!path.includes(this.side.nativeElement)) this.isSideOpened = false;
+
+    const searchBlock = document.querySelector('.search-block');
+    if (!path.includes(searchBlock)) searchBlock.classList.remove('active');
   }
 
   constructor(
@@ -42,7 +48,7 @@ export class AppPageComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
+    await this.entriesService.fetchUserEntriesByMonth(this.selectedDate);
     this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
   }
 
@@ -50,8 +56,9 @@ export class AppPageComponent implements OnInit {
     this.isSideOpened = !this.isSideOpened;
   }
 
-  navigateToEntry() {
+  navigateToEntry(): void {
     this.entryService.reset();
+
     const time = new Date(
       this.selectedDate.getFullYear(),
       this.selectedDate.getMonth(),
@@ -59,13 +66,28 @@ export class AppPageComponent implements OnInit {
       new Date().getHours(),
       new Date().getMinutes()
     ).getTime();
+
     this.router.navigate(['/app', 'entry', { time }]);
   }
 
-  navigateToEditEntry() {
+  setActive(event: Event) {
+    const searchBlock: HTMLElement = (event.currentTarget as HTMLElement).parentElement;
+    searchBlock.classList.add('active');
+  }
+
+  navigateToEditEntry(): void {
     this.entryService.reset();
     this.entryService.setEntry(this.selectedEntry);
     this.router.navigate(['/app', 'entry', { id: this.selectedEntry.id }]);
+  }
+
+  navigateToSearch(): void {
+    if (!this.search) return;
+    this.router.navigate([
+      '/app',
+      'search',
+      { q: this.search, mode: this.searchMode, date: this.selectedDate.getTime() },
+    ]);
   }
 
   selectEntry(entry: Entry) {
@@ -83,7 +105,7 @@ export class AppPageComponent implements OnInit {
 
       this.entryService.reset();
       this.selectedEntry = undefined;
-      await this.entriesService.fetchUserEntriesByDate(this.selectedDate);
+      await this.entriesService.fetchUserEntriesByMonth(this.selectedDate);
       this.occupiedDays = this.entriesService.getOccupiedDays(
         this.selectedDate
       );
@@ -101,7 +123,7 @@ export class AppPageComponent implements OnInit {
       this.selectedDate.getFullYear() !== newDate.getFullYear() ||
       this.selectedDate.getMonth() !== newDate.getMonth()
     ) {
-      await this.entriesService.fetchUserEntriesByDate(newDate);
+      await this.entriesService.fetchUserEntriesByMonth(newDate);
       this.occupiedDays = this.entriesService.getOccupiedDays(newDate);
     }
 

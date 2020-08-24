@@ -11,11 +11,11 @@ import { BackendResponse } from 'src/app/shared/interfaces';
 import { EntriesService } from 'src/app/shared/services/entries.service';
 
 @Component({
-  selector: 'app-entry',
-  templateUrl: './entry.component.html',
-  styleUrls: ['./entry.component.scss'],
+  selector: 'app-entry-page',
+  templateUrl: './entry-page.component.html',
+  styleUrls: ['./entry-page.component.scss'],
 })
-export class EntryComponent implements OnInit {
+export class EntryPageComponent implements OnInit {
   @ViewChild('invisible') invBlock: ElementRef;
   @ViewChild('calendar') calendar: ElementRef;
   @ViewChild('hours') hoursInput: ElementRef;

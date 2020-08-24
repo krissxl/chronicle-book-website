@@ -1,44 +1,60 @@
 <div class="app-page">
   <div class="container">
     <div class="entries">
-      <div class="entry" *ngFor="let entry of entriesService.getEntriesByDate(selectedDate)" (click)="selectEntry(entry)">
-        <div class="date">
-          <span class="date-day">{{ entry.time | date: "dd" }}</span>
-          <span class="date-month">{{ entry.time | date: "MMMM" }},</span>
-          <span class="date-time">
-            {{ entry.time | date: "h" }}:{{
-              entry.time | date: "mm"
-            }}
-            {{ entry.time | date: "aa" }},
-          </span>
-          <span>{{ entry.time | date: "yyyy" }} </span>
-          <span class="date-week-day">{{
-            entry.time | date: "EEEE"
-          }}</span>
-        </div>
-
-        <div class="entry-title" *ngIf="entry.title">
-          {{ entry.title }}
-        </div>
-
-        <div class="text-preview">
-          {{ entry.text }}
-        </div>
-
-        <div class="tags" *ngIf="entry.tags">
-          <span class="tag" *ngFor="let tag of entry.tags"><i class="tag-icon icon-tag"></i>{{tag}}</span>
-        </div>
+      <div
+        class="entry"
+        *ngFor="let entry of entriesService.getEntriesByDate(selectedDate)"
+        (click)="selectEntry(entry)"
+      >
+        <app-entry [entry]="entry"></app-entry>
       </div>
     </div>
   </div>
   <div class="side" [class.opened]="isSideOpened" #side>
     <i class="oc-icon icon-angle-double-right" (click)="toggleSideState()"></i>
-    <app-calendar
-      class="calendar"
-      [selectedDate]="selectedDate"
-      (dateChange)="dateChange($event)"
-      [occupiedDays]="occupiedDays"
-    ></app-calendar>
+    <div class="top">
+      <div class="search-block">
+        <label for="search"></label>
+        <input
+          type="text"
+          class="input input-fullsize input-fill search-input"
+          id="search"
+          placeholder="Search by entries..."
+          (keydown.Enter)="navigateToSearch()"
+          [(ngModel)]="search"
+          autocomplete="off"
+          (focus)="setActive($event)"
+        />
+        <div class="mode-selector">
+          <div class="month-mode-block mode-block">
+            <input
+              type="radio"
+              name="mode"
+              id="month-mode"
+              [checked]="searchMode === 'month'"
+              (input)="searchMode = 'month'"
+            />
+            <label for="month-mode">Search by month</label>
+          </div>
+          <div class="year-mode-block mode-block">
+            <input
+              type="radio"
+              name="mode"
+              id="year-mode"
+              [checked]="searchMode === 'year'"
+              (input)="searchMode = 'year'"
+            />
+            <label for="year-mode">Search by year</label>
+          </div>
+        </div>
+      </div>
+      <app-calendar
+        class="calendar"
+        [selectedDate]="selectedDate"
+        (dateChange)="dateChange($event)"
+        [occupiedDays]="occupiedDays"
+      ></app-calendar>
+    </div>
     <button
       class="btn btn-blue btn-center btn-icon btn-new-entry"
       (click)="navigateToEntry()"
@@ -51,14 +67,12 @@
 
 <div class="backdrop" *ngIf="selectedEntry" (click)="closeEntry($event)">
   <div class="modal">
-      <i class="icon-times close" (click)="closeEntry($event)"></i>
-      <i class="icon-pencil edit" (click)="navigateToEditEntry()"></i>
-      <i class="icon-trash delete" (click)="deleteEntry()"></i>
+    <i class="icon-times close" (click)="closeEntry($event)"></i>
+    <i class="icon-pencil edit" (click)="navigateToEditEntry()"></i>
+    <i class="icon-trash delete" (click)="deleteEntry()"></i>
     <div class="date">
       <span class="date-day">{{ selectedEntry.time | date: "dd" }}</span>
-      <span class="date-month"
-        >{{ selectedEntry.time | date: "MMMM" }},</span
-      >
+      <span class="date-month">{{ selectedEntry.time | date: "MMMM" }},</span>
       <span class="date-time">
         {{ selectedEntry.time | date: "h" }}:{{
           selectedEntry.time | date: "mm"
@@ -66,16 +80,16 @@
         {{ selectedEntry.time | date: "aa" }},
       </span>
       <span>{{ selectedEntry.time | date: "yyyy" }} </span>
-      <span class="date-week-day">{{
-        selectedEntry.time | date: "EEEE"
-      }}</span>
+      <span class="date-week-day">{{ selectedEntry.time | date: "EEEE" }}</span>
     </div>
     <div class="title" *ngIf="selectedEntry.title">
       {{ selectedEntry.title }}
     </div>
     <div class="text">{{ selectedEntry.text }}</div>
     <div class="tags" *ngIf="selectedEntry.tags">
-      <span class="tag" *ngFor="let tag of selectedEntry.tags"><i class="tag-icon icon-tag"></i>{{tag}}</span>
+      <span class="tag" *ngFor="let tag of selectedEntry.tags"
+        ><i class="tag-icon icon-tag"></i>{{ tag }}</span
+      >
     </div>
   </div>
 </div>

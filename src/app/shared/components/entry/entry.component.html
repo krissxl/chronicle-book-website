@@ -1,0 +1,26 @@
+<div class="entry">
+  <div class="date">
+    <span class="date-day">{{ entry.time | date: "dd" }}</span>
+    <span class="date-month">{{ entry.time | date: "MMMM" }},</span>
+    <span class="date-entry.time">
+      {{ entry.time | date: "h" }}:{{ entry.time | date: "mm" }}
+      {{ entry.time | date: "aa" }},
+    </span>
+    <span>{{ entry.time | date: "yyyy" }} </span>
+    <span class="date-week-day">{{ entry.time | date: "EEEE" }}</span>
+  </div>
+
+  <div class="entry-title" *ngIf="entry.title">
+    {{ entry.title }}
+  </div>
+
+  <div class="text-preview">
+    {{ entry.text }}
+  </div>
+
+  <div class="tags" *ngIf="entry.tags">
+    <span class="tag" *ngFor="let tag of entry.tags"
+      ><i class="tag-icon icon-tag"></i>{{ tag }}</span
+    >
+  </div>
+</div>

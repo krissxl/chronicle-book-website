@@ -6,88 +6,8 @@
         padding: 60px 70px;
 
         .entries {
-            .entry {
-                background-color: $ldark;
-                padding: 20px 30px;
-                border-radius: 10px;
-                overflow: hidden;
-                max-height: 170px;
-                cursor: pointer;
-                transition: background-color 0.2s, box-shadow 0.2s;
-                box-shadow: 0 5px 4px rgba($color: #000, $alpha: 0.25);
-
-                &:hover {
-                    background-color: $l2dark;
-                    box-shadow: 0 6px 5px rgba($color: #000, $alpha: 0.3);
-                }
-
-                .date {
-                    font-size: 1.3rem;
-                    &-day {
-                        color: $dblue;
-                        font-weight: 600;
-                    }
-
-                    &-month {
-                        margin-left: 5px;
-                    }
-
-                    &-time {
-                        color: $dblue;
-                        font-weight: 600;
-                    }
-
-                    &-week-day {
-                        font-size: 0.9rem;
-                        color: $white50;
-                        margin-left: 5px;
-                    }
-                }
-
-                &-title {
-                    font-size: 1.3rem;
-                    font-weight: 600;
-                    margin: 8px 0;
-                    text-overflow: ellipsis;
-                    max-height: 1.7rem;
-                    width: 100%;
-                    overflow: hidden;
-                }
-
-                .text-preview {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    word-wrap: break-word;
-                    max-height: 2.3rem;
-                    white-space: pre-line;
-                    margin-top: 5px;
-                }
-
-                & + .entry {
-                    margin-top: 25px;
-                }
-
-                .tags {
-                    display: flex;
-                    flex-wrap: wrap;
-                    overflow: hidden;
-                    margin-top: 7px;
-                    max-height: 2rem;
-
-                    .tag {
-                        background-color: $l2dark;
-                        padding: 4px 7px;
-                        border-radius: 10px;
-                        display: flex;
-                        align-items: center;
-                        margin: 3px;
-
-                        .tag-icon {
-                            color: $white50;
-                            margin-right: 5px;
-                        }
-                    }
-                }
+            .entry + .entry {
+                margin-top: 20px;
             }
         }
     }
@@ -103,14 +23,85 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        z-index: 5;
+
+        .search-block {
+            z-index: 20;
+            position: relative;
+
+            .mode-selector {
+                display: none;
+                position: absolute;
+                width: 100%;
+                bottom: 30px;
+                transform: translateY(100%);
+
+                .mode-block {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 30;
+
+                    &:last-child {
+                        label {
+                            border-radius: 0 0 10px 10px;
+                        }
+                    }
+
+                    & + .mode-block {
+                        border-top: 1px solid $l3dark;
+                    }
+
+                    input[type="radio"] {
+                        position: absolute;
+                        left: 9999px;
+
+                        &:checked ~ label {
+                            background-color: $dblue;
+
+                            &:hover {
+                                background-color: $blue;
+                            }
+                        }
+                    }
+
+                    label {
+                        cursor: pointer;
+                        display: block;
+                        position: relative;
+                        width: 100%;
+                        padding: 8px 12px;
+                        background-color: $l2dark;
+
+                        &:hover {
+                            background-color: $l3dark;
+                        }
+                    }
+                }
+            }
+
+            &.active > .search-input {
+                border-radius: 10px 10px 0 0;
+            }
+
+            &.active > .mode-selector {
+                display: block;
+            }
+        }
 
         .oc-icon {
             display: none;
         }
 
-        .calendar {
-            margin: 0 auto;
-            margin-top: 50px;
+        .top {
+            padding: 10px;
+            .search-input {
+                margin-bottom: 30px;
+            }
+
+            .calendar {
+                margin: 0 auto;
+            }
         }
 
         .btn-new-entry {

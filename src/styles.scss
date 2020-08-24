@@ -469,6 +469,10 @@ a {
         padding: 5px 5px;
     }
 
+    &.input-fill {
+        background-color: $l3dark;
+    }
+
     &.input-fullsize {
         width: 100%;
     }

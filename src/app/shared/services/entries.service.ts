@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Entry, BackendResponse } from '../interfaces';
 import { getUserEntries } from '../api/firebase';
+import { getMonthBorders, getDateName } from '../scripts/date';
 
 @Injectable({
   providedIn: 'root',
@@ -12,14 +13,16 @@ export class EntriesService {
   constructor(private authService: AuthService) {}
 
   // Fetch entries from server if necessary
-  async fetchUserEntriesByDate(date: Date): Promise<BackendResponse> {
-    const dateName = this.getDateName(date);
-    if (this.entries[dateName]) return;
+  async fetchUserEntriesByMonth(date: Date): Promise<BackendResponse> {
+    const dateName = getDateName(date);
+    if (this.entries[dateName])
+      return {
+        error: false,
+        message: 'Entries already fetched',
+        data: { entries: this.entries[dateName] },
+      };
 
-    const monthBorders = this.getMonthBorders(
-      date.getFullYear(),
-      date.getMonth()
-    );
+    const monthBorders = getMonthBorders(date);
     const response: BackendResponse = await getUserEntries(
       this.authService.user.id,
       monthBorders.start,
@@ -33,27 +36,31 @@ export class EntriesService {
         error: false,
         message:
           'Entries successfully fetched for ' + date.getMonth() + ' month',
+        data: response.data,
       };
     } else {
       return { error: true, message: response.message };
     }
   }
 
-  getMonthBorders(year: number, month: number): { start: Date; end: Date } {
-    return {
-      start: new Date(year, month, 1),
-      end: new Date(year, month + 1, 0, 23, 59, 59, 999),
-    };
+  async fetchUserEntriesByYear(date: Date): Promise<Entry[]> {
+    let entries: Entry[] = [];
+    for (let i: number = 0; i < 12; i++) {
+      const loopDate = new Date(date.getFullYear(), i, 1)
+      const response: BackendResponse = await this.fetchUserEntriesByMonth(loopDate);
+
+      if (!response.error) {
+        entries = entries.concat(response.data.entries);
+      }
+    }
+
+    return entries;
   }
 
   // Get already fetched entries by date
   getEntriesByDate(date: Date): Entry[] {
-    const dateName = this.getDateName(date);
+    const dateName = getDateName(date);
     return this.entries[dateName];
-  }
-
-  private getDateName(date: Date): string {
-    return date.getFullYear().toString() + '-' + date.getMonth().toString();
   }
 
   getById(id: string): Entry | undefined {
@@ -69,33 +76,37 @@ export class EntriesService {
   }
 
   updateEntry(newEntry: Entry): void {
-    const dateName: string = this.getDateName(newEntry.time);
+    const dateName: string = getDateName(newEntry.time);
     const entries: Entry[] = this.entries[dateName];
     if (entries) {
-      const index: number = entries.findIndex(entry => entry.id === newEntry.id);
+      const index: number = entries.findIndex(
+        (entry) => entry.id === newEntry.id
+      );
       this.entries[dateName][index] = newEntry;
     }
   }
 
   addEntry(entry: Entry): void {
-    const dateName: string = this.getDateName(entry.time);
+    const dateName: string = getDateName(entry.time);
     const entries: Entry[] = this.entries[dateName];
     if (entries) {
       this.entries[dateName].unshift(entry);
-      this.entries[dateName].sort((a,b) => b.time.getTime() - a.time.getTime())
+      this.entries[dateName].sort(
+        (a, b) => b.time.getTime() - a.time.getTime()
+      );
     }
   }
 
   deleteEntry(date: Date, id: string): void {
-    const dateName: string = this.getDateName(date);
+    const dateName: string = getDateName(date);
     const entries: Entry[] = this.entries[dateName];
     if (entries) {
-      this.entries[dateName] = entries.filter(e => e.id !== id);
+      this.entries[dateName] = entries.filter((e) => e.id !== id);
     }
   }
 
   getOccupiedDays(date: Date): number[] {
-    const dateName = this.getDateName(date);
+    const dateName = getDateName(date);
     const entries: Entry[] = this.entries[dateName];
 
     const mappedDays: number[] = entries.map((entry) => entry.time.getDate());

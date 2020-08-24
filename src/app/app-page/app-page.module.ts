@@ -5,8 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { MainLayoutComponent } from '../shared/components/main-layout/main-layout.component';
 import { AuthGuard } from '../auth.guard';
-import { EntryComponent } from './entry/entry.component';
+import { EntryPageComponent } from './entry/entry-page.component';
 import { FormsModule } from '@angular/forms';
+import { SearchPageComponent } from './search-page/search-page.component';
 
 const routes: Routes = [
   {
@@ -20,14 +21,18 @@ const routes: Routes = [
       },
       {
         path: 'entry',
-        component: EntryComponent
+        component: EntryPageComponent
+      },
+      {
+        path: 'search',
+        component: SearchPageComponent
       }
     ],
   },
 ];
 
 @NgModule({
-  declarations: [AppPageComponent, EntryComponent],
+  declarations: [AppPageComponent, EntryPageComponent, SearchPageComponent],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule, FormsModule],
   exports: [RouterModule],
 })
