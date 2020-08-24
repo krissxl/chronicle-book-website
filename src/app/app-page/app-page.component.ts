@@ -71,14 +71,9 @@ export class AppPageComponent implements OnInit {
   }
 
   setActive(event: Event) {
-    const searchBlock: HTMLElement = (event.currentTarget as HTMLElement).parentElement;
+    const searchBlock: HTMLElement = (event.currentTarget as HTMLElement)
+      .parentElement;
     searchBlock.classList.add('active');
-  }
-
-  navigateToEditEntry(): void {
-    this.entryService.reset();
-    this.entryService.setEntry(this.selectedEntry);
-    this.router.navigate(['/app', 'entry', { id: this.selectedEntry.id }]);
   }
 
   navigateToSearch(): void {
@@ -86,7 +81,11 @@ export class AppPageComponent implements OnInit {
     this.router.navigate([
       '/app',
       'search',
-      { q: this.search, mode: this.searchMode, date: this.selectedDate.getTime() },
+      {
+        q: this.search,
+        mode: this.searchMode,
+        date: this.selectedDate.getTime(),
+      },
     ]);
   }
 
@@ -94,28 +93,15 @@ export class AppPageComponent implements OnInit {
     this.selectedEntry = entry;
   }
 
-  async deleteEntry() {
-    this.entryService.setEntry(this.selectedEntry);
-    const response = await this.entryService.deleteEntry();
-
-    if (!response.error) {
-      const date = this.entryService.entryTime;
-      const id = this.entryService.entryId;
-      this.entriesService.deleteEntry(date, id);
-
-      this.entryService.reset();
-      this.selectedEntry = undefined;
-      await this.entriesService.fetchUserEntriesByMonth(this.selectedDate);
-      this.occupiedDays = this.entriesService.getOccupiedDays(
-        this.selectedDate
-      );
-    }
-  }
-
   closeEntry(event: Event) {
     if (event.currentTarget === event.target) {
       this.selectedEntry = null;
     }
+  }
+
+  async deleteEntry() {
+    this.selectedEntry = undefined;
+    this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
   }
 
   async dateChange(newDate: Date) {

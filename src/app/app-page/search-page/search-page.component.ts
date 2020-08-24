@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../shared/services/search.service';
+import { Entry } from 'src/app/shared/interfaces';
 
 type searchMode = 'month' | 'year';
 
@@ -13,6 +14,8 @@ export class SearchPageComponent implements OnInit {
   search: string;
   mode: searchMode;
   date: Date;
+  searchInput: string;
+  selectedEntry: Entry;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +27,8 @@ export class SearchPageComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       if (params.q) {
         this.search = params.q;
+        this.searchInput = this.search;
+
         const isSearchMode = params.mode === 'month' || params.mode === 'year';
         this.mode = isSearchMode ? params.mode : 'month';
 
@@ -37,6 +42,11 @@ export class SearchPageComponent implements OnInit {
         this.router.navigate(['/app']);
       }
     });
+  }
+
+  updateSearchPage():void {
+    if (this.searchInput)
+      this.router.navigate(['/app', 'search', {q: this.searchInput, mode: this.mode, date: this.date.getTime()}])
   }
 
   async prevYear() {
@@ -57,5 +67,11 @@ export class SearchPageComponent implements OnInit {
   async nextMonth() {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
     await this.searchService.findByMonth(this.date, this.search);
+  }
+
+  closeEntry() {
+    if (event.currentTarget === event.target) {
+      this.selectedEntry = null;
+    }
   }
 }

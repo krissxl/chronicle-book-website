@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Entry } from '../../interfaces';
-import { EntriesService } from '../../services/entries.service';
 
 @Component({
   selector: 'app-calendar',

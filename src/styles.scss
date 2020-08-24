@@ -485,6 +485,14 @@ a {
         border: none;
         border-radius: 0;
     }
+    
+    &.input-dark {
+        border: 2px solid $l2dark;
+
+        &.input-fill {
+            background-color: $l2dark;
+        }
+    }
 }
 
 @media screen and (max-width: 767.98px) {

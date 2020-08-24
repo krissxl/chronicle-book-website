@@ -3,19 +3,56 @@
     <h1 class="title">Entries found by request "{{ search }}"</h1>
 
     <div class="entries" *ngIf="this.searchService.entries">
-      <div class="entry" *ngFor="let entry of this.searchService.entries">
+      <div
+        class="entry"
+        *ngFor="let entry of this.searchService.entries"
+        (click)="selectedEntry = entry"
+      >
         <app-entry [entry]="entry"></app-entry>
       </div>
     </div>
   </div>
   <div class="side">
+    <div class="search-input-block">
+      <label for="search-input"></label>
+      <input
+        type="text"
+        id="search-input"
+        class="input input-fill input-dark search-input"
+        placeholder="Write another request"
+        [(ngModel)]="searchInput"
+        (keydown.Enter)="updateSearchPage()"
+      />
+    </div>
+    <div class="mode-selector">
+      <div class="month-mode-block mode-block">
+        <input
+          type="radio"
+          name="mode"
+          id="month-mode"
+          [checked]="mode === 'month'"
+          (input)="mode = 'month'; updateSearchPage()"
+        />
+        <label for="month-mode">Search by month</label>
+      </div>
+      <div class="year-mode-block mode-block">
+        <input
+          type="radio"
+          name="mode"
+          id="year-mode"
+          [checked]="mode === 'year'"
+          (input)="mode = 'year'; updateSearchPage()"
+        />
+        <label for="year-mode">Search by year</label>
+      </div>
+    </div>
     <div class="calendar">
       <div class="year-panel" *ngIf="mode === 'year'">
         <i class="icon-chevron-right prev" (click)="prevYear()"></i>
         <div class="year">{{ date | date: "yyyy" }}</div>
         <i class="icon-chevron-right next" (click)="nextYear()"></i>
       </div>
-      <div class="month-panel">
+      <div class="month-panel" *ngIf="mode === 'month'">
         <i class="icon-chevron-right prev" (click)="prevMonth()"></i>
         <div class="month">{{ date | date: "MMMM" }}</div>
         <i class="icon-chevron-right next" (click)="nextMonth()"></i>
@@ -23,3 +60,10 @@
     </div>
   </div>
 </div>
+
+<app-entry-modal
+  *ngIf="selectedEntry"
+  [entry]="selectedEntry"
+  (onClose)="closeEntry()"
+  (onDelete)="selectedEntry = undefined"
+></app-entry-modal>

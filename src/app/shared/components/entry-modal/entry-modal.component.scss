@@ -1,0 +1,176 @@
+@import "../../../../scss/colors.scss";
+
+.entry-modal {
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($color: #000, $alpha: 0.35);
+        z-index: 100;
+
+        .modal {
+            position: absolute;
+            width: 50vw;
+            height: 80vh;
+            background-color: $ldark;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 55px 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 6px 6px rgba($color: #000, $alpha: 0.3);
+            transition: width 0.2s, height 0.2s;
+
+            .date {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+
+                &-day {
+                    color: $dblue;
+                    font-weight: 600;
+                }
+
+                &-month {
+                    margin-left: 5px;
+                }
+
+                &-time {
+                    color: $dblue;
+                    font-weight: 600;
+                }
+
+                &-week-day {
+                    font-size: 0.9rem;
+                    color: $white50;
+                    margin-left: 5px;
+                }
+            }
+
+            .title {
+                font-size: 1.3rem;
+                font-weight: 600;
+                word-wrap: break-word;
+                max-height: 7.8%;
+                padding: 3px 0;
+                overflow: auto;
+                line-height: 1.6rem;
+            }
+
+            .text {
+                margin-top: 9px;
+                overflow-y: auto;
+                white-space: pre-wrap;
+                max-height: 80%;
+                word-wrap: break-word;
+                padding: 3px 0;
+            }
+
+            .tags {
+                display: flex;
+                flex-wrap: wrap;
+                overflow: hidden;
+                margin-top: 7px;
+                max-height: 8%;
+                overflow-y: auto;
+
+                .tag {
+                    background-color: $l2dark;
+                    padding: 4px 7px;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    margin: 3px;
+                    transition: background-color 0.1s;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $l3dark;
+                    }
+
+                    .tag-icon {
+                        color: $white50;
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            .close {
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                cursor: pointer;
+                color: $white75;
+                padding: 5px;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            .edit {
+                position: absolute;
+                top: 20px;
+                left: 25px;
+                cursor: pointer;
+                color: $white75;
+                padding: 5px;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            .delete {
+                position: absolute;
+                top: 20px;
+                left: 60px;
+                cursor: pointer;
+                color: $white75;
+                padding: 5px;
+
+                &:hover {
+                    color: $red;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .entry-modal {
+        .backdrop {
+            .modal {
+                width: 75vw;
+                height: 90vh;
+                padding: 40px 20px 30px;
+
+                .close {
+                    top: 10px;
+                    right: 10px;
+                }
+
+                .edit {
+                    top: 10px;
+                    left: 17px;
+                }
+
+                .delete {
+                    top: 10px;
+                    left: 75px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .entry-modal {
+        .backdrop {
+            .modal {
+                width: 85vw;
+            }
+        }
+    }
+}

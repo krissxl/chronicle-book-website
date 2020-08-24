@@ -1,4 +1,4 @@
-@import '../../../scss/colors.scss';
+@import "../../../scss/colors.scss";
 
 .search {
     display: flex;
@@ -16,17 +16,56 @@
 
     .side {
         flex: 0 0 20%;
+        padding: 0 20px;
+
+        .search-input-block {
+            margin-top: 130px;
+        }
+
+        .mode-selector {
+            margin-top: 20px;
+            .mode-block {
+                input[type="radio"] {
+                    position: absolute;
+                    left: -9999px;
+                }
+
+                input[type="radio"]:checked ~ label {
+                    background-color: $dblue;
+
+                    &:hover {
+                        background-color: $blue;
+                    }
+                }
+
+                label {
+                    display: block;
+                    width: 100%;
+                    background-color: $ldark;
+                    padding: 8px 12px;
+                    border-radius: 10px;
+
+                    &:hover {
+                        background-color: $l2dark;
+                    }
+                }
+
+                &+.mode-block {
+                    margin-top: 6px;
+                }
+            }
+        }
 
         .calendar {
             position: relative;
-            margin-top: 50px;
+            margin-top: 25px;
 
             .year-panel {
                 text-align: center;
-                display: inline-flex;
+                display: flex;
                 justify-content: space-between;
                 width: 70%;
-                margin-bottom: 7px;
+                margin: 0 auto 7px;
 
                 .prev,
                 .next {
@@ -64,10 +103,10 @@
 
             .month-panel {
                 text-align: center;
-                display: inline-flex;
+                display: flex;
                 justify-content: space-between;
                 width: 82%;
-                margin-bottom: 7px;
+                margin: 0 auto 7px;
 
                 .prev,
                 .next {
