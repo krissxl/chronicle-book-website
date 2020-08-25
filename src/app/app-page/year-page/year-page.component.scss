@@ -1,6 +1,8 @@
 @import "../../../scss/colors.scss";
 
 .year-page {
+    overflow-x: hidden;
+    
     .container {
         padding: 50px 100px;
 
@@ -16,24 +18,23 @@
 
             .year-view {
                 .top {
-                    width: 1292px;
+                    width: 1184px;
                     display: grid;
                     grid-template-rows: 1fr;
                     grid-template-columns: repeat(12, 1fr);
                     color: $white75;
                     text-align: center;
-                    margin: 0 auto;
-                    margin-bottom: 10px;
+                    margin: 0 auto 10px;
                 }
 
                 .main {
                     display: grid;
-                    grid-template-rows: repeat(7, 20px);
-                    grid-template-columns: repeat(54, 20px);
+                    grid-template-rows: repeat(7, 18px);
+                    grid-template-columns: repeat(54, 18px);
                     column-gap: 4px;
                     row-gap: 4px;
                     grid-auto-flow: column;
-                    width: 1292px;
+                    width: 1184px;
                     margin: 0 auto;
 
                     .day-cell:not(.empty) {
@@ -118,4 +119,124 @@
             text-align: center;
         }
     }
+}
+
+@media screen and (max-width: 1400px) {
+    .year-page {
+        .container {
+            .year-block {
+                .year-view {
+                    .top {
+                        width: 920px;
+                    }
+    
+                    .main {
+                        grid-template-rows: repeat(9, 18px);
+                        grid-template-columns: repeat(42, 18px);
+                        width: 920px;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width: 1100px) {
+    .year-page {
+        .container {
+            .year-block {
+                .year-view {
+                    .top {
+                        width: 568px;
+                    }
+    
+                    .main {
+                        grid-template-rows: repeat(15, 18px);
+                        grid-template-columns: repeat(26, 18px);
+                        width: 568px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .year-page {
+        .container {
+            padding: 40px 30px;
+            .year-block {
+                .year-view {
+                    .top {
+                        width: 414px;
+                    }
+    
+                    .main {
+                        grid-template-rows: repeat(21, 18px);
+                        grid-template-columns: repeat(19, 18px);
+                        width: 414px;
+                    }
+                }
+            }
+        }
+    }   
+}
+
+@media screen and (max-width: 550px) {
+    .year-page {
+        .container {
+            .year-block {
+                .year-view {
+                    .top {
+                        width: 260px;
+                        font-size: 0.8rem;
+                        grid-template-columns: repeat(12, 18px);
+                        column-gap: 4px;
+                    }
+    
+                    .main {
+                        grid-template-rows: repeat(30, 18px);
+                        grid-template-columns: repeat(14, 18px);
+                        width: 304px;
+
+                        .day-cell:not(.empty) {
+                            .hover {
+                                width: 170px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }   
+}
+
+@media screen and (max-width: 400px) {
+    .year-page {
+        .container {
+            .year-block {
+                .year-view {
+                    .top {
+                        width: 238px;
+                        font-size: 0.6rem;
+                        grid-template-columns: repeat(12, 18px);
+                        column-gap: 2px;
+                    }
+
+                    .main {
+                        grid-template-rows: repeat(40, 18px);
+                        grid-template-columns: repeat(11, 18px);
+                        width: 234px;
+
+                        .day-cell:not(.empty) {
+                            .hover {
+                                width: 130px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }   
 }
