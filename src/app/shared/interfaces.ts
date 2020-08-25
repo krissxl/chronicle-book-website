@@ -9,9 +9,10 @@ export interface Entry {
 }
 
 export interface User {
-  id: string | null,
-  name: string | null,
-  email: string | null
+  id: string,
+  name: string,
+  email: string,
+  entriesCount: {[key: string]: number}
 }
 
 export interface BackendResponse {

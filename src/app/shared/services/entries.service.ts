@@ -43,15 +43,35 @@ export class EntriesService {
     }
   }
 
-  async fetchUserEntriesByYear(date: Date): Promise<Entry[]> {
+  async fetchUserEntriesByYear(date: Date): Promise<Entry[]> | null {
+    // Check if entries already fetched
     let entries: Entry[] = [];
-    for (let i: number = 0; i < 12; i++) {
-      const loopDate = new Date(date.getFullYear(), i, 1)
-      const response: BackendResponse = await this.fetchUserEntriesByMonth(loopDate);
+    for (let i = 0; i < 12; i++) {
+      const foundEntries = this.getEntriesByDate(new Date(date.getFullYear(), i));
+      if (foundEntries === undefined) break;
+      else entries = entries.concat(foundEntries);
 
-      if (!response.error) {
-        entries = entries.concat(response.data.entries);
-      }
+      if (i === 11) return entries
+    }
+
+    const response: BackendResponse = await getUserEntries(
+      this.authService.user.id,
+      new Date(date.getFullYear(), 0, 1),
+      new Date(date.getFullYear(), 12, 0, 23, 59, 59, 999)
+    );
+
+    if (response.error) return null;
+    entries = response.data.entries
+    // Add entries to Entries Service
+    for (let i = 0; i < 12; i++) {
+      const loopDate = new Date(date.getFullYear(), i);
+      const dateName = getDateName(loopDate);
+      const borders = getMonthBorders(loopDate);
+
+      this.entries[dateName] = entries.filter(
+        (entry: Entry) =>
+          entry.time >= borders.start && entry.time <= borders.end
+      );
     }
 
     return entries;

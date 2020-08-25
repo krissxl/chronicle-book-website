@@ -8,6 +8,7 @@ import { AuthGuard } from '../auth.guard';
 import { EntryPageComponent } from './entry/entry-page.component';
 import { FormsModule } from '@angular/forms';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { YearPageComponent } from './year-page/year-page.component';
 
 const routes: Routes = [
   {
@@ -26,13 +27,17 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchPageComponent
+      },
+      {
+        path: 'year',
+        component: YearPageComponent
       }
     ],
   },
 ];
 
 @NgModule({
-  declarations: [AppPageComponent, EntryPageComponent, SearchPageComponent],
+  declarations: [AppPageComponent, EntryPageComponent, SearchPageComponent, YearPageComponent],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule, FormsModule],
   exports: [RouterModule],
 })

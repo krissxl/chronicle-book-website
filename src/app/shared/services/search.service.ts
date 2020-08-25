@@ -17,8 +17,8 @@ export class SearchService {
     if (entries) {
       entries = entries.filter(
         (entry: Entry) =>
-          entry.text.toLowerCase().includes(text) ||
-          entry.title.toLowerCase().includes(text)
+          entry.text.toLowerCase().includes(text.toLowerCase()) ||
+          entry.title.toLowerCase().includes(text.toLowerCase())
       );
       this.entries = entries;
     } else {
@@ -29,8 +29,8 @@ export class SearchService {
       if (!response.error) {
         entries = response.data.entries.filter(
           (entry: Entry) =>
-            entry.text.toLowerCase().includes(text) ||
-            entry.title.toLowerCase().includes(text)
+            entry.text.toLowerCase().includes(text.toLowerCase()) ||
+            entry.title.toLowerCase().includes(text.toLowerCase())
         );
         this.entries = entries;
       }
@@ -39,10 +39,13 @@ export class SearchService {
 
   async findByYear(date: Date, text: string): Promise<void> {
     const entries = await this.entriesService.fetchUserEntriesByYear(date);
+
+    if (entries === null) return;
+    
     this.entries = entries.filter(
       (entry: Entry) =>
-        entry.text.toLowerCase().includes(text) ||
-        entry.title.toLowerCase().includes(text)
+        entry.text.toLowerCase().includes(text.toLowerCase()) ||
+        entry.title.toLowerCase().includes(text.toLowerCase())
     );
     this.entries.sort((a, b) => b.time.getTime() - a.time.getTime());
   }
