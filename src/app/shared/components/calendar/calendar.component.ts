@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AuthService } from '../../auth.service';
+import { getFullDateName } from '../../scripts/date';
 
 @Component({
   selector: 'app-calendar',
@@ -8,12 +10,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class CalendarComponent implements OnInit {
   @Input() selectedDate: Date;
   @Input() occupiedDays: number[];
+  @Input() showOccupiedDays: boolean = true;
   days: number[];
   startWeekDay: number;
 
   @Output('dateChange') dateChange = new EventEmitter<Date>();
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   getMonthInfo(year?: number, month?: number): void {
     let time: Date;
@@ -37,6 +40,13 @@ export class CalendarComponent implements OnInit {
 
     this.startWeekDay = startWeekDay;
     this.fillDaysArray(time.getDate());
+  }
+
+  checkDayOccupied(day: number): boolean {
+    const date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), day);
+    const dateName = getFullDateName(date);
+
+    return !!this.authService.user.entriesCount[dateName]
   }
 
   fillDaysArray(num: number): void {

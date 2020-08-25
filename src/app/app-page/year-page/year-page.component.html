@@ -30,7 +30,10 @@
             (click)="onDayClick($event, i)"
           >
             <div class="hover" *ngIf="num >= 0">
-              <b>{{ num ? num : "No" }} {{num === 1 ? "entry" : "entries"}}</b> on {{getDayDate(i) | date}}
+              <b
+                >{{ num ? num : "No" }} {{ num === 1 ? "entry" : "entries" }}</b
+              >
+              on {{ getDayDate(i) | date }}
             </div>
           </div>
         </div>
@@ -38,11 +41,29 @@
     </div>
 
     <div class="entries" *ngIf="selectedDate">
-        <div class="entry" *ngFor="let entry of entriesOnSelected">
-            <app-entry [entry]="entry"></app-entry>
-        </div>
-        <div class="no-entries-on-selected" *ngIf="entriesOnSelected.length === 0">No entries found on this day</div>
+      <div
+        class="entry"
+        *ngFor="let entry of entriesOnSelected"
+        (click)="selectedEntry = entry"
+      >
+        <app-entry [entry]="entry"></app-entry>
+      </div>
+      <div
+        class="no-entries-on-selected"
+        *ngIf="entriesOnSelected.length === 0"
+      >
+        No entries found on this day
+      </div>
     </div>
-    <div class="not-select" *ngIf="!selectedDate">Select day from cells grid over this text</div>
+    <div class="not-select" *ngIf="!selectedDate">
+      Select day from grid cells over this text
+    </div>
   </div>
 </div>
+
+<app-entry-modal
+  *ngIf="selectedEntry"
+  [entry]="selectedEntry"
+  (onClose)="closeEntry()"
+  (onDelete)="selectedEntry = undefined"
+></app-entry-modal>

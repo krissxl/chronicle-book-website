@@ -7,6 +7,7 @@ import {
 } from './api/firebase.js';
 import { User, BackendResponse } from './interfaces.js';
 import * as firebase from 'firebase/app';
+import { getFullDateName } from './scripts/date.js';
 
 @Injectable({
   providedIn: 'root',
@@ -78,5 +79,17 @@ export class AuthService {
     } else {
       return { error: false, message: response.message };
     }
+  }
+
+  addEntriesCount(date: Date): void {
+    const dateName = getFullDateName(date);
+    const count = this.user.entriesCount[dateName]; 
+    this.user.entriesCount[dateName] = count ? count + 1 : 1; 
+  }
+
+  subEntriesCount(date: Date): void {
+    const dateName = getFullDateName(date);
+    const count = this.user.entriesCount[dateName]; 
+    this.user.entriesCount[dateName] = count ? count - 1 : 0; 
   }
 }

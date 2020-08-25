@@ -110,6 +110,7 @@ export class EntriesService {
     const dateName: string = getDateName(entry.time);
     const entries: Entry[] = this.entries[dateName];
     if (entries) {
+      this.authService.addEntriesCount(entry.time)
       this.entries[dateName].unshift(entry);
       this.entries[dateName].sort(
         (a, b) => b.time.getTime() - a.time.getTime()
@@ -117,10 +118,11 @@ export class EntriesService {
     }
   }
 
-  deleteEntry(date: Date, id: string): void {
-    const dateName: string = getDateName(date);
+  deleteEntry(entryTime: Date, id: string): void {
+    const dateName: string = getDateName(entryTime);
     const entries: Entry[] = this.entries[dateName];
     if (entries) {
+      this.authService.subEntriesCount(entryTime);
       this.entries[dateName] = entries.filter((e) => e.id !== id);
     }
   }

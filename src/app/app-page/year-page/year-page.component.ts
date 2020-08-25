@@ -16,6 +16,7 @@ export class YearPageComponent implements OnInit {
   maxInDay: number = 0;
   entriesOnSelected: Entry[] = [];
   startOfYear: number;
+  selectedEntry: Entry;
 
   constructor(
     public entriesService: EntriesService,
@@ -101,5 +102,11 @@ export class YearPageComponent implements OnInit {
         entry.time.getTime() >= startOfDay.getTime() &&
         entry.time.getTime() <= endOfDay.getTime()
     );
+  }
+
+  closeEntry() {
+    if (event.currentTarget === event.target) {
+      this.selectedEntry = null;
+    }
   }
 }
