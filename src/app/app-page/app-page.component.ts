@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { EntriesService } from '../shared/services/entries.service';
 import { EntryService } from '../shared/services/entry.service';
 import { Entry } from '../shared/interfaces';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-app-page',
@@ -24,6 +25,7 @@ export class AppPageComponent implements OnInit {
   search: string;
   searchMode: string = 'month';
   isLoading: boolean = true;
+  errorMessage: Subject<string> = new Subject();
 
   @HostListener('document:click', ['$event'])
   clickObserver(event: Event) {
@@ -48,7 +50,10 @@ export class AppPageComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.entriesService.fetchUserEntriesByMonth(this.selectedDate);
+    const response = await this.entriesService.fetchUserEntriesByMonth(
+      this.selectedDate
+    );
+    if (response.error) this.errorMessage.next(response.message);
     this.isLoading = false;
   }
 
@@ -99,7 +104,7 @@ export class AppPageComponent implements OnInit {
     }
   }
 
-  async deleteEntry() {
+  deleteEntry() {
     this.selectedEntry = undefined;
   }
 
@@ -109,7 +114,10 @@ export class AppPageComponent implements OnInit {
       this.selectedDate.getMonth() !== newDate.getMonth()
     ) {
       this.isLoading = true;
-      await this.entriesService.fetchUserEntriesByMonth(newDate);
+      const response = await this.entriesService.fetchUserEntriesByMonth(
+        newDate
+      );
+      if (response.error) this.errorMessage.next(response.message);
       this.isLoading = false;
     }
 

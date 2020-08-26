@@ -57,7 +57,7 @@ export class EntriesService {
     const response: BackendResponse = await getUserEntries(
       this.authService.user.id,
       new Date(date.getFullYear(), 0, 1),
-      new Date(date.getFullYear(), 12, 0, 23, 59, 59, 999)
+      new Date(date.getFullYear(), 11, 0, 23, 59, 59, 999)
     );
 
     if (response.error) return null;

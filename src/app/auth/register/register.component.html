@@ -2,7 +2,7 @@
   <div class="sign-up">
     <div class="content">
       <div class="title">Create new account</div>
-      <div class="be-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <app-error-message [obs]="errorMessage"></app-error-message>
       <form [formGroup]="registerForm">
         <div class="username-block">
           <input

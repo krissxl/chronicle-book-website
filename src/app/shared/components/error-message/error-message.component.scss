@@ -1,0 +1,16 @@
+@import '../../../../scss/colors.scss';
+
+.error {
+    width: 100%;
+    padding: 8px 15px;
+    border-left: 6px solid $red;
+    border-right: 6px solid $red;
+    background-color: $l2dark;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
+
+    &.no-margin {
+        margin: 0;
+    }
+}

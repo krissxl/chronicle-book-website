@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription, interval } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth.service';
 import { BackendResponse } from 'src/app/shared/interfaces';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +16,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  errorMessage: String = '';
+  errorMessage: Subject<string> = new Subject();
   waiting: Boolean = false;
-  errorTimer: Subscription;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -39,24 +37,12 @@ export class LoginComponent implements OnInit {
     );
 
     if (response.error) {
-      this.errorMessage = response.message;
-
-      this.startErrorTimer();
+      this.errorMessage.next(response.message);
     } else {
       this.router.navigate(['/app']);
     }
 
     this.waiting = false;
-  }
-
-  startErrorTimer() {
-    if (this.errorTimer) {
-      this.errorTimer.unsubscribe();
-    }
-
-    this.errorTimer = interval(4000)
-      .pipe(take(1))
-      .subscribe(() => (this.errorMessage = ''));
   }
 
   redirectToSignUp() {

@@ -33,6 +33,8 @@ export class SearchService {
             entry.title.toLowerCase().includes(text.toLowerCase())
         );
         this.entries = entries;
+      } else {
+        console.error(response.message);
       }
     }
   }

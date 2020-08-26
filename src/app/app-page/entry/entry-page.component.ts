@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EntryService } from 'src/app/shared/services/entry.service';
 import { BackendResponse } from 'src/app/shared/interfaces';
 import { EntriesService } from 'src/app/shared/services/entries.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-entry-page',
@@ -27,6 +28,7 @@ export class EntryPageComponent implements OnInit {
   isTimeSelectorOpened: boolean = false;
   tagInput: string;
   isLoading: boolean = true;
+  error: Subject<string> = new Subject();
 
   @HostListener('document:click', ['$event']) docClick(event: Event): void {
     const path = event.composedPath();
@@ -63,8 +65,8 @@ export class EntryPageComponent implements OnInit {
         await this.fetchEntry(params.id);
       } else if (params.time) {
         this.entryService.setNewDate(new Date(+params.time));
+        this.isLoading = false;
       }
-      this.isLoading = false;
     });
   }
 
@@ -81,7 +83,6 @@ export class EntryPageComponent implements OnInit {
   async fetchEntry(id: string): Promise<void> {
     this.isLoading = true;
     const response: BackendResponse = await this.entryService.fetchEntry(id);
-    this.isLoading = false;
 
     if (!response.error) {
       const inv = document.querySelector('.invisible-write') as HTMLElement;
@@ -90,8 +91,10 @@ export class EntryPageComponent implements OnInit {
       inv.innerText = this.entryService.entryText;
 
       textarea.style.height = inv.scrollHeight + 25 + 'px';
+      this.isLoading = false;
     } else {
-      this.router.navigate(['/app']);
+      this.error.next(response.message);
+      setTimeout(() => this.router.navigate(['/app']), 2250);
     }
   }
 
@@ -105,10 +108,17 @@ export class EntryPageComponent implements OnInit {
 
       this.entryService.reset();
       this.router.navigate(['/app']);
+    } else {
+      this.error.next(response.message);
     }
   }
 
   async create(): Promise<void> {
+    if (!this.entryService.entryText) {
+      this.error.next('In entry text must be at least one character');
+      return;
+    }
+
     this.isLoading = true;
     const response: BackendResponse = await this.entryService.createNewEntry();
     this.isLoading = false;
@@ -118,6 +128,8 @@ export class EntryPageComponent implements OnInit {
 
       this.entryService.reset();
       this.router.navigate(['/app']);
+    } else {
+      this.error.next(response.message);
     }
   }
 
@@ -138,6 +150,8 @@ export class EntryPageComponent implements OnInit {
 
       this.entryService.reset();
       this.router.navigate(['/app']);
+    } else {
+      this.error.next(response.message);
     }
   }
 

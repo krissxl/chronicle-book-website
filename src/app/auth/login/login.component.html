@@ -9,7 +9,7 @@
   </div>
   <div class="sign-in">
     <div class="content">
-      <div class="be-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <app-error-message [obs]="this.errorMessage"></app-error-message>
       <div class="title">Sign in</div>
       <form [formGroup]="loginForm">
         <div class="email-block">

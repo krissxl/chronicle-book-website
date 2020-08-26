@@ -1,6 +1,7 @@
 <div class="entry">
   <div class="container">
     <div class="top">
+      <app-error-message [obs]="error" [timeout]="3000"></app-error-message>
       <div class="date" *ngIf="!isLoading">
         <div class="calendar">
           <div class="line-1" (click)="isCalendarOpened = !isCalendarOpened">

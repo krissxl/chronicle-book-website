@@ -52,7 +52,6 @@
       </div>
       <app-calendar
         class="calendar"
-        [selectedDate]="selectedDate"
         (dateChange)="dateChange($event)"
       ></app-calendar>
     </div>
@@ -64,6 +63,14 @@
       New entry
     </button>
   </div>
+</div>
+
+<div class="error">
+  <app-error-message
+    [obs]="errorMessage"
+    [timeout]="3000"
+    [noMargin]="true"
+  ></app-error-message>
 </div>
 
 <app-entry-modal

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/auth.service';
 import { BackendResponse } from 'src/app/shared/interfaces';
-import { interval, Observable, Subscription } from 'rxjs';
+import { interval, Observable, Subscription, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -25,9 +25,8 @@ export class RegisterComponent implements OnInit {
     again: new FormControl('', [Validators.required]),
   });
 
-  errorMessage: String = '';
-  waiting: Boolean = false;
-  errorTimer: Subscription;
+  errorMessage: Subject<string> = new Subject();
+  waiting: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -50,29 +49,15 @@ export class RegisterComponent implements OnInit {
         username
       );
       if (response.error) {
-        this.errorMessage = response.message;
-
-        this.startErrorTimer();
+        this.errorMessage.next(response.message);
       } else {
         this.router.navigate(['/app']);
       }
     } else {
-      this.errorMessage = "Passwords aren't match";
-
-      this.startErrorTimer();
+      this.errorMessage.next("Passwords aren't match");
     }
 
     this.waiting = false;
-  }
-
-  startErrorTimer() {
-    if (this.errorTimer) {
-      this.errorTimer.unsubscribe();
-    }
-
-    this.errorTimer = interval(4000)
-      .pipe(take(1))
-      .subscribe(() => (this.errorMessage = ''));
   }
 
   redirectToSignIn() {

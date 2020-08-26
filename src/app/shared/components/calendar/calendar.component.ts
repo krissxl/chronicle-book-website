@@ -42,10 +42,14 @@ export class CalendarComponent implements OnInit {
   }
 
   checkDayOccupied(day: number): boolean {
-    const date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), day);
+    const date = new Date(
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth(),
+      day
+    );
     const dateName = getFullDateName(date);
 
-    return !!this.authService.user.entriesCount[dateName]
+    return !!this.authService?.user?.entriesCount?.[dateName];
   }
 
   fillDaysArray(num: number): void {

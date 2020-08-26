@@ -172,9 +172,9 @@ export async function getEntryById(uid, entryId) {
     const entry = await db.collection("entries").doc(entryId).get();
     let entryData = entry.data();
 
+    if (!entry.exists) throw new Error("Entry with that ID isn't exists");
     if (entryData.user_id !== uid)
       throw new Error("You are don't have access to entry with this ID");
-    if (!entry.exists) throw new Error("Entry with that ID isn't exists");
 
     entryData.id = entry.id;
     entryData = formatEntry(entryData);

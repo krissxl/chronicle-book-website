@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../shared/services/search.service';
 import { Entry } from 'src/app/shared/interfaces';
+import { Subject } from 'rxjs';
 
 type searchMode = 'month' | 'year';
 
