@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   {
@@ -8,17 +9,21 @@ const routes: Routes = [
     component: AppComponent,
     children: [
       {
+        path: '',
+        component: LandingPageComponent,
+      },
+      {
         path: 'app',
         loadChildren: () =>
           import('./app-page/app-page.module').then((m) => m.AppPageModule),
       },
       {
         path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+        loadChildren: () =>
+          import('./auth/auth.module').then((m) => m.AuthModule),
       },
-    ]
+    ],
   },
- 
 ];
 
 @NgModule({
