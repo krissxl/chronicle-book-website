@@ -9,7 +9,6 @@ import { getFullDateName } from '../../scripts/date';
 })
 export class CalendarComponent implements OnInit {
   @Input() selectedDate: Date;
-  @Input() occupiedDays: number[];
   @Input() showOccupiedDays: boolean = true;
   days: number[];
   startWeekDay: number;

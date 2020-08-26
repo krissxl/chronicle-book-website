@@ -23,10 +23,10 @@ export class EntryPageComponent implements OnInit {
   @ViewChild('am') amRadio: ElementRef;
   @ViewChild('pm') pmRadio: ElementRef;
 
-  loading: boolean = false;
   isCalendarOpened: boolean = false;
   isTimeSelectorOpened: boolean = false;
   tagInput: string;
+  isLoading: boolean = true;
 
   @HostListener('document:click', ['$event']) docClick(event: Event): void {
     const path = event.composedPath();
@@ -58,15 +58,13 @@ export class EntryPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe(async (params) => {
       if (params.id) {
-        this.fetchEntry(params.id);
-        return;
-      }
-      if (params.time) {
+        await this.fetchEntry(params.id);
+      } else if (params.time) {
         this.entryService.setNewDate(new Date(+params.time));
-        return;
       }
+      this.isLoading = false;
     });
   }
 
@@ -81,9 +79,9 @@ export class EntryPageComponent implements OnInit {
   }
 
   async fetchEntry(id: string): Promise<void> {
-    this.loading = true;
+    this.isLoading = true;
     const response: BackendResponse = await this.entryService.fetchEntry(id);
-    this.loading = false;
+    this.isLoading = false;
 
     if (!response.error) {
       const inv = document.querySelector('.invisible-write') as HTMLElement;
@@ -98,7 +96,9 @@ export class EntryPageComponent implements OnInit {
   }
 
   async update(): Promise<void> {
+    this.isLoading = true;
     const response: BackendResponse = await this.entryService.updateEntry();
+    this.isLoading = false;
 
     if (!response.error) {
       this.entriesService.updateEntry(response.data.entry);
@@ -109,7 +109,9 @@ export class EntryPageComponent implements OnInit {
   }
 
   async create(): Promise<void> {
+    this.isLoading = true;
     const response: BackendResponse = await this.entryService.createNewEntry();
+    this.isLoading = false;
 
     if (!response.error) {
       this.entriesService.addEntry(response.data.entry);
@@ -125,7 +127,9 @@ export class EntryPageComponent implements OnInit {
   }
 
   async deleteEntry(): Promise<void> {
+    this.isLoading = true;
     const response: BackendResponse = await this.entryService.deleteEntry();
+    this.isLoading = false;
 
     if (!response.error) {
       const date = this.entryService.entryTime;

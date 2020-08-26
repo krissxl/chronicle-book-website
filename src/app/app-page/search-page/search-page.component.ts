@@ -16,6 +16,7 @@ export class SearchPageComponent implements OnInit {
   date: Date;
   searchInput: string;
   selectedEntry: Entry;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(async (params) => {
       if (params.q) {
+        this.isLoading = true;
         this.search = params.q;
         this.searchInput = this.search;
 
@@ -38,6 +40,7 @@ export class SearchPageComponent implements OnInit {
         } else if (this.mode === 'year') {
           await this.searchService.findByYear(this.date, this.search);
         }
+        this.isLoading = false;
       } else {
         this.router.navigate(['/app']);
       }
@@ -50,23 +53,31 @@ export class SearchPageComponent implements OnInit {
   }
 
   async prevYear() {
+    this.isLoading = true;
     this.date = new Date(this.date.getFullYear() - 1, this.date.getMonth(), 1);
     await this.searchService.findByYear(this.date, this.search);
+    this.isLoading = false;
   }
 
   async nextYear() {
+    this.isLoading = true;
     this.date = new Date(this.date.getFullYear() + 1, this.date.getMonth(), 1);
     await this.searchService.findByYear(this.date, this.search);
+    this.isLoading = false;
   }
 
   async prevMonth() {
+    this.isLoading = true;
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1);
     await this.searchService.findByMonth(this.date, this.search);
+    this.isLoading = false;
   }
 
   async nextMonth() {
+    this.isLoading = true;
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
     await this.searchService.findByMonth(this.date, this.search);
+    this.isLoading = false;
   }
 
   closeEntry() {

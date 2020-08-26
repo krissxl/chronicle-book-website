@@ -6,6 +6,7 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { EntryComponent } from './components/entry/entry.component';
 import { EntryModalComponent } from './components/entry-modal/entry-modal.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { EntryModalComponent } from './components/entry-modal/entry-modal.compon
     CalendarComponent,
     EntryComponent,
     EntryModalComponent,
+    LoaderComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -23,6 +25,7 @@ import { EntryModalComponent } from './components/entry-modal/entry-modal.compon
     CalendarComponent,
     EntryComponent,
     EntryModalComponent,
+    LoaderComponent
   ],
 })
 export class SharedModule {}

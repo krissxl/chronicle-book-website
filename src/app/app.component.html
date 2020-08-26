@@ -1,6 +1,14 @@
 <div *ngIf="!loading">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
-<div *ngIf="loading">
-    LOADING
+<div
+  *ngIf="loading"
+  style="
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <app-loader></app-loader>
 </div>

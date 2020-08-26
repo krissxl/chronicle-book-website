@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="title">Entries found by request "{{ search }}"</h1>
 
-    <div class="entries" *ngIf="this.searchService.entries">
+    <div class="entries" *ngIf="this.searchService.entries && !isLoading">
       <div
         class="entry"
         *ngFor="let entry of this.searchService.entries"
@@ -11,6 +11,7 @@
         <app-entry [entry]="entry"></app-entry>
       </div>
     </div>
+    <app-loader *ngIf="isLoading"></app-loader>
   </div>
   <div class="side">
     <div class="search-input-block">

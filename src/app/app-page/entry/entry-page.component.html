@@ -1,7 +1,7 @@
 <div class="entry">
   <div class="container">
     <div class="top">
-      <div class="date">
+      <div class="date" *ngIf="!isLoading">
         <div class="calendar">
           <div class="line-1" (click)="isCalendarOpened = !isCalendarOpened">
             <span class="date-day">{{
@@ -94,8 +94,9 @@
           }}</span>
         </div>
       </div>
+      <app-loader *ngIf="isLoading"></app-loader>
     </div>
-    <div class="bottom">
+    <div class="bottom" [style.visibility]="isLoading ? 'hidden' : 'visible'">
       <div class="text">
         <div class="title-block">
           <input
@@ -155,17 +156,17 @@
 <button
   class="action action-ready"
   (click)="entryService.entryId ? update() : create()"
-  [disabled]="loading"
+  [disabled]="isLoading"
 >
   <i class="icon-check icn"></i>
 </button>
-<button class="action action-cancel" (click)="cancel()" [disabled]="loading">
+<button class="action action-cancel" (click)="cancel()" [disabled]="isLoading">
   <i class="icon-times icn"></i>
 </button>
 <button
   class="action action-delete"
   (click)="entryService.entryId ? deleteEntry() : cancel()"
-  [disabled]="loading"
+  [disabled]="isLoading"
 >
   <i class="icon-trash icn"></i>
 </button>

@@ -1,6 +1,6 @@
 <div class="app-page">
   <div class="container">
-    <div class="entries">
+    <div class="entries" *ngIf="!isLoading">
       <div
         class="entry"
         *ngFor="let entry of entriesService.getEntriesByDate(selectedDate)"
@@ -9,6 +9,8 @@
         <app-entry [entry]="entry"></app-entry>
       </div>
     </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
   </div>
   <div class="side" [class.opened]="isSideOpened" #side>
     <i class="oc-icon icon-angle-double-right" (click)="toggleSideState()"></i>
@@ -52,7 +54,6 @@
         class="calendar"
         [selectedDate]="selectedDate"
         (dateChange)="dateChange($event)"
-        [occupiedDays]="occupiedDays"
       ></app-calendar>
     </div>
     <button

@@ -20,10 +20,10 @@ export class AppPageComponent implements OnInit {
 
   selectedDate: Date;
   selectedEntry: Entry;
-  occupiedDays: number[];
   isSideOpened: boolean = false;
   search: string;
   searchMode: string = 'month';
+  isLoading: boolean = true;
 
   @HostListener('document:click', ['$event'])
   clickObserver(event: Event) {
@@ -49,7 +49,7 @@ export class AppPageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.entriesService.fetchUserEntriesByMonth(this.selectedDate);
-    this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
+    this.isLoading = false;
   }
 
   toggleSideState() {
@@ -101,7 +101,6 @@ export class AppPageComponent implements OnInit {
 
   async deleteEntry() {
     this.selectedEntry = undefined;
-    this.occupiedDays = this.entriesService.getOccupiedDays(this.selectedDate);
   }
 
   async dateChange(newDate: Date) {
@@ -109,8 +108,9 @@ export class AppPageComponent implements OnInit {
       this.selectedDate.getFullYear() !== newDate.getFullYear() ||
       this.selectedDate.getMonth() !== newDate.getMonth()
     ) {
+      this.isLoading = true;
       await this.entriesService.fetchUserEntriesByMonth(newDate);
-      this.occupiedDays = this.entriesService.getOccupiedDays(newDate);
+      this.isLoading = false;
     }
 
     this.selectedDate = newDate;

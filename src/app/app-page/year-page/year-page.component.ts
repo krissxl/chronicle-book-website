@@ -17,6 +17,7 @@ export class YearPageComponent implements OnInit {
   entriesOnSelected: Entry[] = [];
   startOfYear: number;
   selectedEntry: Entry;
+  isLoading: boolean = false;
 
   constructor(
     public entriesService: EntriesService,
@@ -88,7 +89,9 @@ export class YearPageComponent implements OnInit {
     let entries = this.entriesService.getEntriesByDate(this.selectedDate);
 
     if (!entries) {
+      this.isLoading = true;
       await this.entriesService.fetchUserEntriesByMonth(this.selectedDate);
+      this.isLoading = false;
       entries = this.entriesService.getEntriesByDate(this.selectedDate);
 
       if (!entries) this.entriesOnSelected = null;

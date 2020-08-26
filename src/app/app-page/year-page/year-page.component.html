@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="entries" *ngIf="selectedDate">
+    <div class="entries" *ngIf="selectedDate && !isLoading">
       <div
         class="entry"
         *ngFor="let entry of entriesOnSelected"
@@ -55,6 +55,7 @@
         No entries found on this day
       </div>
     </div>
+    <app-loader *ngIf="isLoading"></app-loader>
     <div class="not-select" *ngIf="!selectedDate">
       Select day from grid cells over this text
     </div>
