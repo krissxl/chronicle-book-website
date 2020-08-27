@@ -6,7 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import {NoAuthGuard} from '../no-auth.guard';
+import { NoAuthGuard } from '../no-auth.guard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
@@ -22,12 +23,21 @@ const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
       },
+      {
+        path: 'forgot',
+        component: ForgotPasswordComponent,
+      },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AuthComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

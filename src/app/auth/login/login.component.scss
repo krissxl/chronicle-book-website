@@ -96,6 +96,17 @@
                 font-size: 1.1rem;
                 border-radius: 0 0 10px 10px;
             }
+            .forgot {
+                margin-top: 15px;
+
+                a {
+                    color: $blue;
+
+                    &:hover {
+                        color: $lblue;
+                    }
+                }
+            }
         }
     }
 }
@@ -104,7 +115,7 @@
     .login {
         height: 85vh;
         width: 70vw;
-    }    
+    }
 }
 
 @media screen and (max-width: 575.98px) {
@@ -120,5 +131,5 @@
         .sign-up {
             flex: 0 0 35%;
         }
-    }   
+    }
 }

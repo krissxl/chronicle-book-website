@@ -4,6 +4,7 @@ import {
   signIn,
   signOut,
   getUserEntriesCount,
+  sendReset,
 } from './api/firebase.js';
 import { User, BackendResponse } from './interfaces.js';
 import * as firebase from 'firebase/app';
@@ -52,44 +53,36 @@ export class AuthService {
       username
     );
 
-    if (response.error) {
-      return { error: true, message: response.message };
-    } else {
-      this.user.name = response.data.user.displayName;
-
-      return { error: false, message: response.message };
-    }
+    if (!response.error) this.user.name = response.data.user.displayName;
+    return { error: false, message: response.message };
   }
 
   async signIn(email: String, password: String): Promise<BackendResponse> {
     const response: BackendResponse = await signIn(email, password);
 
-    if (response.error) {
-      return { error: true, message: response.message };
-    } else {
-      return { error: false, message: response.message };
-    }
+    return { error: false, message: response.message };
   }
 
   async signOut(): Promise<BackendResponse> {
     const response: BackendResponse = await signOut();
 
-    if (response.error) {
-      return { error: true, message: response.message };
-    } else {
-      return { error: false, message: response.message };
-    }
+    return { error: false, message: response.message };
+  }
+
+  async sendResetEmail(email: string) {
+    const response: BackendResponse = await sendReset(email);
+    return response;
   }
 
   addEntriesCount(date: Date): void {
     const dateName = getFullDateName(date);
-    const count = this.user.entriesCount[dateName]; 
-    this.user.entriesCount[dateName] = count ? count + 1 : 1; 
+    const count = this.user.entriesCount[dateName];
+    this.user.entriesCount[dateName] = count ? count + 1 : 1;
   }
 
   subEntriesCount(date: Date): void {
     const dateName = getFullDateName(date);
-    const count = this.user.entriesCount[dateName]; 
-    this.user.entriesCount[dateName] = count ? count - 1 : 0; 
+    const count = this.user.entriesCount[dateName];
+    this.user.entriesCount[dateName] = count ? count - 1 : 0;
   }
 }

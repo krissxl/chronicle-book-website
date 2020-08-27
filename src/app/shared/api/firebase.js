@@ -28,6 +28,8 @@ export async function signUpNewUser(email, password, username) {
       displayName: username,
     });
 
+    await user.sendEmailVerification();
+
     db.collection('users').doc(user.uid).set({
       name: username,
       entriesNumber: {}
@@ -40,6 +42,18 @@ export async function signUpNewUser(email, password, username) {
     };
   } catch (e) {
     return { error: true, message: e.message, code: e.code };
+  }
+}
+
+export async function sendReset(email) {
+  const auth = firebase.auth();
+
+  try {
+    await auth.sendPasswordResetEmail(email);
+
+    return { error: false, message: "Password reset email sent" }
+  } catch (error) {
+    return { error: true, message: error.message, code: error.code };
   }
 }
 
