@@ -17,123 +17,122 @@
     .side {
         flex: 0 0 20%;
         padding: 0 20px;
-
-        .search-input-block {
+        .side-container {
             margin-top: 130px;
-        }
 
-        .mode-selector {
-            margin-top: 20px;
-            .mode-block {
-                input[type="radio"] {
-                    position: absolute;
-                    left: -9999px;
-                }
-
-                input[type="radio"]:checked ~ label {
-                    background-color: $dblue;
-
-                    &:hover {
-                        background-color: $blue;
+            .mode-selector {
+                margin-top: 20px;
+                .mode-block {
+                    input[type="radio"] {
+                        position: absolute;
+                        left: -9999px;
                     }
-                }
 
-                label {
-                    display: block;
-                    width: 100%;
-                    background-color: $ldark;
-                    padding: 8px 12px;
-                    border-radius: 10px;
+                    input[type="radio"]:checked ~ label {
+                        background-color: $dblue;
 
-                    &:hover {
-                        background-color: $l2dark;
+                        &:hover {
+                            background-color: $blue;
+                        }
                     }
-                }
 
-                & + .mode-block {
-                    margin-top: 6px;
-                }
-            }
-        }
+                    label {
+                        display: block;
+                        width: 100%;
+                        background-color: $ldark;
+                        padding: 8px 12px;
+                        border-radius: 10px;
 
-        .calendar {
-            position: relative;
-            margin-top: 25px;
-
-            .year-panel {
-                text-align: center;
-                display: flex;
-                justify-content: space-between;
-                width: 70%;
-                margin: 0 auto 7px;
-
-                .prev,
-                .next {
-                    font-size: 1.3rem;
-                    padding: 5px 5px;
-                    cursor: pointer;
-                    border-radius: 10px;
-                    z-index: 10;
-                    position: relative;
-
-                    &:hover {
-                        background-color: $white25;
+                        &:hover {
+                            background-color: $l2dark;
+                        }
                     }
-                }
 
-                .prev {
-                    transform: rotate(180deg);
-                }
-
-                .year {
-                    z-index: 10;
-                    position: relative;
-                    padding: 0 7px;
-                    font-size: 1.6rem;
-                    cursor: pointer;
-                    border-radius: 10px;
-                    font-weight: 600;
-                    line-height: 2rem;
-
-                    &:hover {
-                        background-color: $white25;
+                    & + .mode-block {
+                        margin-top: 6px;
                     }
                 }
             }
 
-            .month-panel {
-                text-align: center;
-                display: flex;
-                justify-content: space-between;
-                width: 82%;
-                margin: 0 auto 7px;
+            .calendar {
+                position: relative;
+                margin-top: 25px;
 
-                .prev,
-                .next {
-                    font-size: 1.5rem;
-                    line-height: 1.7rem;
-                    padding: 6px 6px;
-                    cursor: pointer;
-                    border-radius: 10px;
+                .year-panel {
+                    text-align: center;
+                    display: flex;
+                    justify-content: space-between;
+                    width: 70%;
+                    margin: 0 auto 7px;
 
-                    &:hover {
-                        background-color: $white25;
+                    .prev,
+                    .next {
+                        font-size: 1.3rem;
+                        padding: 5px 5px;
+                        cursor: pointer;
+                        border-radius: 10px;
+                        z-index: 10;
+                        position: relative;
+
+                        &:hover {
+                            background-color: $white25;
+                        }
+                    }
+
+                    .prev {
+                        transform: rotate(180deg);
+                    }
+
+                    .year {
+                        z-index: 10;
+                        position: relative;
+                        padding: 0 7px;
+                        font-size: 1.6rem;
+                        cursor: pointer;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        line-height: 2rem;
+
+                        &:hover {
+                            background-color: $white25;
+                        }
                     }
                 }
 
-                .prev {
-                    transform: rotate(180deg);
-                }
+                .month-panel {
+                    text-align: center;
+                    display: flex;
+                    justify-content: space-between;
+                    width: 82%;
+                    margin: 0 auto 7px;
 
-                .month {
-                    padding: 0 7px;
-                    font-size: 1.5rem;
-                    line-height: 2.2rem;
-                    cursor: pointer;
-                    border-radius: 10px;
+                    .prev,
+                    .next {
+                        font-size: 1.5rem;
+                        line-height: 1.7rem;
+                        padding: 6px 6px;
+                        cursor: pointer;
+                        border-radius: 10px;
 
-                    &:hover {
-                        background-color: $white25;
+                        &:hover {
+                            background-color: $white25;
+                        }
+                    }
+
+                    .prev {
+                        transform: rotate(180deg);
+                    }
+
+                    .month {
+                        padding: 0 7px;
+                        font-size: 1.5rem;
+                        line-height: 2.2rem;
+                        cursor: pointer;
+                        border-radius: 10px;
+
+                        &:hover {
+                            background-color: $white25;
+                        }
                     }
                 }
             }
@@ -154,17 +153,19 @@
             flex: 0 0 20%;
             padding: 0 100px;
 
-            .search-input-block {
-                margin-top: 40px;
-            }
-
-            .calendar {
-                .year-panel {
-                    width: 50%;
+            .side-container {
+                .search-input-block {
+                    margin-top: 40px;
                 }
 
-                .month-panel {
-                    width: 50%;
+                .calendar {
+                    .year-panel {
+                        width: 50%;
+                    }
+
+                    .month-panel {
+                        width: 50%;
+                    }
                 }
             }
         }
@@ -178,11 +179,12 @@
         .side {
             flex: 0 0 20%;
             padding: 0 20px;
-
-            .search-input-block {
-                margin-top: 40px;
+            
+            .side-container {
+                .search-input-block {
+                    margin-top: 40px;
+                }
             }
-
         }
     }
 }

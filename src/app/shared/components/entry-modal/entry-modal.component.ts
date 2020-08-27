@@ -41,4 +41,12 @@ export class EntryModalComponent implements OnInit {
       this.onDelete.emit();
     }
   }
+
+  navigateToTagSearch(tag: string) {
+    this.router.navigate([
+      '/app',
+      'search',
+      { tag, mode: 'year', date: this.entry.time.getTime() },
+    ]);
+  }
 }

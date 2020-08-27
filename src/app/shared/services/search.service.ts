@@ -11,44 +11,60 @@ export class SearchService {
 
   constructor(private entriesService: EntriesService) {}
 
-  async findByMonth(date: Date, text: string): Promise<void> {
+  async findByMonth(
+    date: Date,
+    query: string,
+    isTagSearch: boolean
+  ): Promise<void> {
     let entries = this.entriesService.getEntriesByDate(date);
 
-    if (entries) {
-      entries = entries.filter(
-        (entry: Entry) =>
-          entry.text.toLowerCase().includes(text.toLowerCase()) ||
-          entry.title.toLowerCase().includes(text.toLowerCase())
-      );
-      this.entries = entries;
-    } else {
+    if (!entries) {
       const response: BackendResponse = await this.entriesService.fetchUserEntriesByMonth(
         date
       );
 
-      if (!response.error) {
-        entries = response.data.entries.filter(
-          (entry: Entry) =>
-            entry.text.toLowerCase().includes(text.toLowerCase()) ||
-            entry.title.toLowerCase().includes(text.toLowerCase())
-        );
-        this.entries = entries;
-      } else {
+      if (response.error) {
         console.error(response.message);
+        return;
       }
+
+      entries = response.data.entries;
     }
+    if (isTagSearch) this.entries = this.filterEntriesByTag(entries, query);
+    else this.entries = this.filterEntriesByQuery(entries, query);
   }
 
-  async findByYear(date: Date, text: string): Promise<void> {
+  async findByYear(
+    date: Date,
+    query: string,
+    isTagSearch: boolean
+  ): Promise<void> {
     const entries = await this.entriesService.fetchUserEntriesByYear(date);
 
     if (entries === null) return;
-    
-    this.entries = entries.filter(
+
+    if (isTagSearch) this.entries = this.filterEntriesByTag(entries, query);
+    else this.entries = this.filterEntriesByQuery(entries, query);
+
+    this.entries = this.entries.sort(
+      (a, b) => b.time.getTime() - a.time.getTime()
+    );
+  }
+
+  filterEntriesByQuery(entries: Entry[], text: string): Entry[] {
+    if (!entries) return [];
+    return entries.filter(
       (entry: Entry) =>
         entry.text.toLowerCase().includes(text.toLowerCase()) ||
         entry.title.toLowerCase().includes(text.toLowerCase())
     );
-    this.entries.sort((a, b) => b.time.getTime() - a.time.getTime());
+  }
+
+  filterEntriesByTag(entries: Entry[], tag: string): Entry[] {
+    if (!entries) return [];
+    return entries.filter((entry: Entry) => {
+      if (!entry.tags) return false;
+      return entry.tags.includes(tag)
+    });
   }
 }

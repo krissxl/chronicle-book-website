@@ -1,30 +1,31 @@
 <div class="entry-modal">
-    <div class="backdrop" *ngIf="entry" (click)="onClose.emit($event)">
-        <div class="modal">
-          <i class="icon-times close" (click)="onClose.emit($event)"></i>
-          <i class="icon-pencil edit" (click)="navigateToEditEntry()"></i>
-          <i class="icon-trash delete" (click)="deleteEntry()"></i>
-          <div class="date">
-            <span class="date-day">{{ entry.time | date: "dd" }}</span>
-            <span class="date-month">{{ entry.time | date: "MMMM" }},</span>
-            <span class="date-time">
-              {{ entry.time | date: "h" }}:{{
-                entry.time | date: "mm"
-              }}
-              {{ entry.time | date: "aa" }},
-            </span>
-            <span>{{ entry.time | date: "yyyy" }} </span>
-            <span class="date-week-day">{{ entry.time | date: "EEEE" }}</span>
-          </div>
-          <div class="title" *ngIf="entry.title">
-            {{ entry.title }}
-          </div>
-          <div class="text">{{ entry.text }}</div>
-          <div class="tags" *ngIf="entry.tags">
-            <span class="tag" *ngFor="let tag of entry.tags"
-              ><i class="tag-icon icon-tag"></i>{{ tag }}</span
-            >
-          </div>
-        </div>
+  <div class="backdrop" *ngIf="entry" (click)="onClose.emit($event)">
+    <div class="modal">
+      <i class="icon-times close" (click)="onClose.emit($event)"></i>
+      <i class="icon-pencil edit" (click)="navigateToEditEntry()"></i>
+      <i class="icon-trash delete" (click)="deleteEntry()"></i>
+      <div class="date">
+        <span class="date-day">{{ entry.time | date: "dd" }}</span>
+        <span class="date-month">{{ entry.time | date: "MMMM" }},</span>
+        <span class="date-time">
+          {{ entry.time | date: "h" }}:{{ entry.time | date: "mm" }}
+          {{ entry.time | date: "aa" }},
+        </span>
+        <span>{{ entry.time | date: "yyyy" }} </span>
+        <span class="date-week-day">{{ entry.time | date: "EEEE" }}</span>
       </div>
+      <div class="title" *ngIf="entry.title">
+        {{ entry.title }}
+      </div>
+      <div class="text">{{ entry.text }}</div>
+      <div class="tags" *ngIf="entry.tags">
+        <span
+          class="tag"
+          *ngFor="let tag of entry.tags"
+          (click)="navigateToTagSearch(tag)"
+          ><i class="tag-icon icon-tag"></i>{{ tag }}</span
+        >
+      </div>
+    </div>
+  </div>
 </div>

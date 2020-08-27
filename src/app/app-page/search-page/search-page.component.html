@@ -1,6 +1,8 @@
 <div class="search">
   <div class="container">
-    <h1 class="title">Entries found by request "{{ search }}"</h1>
+    <h1 class="title">
+      Entries found by {{ isTagSearch ? "tag" : "query" }} "{{ search }}"
+    </h1>
 
     <div class="entries" *ngIf="this.searchService.entries && !isLoading">
       <div
@@ -14,49 +16,51 @@
     <app-loader *ngIf="isLoading"></app-loader>
   </div>
   <div class="side">
-    <div class="search-input-block">
-      <label for="search-input"></label>
-      <input
-        type="text"
-        id="search-input"
-        class="input input-fill input-dark search-input"
-        placeholder="Write another request"
-        [(ngModel)]="searchInput"
-        (keydown.Enter)="updateSearchPage()"
-      />
-    </div>
-    <div class="mode-selector">
-      <div class="month-mode-block mode-block">
+    <div class="side-container">
+      <div class="search-input-block" *ngIf="!isTagSearch">
+        <label for="search-input"></label>
         <input
-          type="radio"
-          name="mode"
-          id="month-mode"
-          [checked]="mode === 'month'"
-          (input)="mode = 'month'; updateSearchPage()"
+          type="text"
+          id="search-input"
+          class="input input-fill input-dark search-input"
+          placeholder="Write another request"
+          [(ngModel)]="searchInput"
+          (keydown.Enter)="updateSearchPage()"
         />
-        <label for="month-mode">Search by month</label>
       </div>
-      <div class="year-mode-block mode-block">
-        <input
-          type="radio"
-          name="mode"
-          id="year-mode"
-          [checked]="mode === 'year'"
-          (input)="mode = 'year'; updateSearchPage()"
-        />
-        <label for="year-mode">Search by year</label>
+      <div class="mode-selector">
+        <div class="month-mode-block mode-block">
+          <input
+            type="radio"
+            name="mode"
+            id="month-mode"
+            [checked]="mode === 'month'"
+            (input)="mode = 'month'; updateSearchPage()"
+          />
+          <label for="month-mode">Search by month</label>
+        </div>
+        <div class="year-mode-block mode-block">
+          <input
+            type="radio"
+            name="mode"
+            id="year-mode"
+            [checked]="mode === 'year'"
+            (input)="mode = 'year'; updateSearchPage()"
+          />
+          <label for="year-mode">Search by year</label>
+        </div>
       </div>
-    </div>
-    <div class="calendar">
-      <div class="year-panel" *ngIf="mode === 'year'">
-        <i class="icon-chevron-right prev" (click)="prevYear()"></i>
-        <div class="year">{{ date | date: "yyyy" }}</div>
-        <i class="icon-chevron-right next" (click)="nextYear()"></i>
-      </div>
-      <div class="month-panel" *ngIf="mode === 'month'">
-        <i class="icon-chevron-right prev" (click)="prevMonth()"></i>
-        <div class="month">{{ date | date: "MMMM" }}</div>
-        <i class="icon-chevron-right next" (click)="nextMonth()"></i>
+      <div class="calendar">
+        <div class="year-panel" *ngIf="mode === 'year'">
+          <i class="icon-chevron-right prev" (click)="prevYear()"></i>
+          <div class="year">{{ date | date: "yyyy" }}</div>
+          <i class="icon-chevron-right next" (click)="nextYear()"></i>
+        </div>
+        <div class="month-panel" *ngIf="mode === 'month'">
+          <i class="icon-chevron-right prev" (click)="prevMonth()"></i>
+          <div class="month">{{ date | date: "MMMM" }}</div>
+          <i class="icon-chevron-right next" (click)="nextMonth()"></i>
+        </div>
       </div>
     </div>
   </div>
