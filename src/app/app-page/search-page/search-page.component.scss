@@ -22,6 +22,7 @@
 
             .mode-selector {
                 margin-top: 20px;
+
                 .mode-block {
                     input[type="radio"] {
                         position: absolute;
@@ -88,14 +89,8 @@
                         position: relative;
                         padding: 0 7px;
                         font-size: 1.6rem;
-                        cursor: pointer;
-                        border-radius: 10px;
                         font-weight: 600;
                         line-height: 2rem;
-
-                        &:hover {
-                            background-color: $white25;
-                        }
                     }
                 }
 
@@ -127,12 +122,6 @@
                         padding: 0 7px;
                         font-size: 1.5rem;
                         line-height: 2.2rem;
-                        cursor: pointer;
-                        border-radius: 10px;
-
-                        &:hover {
-                            background-color: $white25;
-                        }
                     }
                 }
             }
