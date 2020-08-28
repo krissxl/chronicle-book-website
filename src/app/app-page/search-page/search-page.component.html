@@ -4,7 +4,7 @@
       Entries found by {{ isTagSearch ? "tag" : "query" }} "{{ search }}"
     </h1>
 
-    <div class="entries" *ngIf="this.searchService.entries && !isLoading">
+    <div class="entries" *ngIf="this.searchService.entries && !isLoading" @inOutList>
       <div
         class="entry"
         *ngFor="let entry of this.searchService.entries"

@@ -10,11 +10,20 @@ import { EntriesService } from '../shared/services/entries.service';
 import { EntryService } from '../shared/services/entry.service';
 import { Entry } from '../shared/interfaces';
 import { Subject } from 'rxjs';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { inListAnimation } from '../shared/animations';
 
 @Component({
   selector: 'app-app-page',
   templateUrl: './app-page.component.html',
   styleUrls: ['./app-page.component.scss'],
+  animations: [
+    trigger('inOutList', [
+      transition(':enter', [
+        useAnimation(inListAnimation, { params: { time: '250ms' } }),
+      ]),
+    ]),
+  ],
 })
 export class AppPageComponent implements OnInit {
   @ViewChild('side') side: ElementRef;

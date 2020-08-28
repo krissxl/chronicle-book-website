@@ -1,6 +1,6 @@
 <div class="app-page">
   <div class="container">
-    <div class="entries" *ngIf="!isLoading">
+    <div class="entries" *ngIf="!isLoading" @inOutList>
       <div
         class="entry"
         *ngFor="let entry of entriesService.getEntriesByDate(selectedDate)"

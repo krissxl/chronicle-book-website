@@ -11,7 +11,10 @@
               <option
                 value="'Titillium Web', sans-serif"
                 style="font-family: 'Titillium Web', sans-serif"
-                [selected]="preferencesService.font === '\'Titillium Web\', sans-serif'"
+                [selected]="
+                  preferencesService.font === '\'Titillium Web\', sans-serif' ||
+                  !preferencesService.font
+                "
               >
                 Titillium Web (website default)
               </option>
@@ -25,7 +28,9 @@
               <option
                 value="'Andale Mono', monospace"
                 style="font-family: 'Andale Mono', monospace"
-                [selected]="preferencesService.font === '\'Andale Mono\', monospace'"
+                [selected]="
+                  preferencesService.font === '\'Andale Mono\', monospace'
+                "
               >
                 Andale Mono
               </option>
@@ -42,7 +47,10 @@
                 Small
               </option>
               <option
-                [selected]="preferencesService.fontSize === '1.0em'"
+                [selected]="
+                  preferencesService.fontSize === '1.0em' ||
+                  !preferencesService.fontSize
+                "
                 value="1.0em"
                 style="font-size: 1rem"
               >

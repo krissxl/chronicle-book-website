@@ -3,11 +3,20 @@ import { Entry } from '../../interfaces';
 import { EntryService } from '../../services/entry.service';
 import { Router } from '@angular/router';
 import { EntriesService } from '../../services/entries.service';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-entry-modal',
   templateUrl: './entry-modal.component.html',
   styleUrls: ['./entry-modal.component.scss'],
+  animations: [
+    trigger('inOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('150ms ease', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class EntryModalComponent implements OnInit {
   @Input() entry: Entry;

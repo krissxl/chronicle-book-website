@@ -1,4 +1,4 @@
-<div class="entry-modal">
+<div class="entry-modal" @inOut>
   <div class="backdrop" *ngIf="entry" (click)="onClose.emit($event)">
     <div class="modal">
       <i class="icon-times close" (click)="onClose.emit($event)"></i>

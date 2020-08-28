@@ -3,11 +3,28 @@ import { EntriesService } from 'src/app/shared/services/entries.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { getFullDateName } from 'src/app/shared/scripts/date';
 import { Entry } from 'src/app/shared/interfaces';
+import {
+  trigger,
+  transition,
+  query,
+  style,
+  stagger,
+  animate,
+  useAnimation,
+} from '@angular/animations';
+import { inListAnimation } from 'src/app/shared/animations';
 
 @Component({
   selector: 'app-year-page',
   templateUrl: './year-page.component.html',
   styleUrls: ['./year-page.component.scss'],
+  animations: [
+    trigger('inOutList', [
+      transition(':enter', [
+        useAnimation(inListAnimation, { params: { time: '250ms' } }),
+      ]),
+    ]),
+  ],
 })
 export class YearPageComponent implements OnInit {
   selectedYear: Date = new Date();
@@ -66,7 +83,7 @@ export class YearPageComponent implements OnInit {
       target.classList.remove('selected');
     } else {
       const selectedDay = document.querySelector('.day-cell.selected');
-      if (selectedDay) selectedDay.classList.remove('selected')
+      if (selectedDay) selectedDay.classList.remove('selected');
 
       this.selectedDate = this.getDayDate(indexInArray);
       this.fetchEntriesByDay();

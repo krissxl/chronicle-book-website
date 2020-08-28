@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../shared/services/search.service';
 import { Entry } from 'src/app/shared/interfaces';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { inListAnimation } from 'src/app/shared/animations';
 
 type searchMode = 'month' | 'year';
 
@@ -14,6 +16,13 @@ function getSearchMode(mode: string): searchMode {
   selector: 'app-search-page',
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
+  animations: [
+    trigger('inOutList', [
+      transition(':enter', [
+        useAnimation(inListAnimation, { params: { time: '250ms' } }),
+      ]),
+    ]),
+  ],
 })
 export class SearchPageComponent implements OnInit {
   search: string;
