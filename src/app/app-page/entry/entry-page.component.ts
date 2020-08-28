@@ -10,6 +10,7 @@ import { EntryService } from 'src/app/shared/services/entry.service';
 import { BackendResponse } from 'src/app/shared/interfaces';
 import { EntriesService } from 'src/app/shared/services/entries.service';
 import { Subject } from 'rxjs';
+import { PreferencesService } from 'src/app/shared/services/preferences.service';
 
 @Component({
   selector: 'app-entry-page',
@@ -56,7 +57,8 @@ export class EntryPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public entryService: EntryService,
-    private entriesService: EntriesService
+    private entriesService: EntriesService,
+    public preferencesService: PreferencesService
   ) {}
 
   ngOnInit(): void {

@@ -106,6 +106,7 @@
             class="input input-no-padding input-no-border title"
             placeholder="Title... (optional)"
             [(ngModel)]="entryService.entryTitle"
+            appFontPref
           />
         </div>
         <div class="write-block">
@@ -118,8 +119,8 @@
             placeholder="Write here..."
             [(ngModel)]="entryService.entryText"
             maxlength="10000"
-            style="height: 1.5rem;"
             (input)="resizeTrigger($event)"
+            appFontPref
           ></textarea>
         </div>
       </div>

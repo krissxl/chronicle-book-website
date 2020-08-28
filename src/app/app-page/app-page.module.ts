@@ -9,6 +9,7 @@ import { EntryPageComponent } from './entry/entry-page.component';
 import { FormsModule } from '@angular/forms';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { YearPageComponent } from './year-page/year-page.component';
+import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
 
 const routes: Routes = [
   {
@@ -22,23 +23,38 @@ const routes: Routes = [
       },
       {
         path: 'entry',
-        component: EntryPageComponent
+        component: EntryPageComponent,
       },
       {
         path: 'search',
-        component: SearchPageComponent
+        component: SearchPageComponent,
       },
       {
         path: 'year',
-        component: YearPageComponent
-      }
+        component: YearPageComponent,
+      },
+      {
+        path: 'preferences',
+        component: PreferencesPageComponent,
+      },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [AppPageComponent, EntryPageComponent, SearchPageComponent, YearPageComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedModule, FormsModule],
+  declarations: [
+    AppPageComponent,
+    EntryPageComponent,
+    SearchPageComponent,
+    YearPageComponent,
+    PreferencesPageComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    FormsModule,
+  ],
   exports: [RouterModule],
 })
 export class AppPageModule {}

@@ -1,6 +1,5 @@
 @import "../../../../scss/colors.scss";
 
-
 .entry {
     background-color: $ldark;
     padding: 20px 30px;
@@ -39,23 +38,31 @@
         }
     }
 
-    &-title {
+    .title-block {
         font-size: 1.3rem;
-        font-weight: 600;
         margin: 8px 0;
-        text-overflow: ellipsis;
         max-height: 1.7rem;
         width: 100%;
         overflow: hidden;
+
+        .entry-title {
+            font-weight: 600;
+            text-overflow: ellipsis;
+        }
     }
 
-    .text-preview {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        word-wrap: break-word;
+    .text-preview-block {
         max-height: 2.3rem;
-        white-space: pre-line;
         margin-top: 5px;
+        overflow: hidden;
+        font-size: 1rem;
+
+        .text-preview {
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            white-space: pre-line;
+            max-height: 2.25em;
+        }
     }
 
     & + .entry {

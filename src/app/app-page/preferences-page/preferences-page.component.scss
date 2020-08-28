@@ -1,0 +1,83 @@
+@import "../../../scss/colors.scss";
+
+.preferences {
+    .container {
+        padding: 50px 100px;
+
+        .inner {
+            .font-block,
+            .account-block {
+                background-color: $ldark;
+                border-radius: 10px;
+                box-shadow: 0 6px 2px rgba($color: #000000, $alpha: 0.3);
+                line-height: 2.3rem;
+
+                .setting {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 15px 20px;
+                    align-content: center;
+
+                    & + .setting {
+                        border-top: 2px solid $l2dark;
+                    }
+
+                    .text {
+                        font-size: 1.1rem;
+                        vertical-align: middle;
+                    }
+                }
+            }
+
+            .font,
+            .account {
+                width: 60%;
+                margin: 0 auto;
+
+                .title {
+                    margin-left: 20px;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: $dblue;
+                    margin-bottom: 8px;
+                }
+            }
+
+            .font {
+                margin-bottom: 25px;
+
+                .font-block {
+                    .font-setting {
+                        select {
+                            border: none;
+                            background-color: $l2dark;
+                            color: #fff;
+                            outline: none;
+                            border-radius: 10px;
+                            padding: 5px 5px;
+
+                            &:active {
+                                border-radius: 10px 10px 0 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .account {
+                .account-block {
+                    .delete-account {
+                        .text {
+                            cursor: pointer;
+
+                            &:hover {
+                                color: $red;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

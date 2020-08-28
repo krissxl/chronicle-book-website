@@ -138,15 +138,17 @@
             }
 
             .title-block {
+                font-size: 1.3rem;
+                
                 .title {
                     font-weight: 600;
-                    font-size: 1.3rem;
                     margin-bottom: 8px;
                 }
             }
 
             .write-block {
                 position: relative;
+                font-size: 1rem;
 
                 .invisible-write {
                     word-wrap: break-word;
@@ -156,11 +158,6 @@
                     top: -9999px;
                     width: 100%;
                     overflow: hidden;
-                    font-size: 1rem;
-                }
-
-                .write {
-                    font-size: 1rem;
                 }
             }
 

@@ -1,0 +1,87 @@
+<div class="preferences">
+  <div class="container">
+    <div class="inner">
+      <div class="font">
+        <div class="title">Font</div>
+        <div class="font-block settings-block">
+          <div class="font-setting setting">
+            <span class="text">FONT</span>
+            <select value="default" (change)="fontSelect($event)">
+              <option
+                value="'Titillium Web', sans-serif"
+                style="font-family: 'Titillium Web', sans-serif"
+                [selected]="preferencesService.font === '\'Titillium Web\', sans-serif'"
+              >
+                Titillium Web (website default)
+              </option>
+              <option
+                value="Arial, sans-serif"
+                style="font-family: Arial, sans-serif"
+                [selected]="preferencesService.font === 'Arial, sans-serif'"
+              >
+                Arial
+              </option>
+              <option
+                value="'Andale Mono', monospace"
+                style="font-family: 'Andale Mono', monospace"
+                [selected]="preferencesService.font === '\'Andale Mono\', monospace'"
+              >
+                Andale Mono
+              </option>
+            </select>
+          </div>
+          <div class="font-setting setting">
+            <div class="text">FONT SIZE</div>
+            <select (change)="fontSizeSelect($event)">
+              <option
+                [selected]="preferencesService.fontSize === '0.8em'"
+                value="0.8em"
+                style="font-size: 0.8rem"
+              >
+                Small
+              </option>
+              <option
+                [selected]="preferencesService.fontSize === '1.0em'"
+                value="1.0em"
+                style="font-size: 1rem"
+              >
+                Normal
+              </option>
+              <option
+                [selected]="preferencesService.fontSize === '1.25em'"
+                value="1.25em"
+                style="font-size: 1.25rem"
+              >
+                Large
+              </option>
+              <option
+                [selected]="preferencesService.fontSize === '1.5em'"
+                value="1.5em"
+                style="font-size: 1.5rem"
+              >
+                Extra Large
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="account">
+        <div class="title">Account</div>
+        <div class="account-block settings-block">
+          <div class="account-setting setting">
+            <div class="text">USERNAME</div>
+            <div class="content">{{ authService.user.name }}</div>
+          </div>
+          <div class="account-setting setting">
+            <div class="text">EMAIL</div>
+            <div class="content">{{ authService.user.email }}</div>
+          </div>
+          <div class="account-setting setting delete-account">
+            <div class="text">DELETE ACCOUNT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="side"></div>
+  </div>
+</div>

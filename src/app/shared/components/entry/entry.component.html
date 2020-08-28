@@ -8,18 +8,22 @@
     </span>
     <span>{{ entry.time | date: "yyyy" }} </span>
     <span class="date-week-day">{{ entry.time | date: "EEEE" }}</span>
+    
+  </div>
+  <div class="title-block">
+    <div class="entry-title" *ngIf="entry.title" appFontPref>
+      {{ entry.title }}
+    </div>
   </div>
 
-  <div class="entry-title" *ngIf="entry.title">
-    {{ entry.title }}
-  </div>
-
-  <div class="text-preview">
-    {{ entry.text }}
+  <div class="text-preview-block">
+    <div class="text-preview" appFontPref>
+      {{ entry.text }}
+    </div>
   </div>
 
   <div class="tags" *ngIf="entry.tags">
-    <span class="tag" *ngFor="let tag of entry.tags"
+    <span class="tag" *ngFor="let tag of entry.tags" appFontPref
       ><i class="tag-icon icon-tag"></i>{{ tag }}</span
     >
   </div>

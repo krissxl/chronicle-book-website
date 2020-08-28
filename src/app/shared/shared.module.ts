@@ -8,6 +8,7 @@ import { EntryComponent } from './components/entry/entry.component';
 import { EntryModalComponent } from './components/entry-modal/entry-modal.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { FontPrefDirective } from './directives/font-pref.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
     EntryModalComponent,
     LoaderComponent,
     ErrorMessageComponent,
+    FontPrefDirective
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -28,7 +30,8 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
     EntryComponent,
     EntryModalComponent,
     LoaderComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    FontPrefDirective
   ],
 })
 export class SharedModule {}
