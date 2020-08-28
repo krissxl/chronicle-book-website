@@ -1,6 +1,7 @@
 <div class="preferences">
   <div class="container">
     <div class="inner">
+      <app-error-message [obs]="errorMessage"></app-error-message>
       <div class="font">
         <div class="title">Font</div>
         <div class="font-block settings-block">
@@ -77,7 +78,7 @@
             <div class="content">{{ authService.user.email }}</div>
           </div>
           <div class="account-setting setting delete-account">
-            <div class="text">DELETE ACCOUNT</div>
+            <div class="text" (click)="deleteAccount()">DELETE ACCOUNT</div>
           </div>
         </div>
       </div>

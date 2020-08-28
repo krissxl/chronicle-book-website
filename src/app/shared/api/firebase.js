@@ -32,7 +32,7 @@ export async function signUpNewUser(email, password, username) {
 
     db.collection('users').doc(user.uid).set({
       name: username,
-      entriesNumber: {}
+      entriesCount: {}
     })
 
     return {
@@ -229,15 +229,35 @@ export async function deleteEntry(entryId) {
   }
 }
 
-export async function getUserEntriesCount(uid) {
+export async function getUserEntriesCount() {
   try {
+    const user = getCurrentUser();
     const db = firebase.firestore();
-    const userRef = db.collection('users').doc(uid);
+    const userRef = db.collection('users').doc(user.uid);
     const entriesCount = await (await userRef.get()).data().entriesCount;
 
     return { error: false, message: "Entries count successfully fetched", data: { entriesCount } };
   } catch (error) {
     return { error: true, message: error.message };
+  }
+}
+
+export async function deleteAccount() {
+  try {
+    const user = getCurrentUser();
+    const db = firebase.firestore()
+
+    const entriesRef = await db.collection('entries').where('user_id', '==', user.uid).get()
+    entriesRef.forEach(entry => {
+      entry.ref.delete();
+    })
+
+    await db.collection('users').doc(user.uid).delete();
+    await user.delete()
+
+    return { error: false, message: "User deleted" }
+  } catch (error) {
+    return { error: true, message: error.message }
   }
 }
 

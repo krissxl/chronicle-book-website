@@ -5,6 +5,7 @@ import {
   signOut,
   getUserEntriesCount,
   sendReset,
+  deleteAccount,
 } from './api/firebase.js';
 import { User, BackendResponse } from './interfaces.js';
 import * as firebase from 'firebase/app';
@@ -29,7 +30,7 @@ export class AuthService {
         this.user.name = user.displayName;
         this.user.id = user.uid;
 
-        const response: BackendResponse = await getUserEntriesCount(user.uid);
+        const response: BackendResponse = await getUserEntriesCount();
         if (!response.error)
           this.user.entriesCount = response.data.entriesCount;
       } else {
@@ -74,15 +75,24 @@ export class AuthService {
     return response;
   }
 
+  async deleteAccount() {
+    const response: BackendResponse = await deleteAccount();
+    return response;
+  }
+
   addEntriesCount(date: Date): void {
     const dateName = getFullDateName(date);
-    const count = this.user.entriesCount[dateName];
-    this.user.entriesCount[dateName] = count ? count + 1 : 1;
+    const count = this.user?.entriesCount?.[dateName];
+
+    if (!this.user.entriesCount) this.user.entriesCount = { [dateName]: 1 };
+    else this.user.entriesCount[dateName] = count ? count + 1 : 1;
   }
 
   subEntriesCount(date: Date): void {
     const dateName = getFullDateName(date);
-    const count = this.user.entriesCount[dateName];
-    this.user.entriesCount[dateName] = count ? count - 1 : 0;
+    const count = this.user?.entriesCount?.[dateName];
+
+    if (!this.user.entriesCount) this.user.entriesCount = { [dateName]: 0 };
+    else this.user.entriesCount[dateName] = count ? count - 1 : 0;
   }
 }

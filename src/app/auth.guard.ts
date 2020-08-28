@@ -4,6 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
+  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './shared/auth.service';
@@ -13,7 +14,7 @@ import { auth } from 'firebase';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authService.loading) {
@@ -24,10 +25,7 @@ export class AuthGuard implements CanActivate {
       })();
     }
 
-    if (this.authService.user.id) {
-      return true;
-    } else {
-      return false;
-    }
+    if (this.authService.user.id) return true;
+    else return this.router.parseUrl('/auth/login');
   }
 }
