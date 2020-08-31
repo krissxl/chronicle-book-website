@@ -18,7 +18,7 @@ and then:
 git clone https://github.com/krissxl/chronicle-book-website.git
 cd chronicle-book-website
 ```
-2. Install all depencies through `npm`:
+2. Install all dependencies through `npm`:
 ```
 npm install
 ```
