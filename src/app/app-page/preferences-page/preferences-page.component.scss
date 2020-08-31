@@ -81,3 +81,58 @@
         }
     }
 }
+
+@media screen and (max-width: 767.98px) {
+    .preferences {
+        .container {
+            padding: 40px 40px;
+            .inner {
+                .font,
+                .account {
+                    width: 75%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 575.98px) {
+    .preferences {
+        .container {
+            padding: 40px 30px;
+            .inner {
+                .font,
+                .account {
+                    width: 85%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .preferences {
+        .container {
+            .inner {
+                .font,
+                .account {
+                    width: 95%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .preferences {
+        .container {
+            padding: 40px 20px;
+            .inner {
+                .font,
+                .account {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

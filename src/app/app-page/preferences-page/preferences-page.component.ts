@@ -20,6 +20,7 @@ export class PreferencesPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    document.title = "Preferences - Chronicle Book"
   }
 
   fontSelect(event: Event) {

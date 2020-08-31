@@ -42,6 +42,7 @@ export class YearPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    document.title = "Year view - Chronicle Book";
     this.generateArrayOfDays();
   }
 

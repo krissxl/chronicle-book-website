@@ -1,0 +1,199 @@
+@import "../../scss/colors.scss";
+
+.landing {
+    header {
+        background: linear-gradient(135deg, $dblue, $darkest);
+        text-align: center;
+        padding: 40px 0;
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+
+            .logo-2 {
+                font-weight: 600;
+                color: $dblue;
+            }
+        }
+
+        .desc {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+    }
+
+    .main {
+        padding: 50px 0;
+        .img {
+                margin: 10px auto;
+                max-width: 1100px;
+
+            img {
+                display: block;
+                border: 2px $blue solid;
+                border-radius: 10px;
+                box-shadow: 0 3px 4px rgba($color: $blue, $alpha: 0.35);
+                width: 100%;
+            }
+        }
+
+        .advantages {
+            margin: 35px 0 30px;
+
+            .name {
+                display: flex;
+                align-content: center;
+                margin-bottom: 15px;
+
+                span {
+                    font-size: 1.4rem;
+                    margin-left: 10px;
+                    font-weight: 600;
+                    line-height: 1.8rem;
+                }
+
+                .icn {
+                    font-size: 1.8rem;
+                    color: $blue;
+                }
+            }
+
+            .list {
+                margin-left: 30px;
+                margin-bottom: 20px;
+
+                .advantage {
+                    display: flex;
+                    align-content: center;
+
+                    .text {
+                        margin-left: 13px;
+
+                        .title {
+                            font-weight: 600;
+                            font-size: 1.2rem;
+                            margin-bottom: 3px;
+                        }
+                        .explanation {
+                            color: $white75;
+
+                            a {
+                                text-decoration: none;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+
+                    & + .advantage {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+
+        .features {
+            margin-bottom: 40px;
+
+            .name {
+                display: flex;
+                align-content: center;
+                font-size: 1.4rem;
+                font-weight: 600;
+                line-height: 2.5rem;
+                margin-bottom: 15px;
+
+                span {
+                    margin-left: 10px;
+                }
+            }
+
+            .list {
+                margin-left: 30px;
+                margin-bottom: 20px;
+
+                .feature {
+                    display: flex;
+                    align-content: center;
+
+                    .title {
+                        font-size: 1.2rem;
+                        margin-left: 10px;
+                        line-height: 1.8rem;
+                    }
+
+                    & + .feature {
+                        margin-top: 8px;
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        text-align: center;
+        background: linear-gradient(#0e1020, #151729);
+        padding: 50px 0;
+
+        .author {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            margin-bottom: 12px;
+
+            .text {
+                margin-right: 10px;
+                font-size: 1.2rem;
+            }
+
+            a {
+                font-size: 1.5rem;
+                text-decoration: none;
+            }
+
+            a + a {
+                margin-left: 8px;
+            }
+        }
+
+        .source {
+            font-size: 1.3rem;
+            text-decoration: none;
+            color: $blue;
+        }
+    }
+}
+
+.container {
+    width: 1500px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1600px) {
+    .container {
+        width: 1100px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        width: 650px;
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .container {
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 575.98px) {
+    .container {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .container {
+        width: 95%;
+    }
+}

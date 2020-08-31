@@ -65,9 +65,11 @@ export class EntryPageComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       if (params.id) {
         await this.fetchEntry(params.id);
+        document.title = "Edit entry - Chronicle Book"
       } else if (params.time) {
         this.entryService.setNewDate(new Date(+params.time));
         this.isLoading = false;
+        document.title = "New entry - Chronicle Book";
       }
     });
   }

@@ -60,15 +60,24 @@ export class SearchPageComponent implements OnInit {
       } else {
         this.router.navigate(['/app']);
       }
+      document.title = '"' + this.search + '"' + ' search query - Chronicle Book';
       this.isLoading = false;
     });
   }
 
   async fetchData(): Promise<void> {
     if (this.mode === 'month') {
-      await this.searchService.findByMonth(this.date, this.search, this.isTagSearch);
+      await this.searchService.findByMonth(
+        this.date,
+        this.search,
+        this.isTagSearch
+      );
     } else if (this.mode === 'year') {
-      await this.searchService.findByYear(this.date, this.search, this.isTagSearch);
+      await this.searchService.findByYear(
+        this.date,
+        this.search,
+        this.isTagSearch
+      );
     }
   }
 
@@ -84,28 +93,44 @@ export class SearchPageComponent implements OnInit {
   async prevYear() {
     this.isLoading = true;
     this.date = new Date(this.date.getFullYear() - 1, this.date.getMonth(), 1);
-    await this.searchService.findByYear(this.date, this.search, this.isTagSearch);
+    await this.searchService.findByYear(
+      this.date,
+      this.search,
+      this.isTagSearch
+    );
     this.isLoading = false;
   }
 
   async nextYear() {
     this.isLoading = true;
     this.date = new Date(this.date.getFullYear() + 1, this.date.getMonth(), 1);
-    await this.searchService.findByYear(this.date, this.search, this.isTagSearch);
+    await this.searchService.findByYear(
+      this.date,
+      this.search,
+      this.isTagSearch
+    );
     this.isLoading = false;
   }
 
   async prevMonth() {
     this.isLoading = true;
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1);
-    await this.searchService.findByMonth(this.date, this.search, this.isTagSearch);
+    await this.searchService.findByMonth(
+      this.date,
+      this.search,
+      this.isTagSearch
+    );
     this.isLoading = false;
   }
 
   async nextMonth() {
     this.isLoading = true;
     this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
-    await this.searchService.findByMonth(this.date, this.search, this.isTagSearch);
+    await this.searchService.findByMonth(
+      this.date,
+      this.search,
+      this.isTagSearch
+    );
     this.isLoading = false;
   }
 

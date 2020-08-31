@@ -30,7 +30,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    document.title = "Register - Chronicle Book"
+  }
 
   async signUp(event: Event) {
     event.preventDefault();

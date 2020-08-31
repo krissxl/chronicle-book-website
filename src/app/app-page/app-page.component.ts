@@ -59,6 +59,7 @@ export class AppPageComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    document.title = "App - Chronicle Book";
     const response = await this.entriesService.fetchUserEntriesByMonth(
       this.selectedDate
     );

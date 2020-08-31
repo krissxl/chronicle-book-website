@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   async ngOnInit() {
+    document.title = "Chronicle Book"
     await (async () => {
       while(this.authService.loading) {
         await new Promise(resolve => setTimeout(resolve, 25))
