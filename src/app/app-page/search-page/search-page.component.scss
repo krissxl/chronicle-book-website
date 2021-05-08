@@ -20,41 +20,6 @@
         .side-container {
             margin-top: 130px;
 
-            .mode-selector {
-                margin-top: 20px;
-
-                .mode-block {
-                    input[type="radio"] {
-                        position: absolute;
-                        left: -9999px;
-                    }
-
-                    input[type="radio"]:checked ~ label {
-                        background-color: $dblue;
-
-                        &:hover {
-                            background-color: $blue;
-                        }
-                    }
-
-                    label {
-                        display: block;
-                        width: 100%;
-                        background-color: $ldark;
-                        padding: 8px 12px;
-                        border-radius: 10px;
-
-                        &:hover {
-                            background-color: $l2dark;
-                        }
-                    }
-
-                    & + .mode-block {
-                        margin-top: 6px;
-                    }
-                }
-            }
-
             .calendar {
                 position: relative;
                 margin-top: 25px;
@@ -93,37 +58,6 @@
                         line-height: 2rem;
                     }
                 }
-
-                .month-panel {
-                    text-align: center;
-                    display: flex;
-                    justify-content: space-between;
-                    width: 82%;
-                    margin: 0 auto 7px;
-
-                    .prev,
-                    .next {
-                        font-size: 1.5rem;
-                        line-height: 1.7rem;
-                        padding: 6px 6px;
-                        cursor: pointer;
-                        border-radius: 10px;
-
-                        &:hover {
-                            background-color: $white25;
-                        }
-                    }
-
-                    .prev {
-                        transform: rotate(180deg);
-                    }
-
-                    .month {
-                        padding: 0 7px;
-                        font-size: 1.5rem;
-                        line-height: 2.2rem;
-                    }
-                }
             }
         }
     }
@@ -147,16 +81,10 @@
                     margin-top: 40px;
                 }
 
-                .calendar {
-                    .year-panel {
-                        width: 50%;
-                    }
-
-                    .month-panel {
+                .calendar .year-panel {
                         width: 50%;
                     }
                 }
-            }
         }
     }
 }

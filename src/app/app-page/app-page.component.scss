@@ -28,65 +28,6 @@
         .search-block {
             z-index: 20;
             position: relative;
-
-            .mode-selector {
-                display: none;
-                position: absolute;
-                width: 100%;
-                bottom: 30px;
-                transform: translateY(100%);
-
-                .mode-block {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 30;
-
-                    &:last-child {
-                        label {
-                            border-radius: 0 0 10px 10px;
-                        }
-                    }
-
-                    & + .mode-block {
-                        border-top: 1px solid $l3dark;
-                    }
-
-                    input[type="radio"] {
-                        position: absolute;
-                        left: 9999px;
-
-                        &:checked ~ label {
-                            background-color: $dblue;
-
-                            &:hover {
-                                background-color: $blue;
-                            }
-                        }
-                    }
-
-                    label {
-                        cursor: pointer;
-                        display: block;
-                        position: relative;
-                        width: 100%;
-                        padding: 8px 12px;
-                        background-color: $l2dark;
-
-                        &:hover {
-                            background-color: $l3dark;
-                        }
-                    }
-                }
-            }
-
-            &.active > .search-input {
-                border-radius: 10px 10px 0 0;
-            }
-
-            &.active > .mode-selector {
-                display: block;
-            }
         }
 
         .oc-icon {

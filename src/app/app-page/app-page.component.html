@@ -27,28 +27,6 @@
           autocomplete="off"
           (focus)="setActive($event)"
         />
-        <div class="mode-selector">
-          <div class="month-mode-block mode-block">
-            <input
-              type="radio"
-              name="mode"
-              id="month-mode"
-              [checked]="searchMode === 'month'"
-              (input)="searchMode = 'month'"
-            />
-            <label for="month-mode">Search by month</label>
-          </div>
-          <div class="year-mode-block mode-block">
-            <input
-              type="radio"
-              name="mode"
-              id="year-mode"
-              [checked]="searchMode === 'year'"
-              (input)="searchMode = 'year'"
-            />
-            <label for="year-mode">Search by year</label>
-          </div>
-        </div>
       </div>
       <app-calendar
         class="calendar"

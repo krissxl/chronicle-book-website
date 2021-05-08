@@ -47,33 +47,39 @@ export class EntriesService {
     // Check if entries already fetched
     let entries: Entry[] = [];
     for (let i = 0; i < 12; i++) {
-      const foundEntries = this.getEntriesByDate(new Date(date.getFullYear(), i));
+      const foundEntries = this.getEntriesByDate(
+        new Date(date.getFullYear(), i)
+      );
       if (foundEntries === undefined) break;
       else entries = entries.concat(foundEntries);
 
-      if (i === 11) return entries
+      if (i === 11) return entries;
     }
 
     const response: BackendResponse = await getUserEntries(
       this.authService.user.id,
       new Date(date.getFullYear(), 0, 1),
-      new Date(date.getFullYear(), 11, 0, 23, 59, 59, 999)
+      new Date(date.getFullYear(), 12, 0, 23, 59, 59, 999),
+      undefined,
+      999
     );
 
     if (response.error) return null;
-    entries = response.data.entries
+    entries = response.data.entries;
     // Add entries to Entries Service
     for (let i = 0; i < 12; i++) {
       const loopDate = new Date(date.getFullYear(), i);
       const dateName = getDateName(loopDate);
       const borders = getMonthBorders(loopDate);
 
+      console.log(dateName, borders, entries)
+
       this.entries[dateName] = entries.filter(
         (entry: Entry) =>
           entry.time >= borders.start && entry.time <= borders.end
       );
     }
-
+    console.log(this.entries);
     return entries;
   }
 
@@ -110,7 +116,7 @@ export class EntriesService {
     const dateName: string = getDateName(entry.time);
     const entries: Entry[] = this.entries[dateName];
     if (entries) {
-      this.authService.addEntriesCount(entry.time)
+      this.authService.addEntriesCount(entry.time);
       this.entries[dateName].unshift(entry);
       this.entries[dateName].sort(
         (a, b) => b.time.getTime() - a.time.getTime()

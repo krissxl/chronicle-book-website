@@ -127,7 +127,7 @@ export async function addNewEntry(uid, entry) {
   }
 }
 
-export async function getUserEntries(uid, timeStart, timeEnd, startAt = 0) {
+export async function getUserEntries(uid, timeStart, timeEnd, startAt = 0, limit = 32) {
   try {
     const entriesRef = firebase.firestore().collection("entries");
     const entriesSnaps = await entriesRef
@@ -136,7 +136,7 @@ export async function getUserEntries(uid, timeStart, timeEnd, startAt = 0) {
       .where("time", "<=", timeEnd)
       .orderBy('time')
       .startAt(startAt)
-      .limit(31)
+      .limit(limit)
       .get();
     const entries = [];
 

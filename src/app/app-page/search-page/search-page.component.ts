@@ -4,14 +4,6 @@ import { SearchService } from '../../shared/services/search.service';
 import { Entry } from 'src/app/shared/interfaces';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { inListAnimation } from 'src/app/shared/animations';
-
-type searchMode = 'month' | 'year';
-
-function getSearchMode(mode: string): searchMode {
-  const isSearchMode = mode === 'month' || mode === 'year';
-  return isSearchMode ? <searchMode>mode : 'month';
-}
-
 @Component({
   selector: 'app-search-page',
   templateUrl: './search-page.component.html',
@@ -26,7 +18,6 @@ function getSearchMode(mode: string): searchMode {
 })
 export class SearchPageComponent implements OnInit {
   search: string;
-  mode: searchMode;
   date: Date;
   searchInput: string;
   selectedEntry: Entry;
@@ -47,38 +38,29 @@ export class SearchPageComponent implements OnInit {
         this.search = params.q;
         this.searchInput = this.search;
 
-        this.mode = getSearchMode(params.mode);
         this.date = params.date ? new Date(+params.date) : new Date();
         this.fetchData();
       } else if (params.tag) {
         this.isTagSearch = true;
 
         this.search = params.tag;
-        this.mode = getSearchMode(params.mode);
         this.date = params.date ? new Date(+params.date) : new Date();
         this.fetchData();
       } else {
         this.router.navigate(['/app']);
       }
-      document.title = '"' + this.search + '"' + ' search query - Chronicle Book';
+      document.title =
+        '"' + this.search + '"' + ' search query - Chronicle Book';
       this.isLoading = false;
     });
   }
 
   async fetchData(): Promise<void> {
-    if (this.mode === 'month') {
-      await this.searchService.findByMonth(
-        this.date,
-        this.search,
-        this.isTagSearch
-      );
-    } else if (this.mode === 'year') {
-      await this.searchService.findByYear(
-        this.date,
-        this.search,
-        this.isTagSearch
-      );
-    }
+    await this.searchService.findByYear(
+      this.date,
+      this.search,
+      this.isTagSearch
+    );
   }
 
   updateSearchPage(): void {
@@ -86,7 +68,7 @@ export class SearchPageComponent implements OnInit {
       this.router.navigate([
         '/app',
         'search',
-        { q: this.searchInput, mode: this.mode, date: this.date.getTime() },
+        { q: this.searchInput, date: this.date.getTime() },
       ]);
   }
 
@@ -105,28 +87,6 @@ export class SearchPageComponent implements OnInit {
     this.isLoading = true;
     this.date = new Date(this.date.getFullYear() + 1, this.date.getMonth(), 1);
     await this.searchService.findByYear(
-      this.date,
-      this.search,
-      this.isTagSearch
-    );
-    this.isLoading = false;
-  }
-
-  async prevMonth() {
-    this.isLoading = true;
-    this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1, 1);
-    await this.searchService.findByMonth(
-      this.date,
-      this.search,
-      this.isTagSearch
-    );
-    this.isLoading = false;
-  }
-
-  async nextMonth() {
-    this.isLoading = true;
-    this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 1);
-    await this.searchService.findByMonth(
       this.date,
       this.search,
       this.isTagSearch

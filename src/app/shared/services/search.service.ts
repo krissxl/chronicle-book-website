@@ -11,29 +11,6 @@ export class SearchService {
 
   constructor(private entriesService: EntriesService) {}
 
-  async findByMonth(
-    date: Date,
-    query: string,
-    isTagSearch: boolean
-  ): Promise<void> {
-    let entries = this.entriesService.getEntriesByDate(date);
-
-    if (!entries) {
-      const response: BackendResponse = await this.entriesService.fetchUserEntriesByMonth(
-        date
-      );
-
-      if (response.error) {
-        console.error(response.message);
-        return;
-      }
-
-      entries = response.data.entries;
-    }
-    if (isTagSearch) this.entries = this.filterEntriesByTag(entries, query);
-    else this.entries = this.filterEntriesByQuery(entries, query);
-  }
-
   async findByYear(
     date: Date,
     query: string,
