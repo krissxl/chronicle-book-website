@@ -48,14 +48,17 @@
                 }
             }
 
-            .title {
+            .title-block {
                 font-size: 1.3rem;
                 font-weight: 600;
-                word-wrap: break-word;
                 max-height: 7.8%;
-                padding: 3px 0;
                 overflow: auto;
                 line-height: 1.6rem;
+            }
+
+            .text, .title-block {
+                word-wrap: break-word;
+                padding: 3px 0;
             }
 
             .text {
@@ -63,8 +66,7 @@
                 overflow-y: auto;
                 white-space: pre-wrap;
                 max-height: 80%;
-                word-wrap: break-word;
-                padding: 3px 0;
+                line-height: 150%;
             }
 
             .tags {
@@ -139,38 +141,30 @@
 }
 
 @media screen and (max-width: 820px) {
-    .entry-modal {
-        .backdrop {
-            .modal {
-                width: 75vw;
-                height: 90vh;
-                padding: 40px 20px 30px;
+    .entry-modal .backdrop .modal {
+        width: 75vw;
+        height: 90vh;
+        padding: 40px 20px 30px;
 
-                .close {
-                    top: 10px;
-                    right: 10px;
-                }
+        .close {
+            top: 10px;
+            right: 10px;
+        }
 
-                .edit {
-                    top: 10px;
-                    left: 17px;
-                }
+        .edit {
+            top: 10px;
+            left: 17px;
+        }
 
-                .delete {
-                    top: 10px;
-                    left: 75px;
-                }
-            }
+        .delete {
+            top: 10px;
+            left: 75px;
         }
     }
 }
 
 @media screen and (max-width: 450px) {
-    .entry-modal {
-        .backdrop {
-            .modal {
-                width: 85vw;
-            }
-        }
+    .entry-modal .backdrop .modal {
+        width: 85vw;
     }
 }

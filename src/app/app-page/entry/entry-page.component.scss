@@ -139,7 +139,7 @@
 
             .title-block {
                 font-size: 1.3rem;
-                
+
                 .title {
                     font-weight: 600;
                     margin-bottom: 8px;
@@ -150,6 +150,10 @@
                 position: relative;
                 font-size: 1rem;
 
+                textarea {
+                    line-height: 150%;
+                }
+
                 .invisible-write {
                     word-wrap: break-word;
                     white-space: pre-wrap;
@@ -158,12 +162,13 @@
                     top: -9999px;
                     width: 100%;
                     overflow: hidden;
+                    line-height: 150%;
                 }
             }
 
             .tags-block {
                 flex: 0 0 25%;
-                margin-left: 20px;
+                margin-left: 50px;
                 width: 100%;
 
                 .tag-input {

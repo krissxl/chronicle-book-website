@@ -26,6 +26,8 @@ import { inListAnimation } from '../shared/animations';
   ],
 })
 export class AppPageComponent implements OnInit {
+  // Main page. In this page you can read your entries and create new.
+
   @ViewChild('side') side: ElementRef;
 
   selectedDate: Date;
@@ -57,7 +59,7 @@ export class AppPageComponent implements OnInit {
       now.getDate()
     );
   }
-
+  
   async ngOnInit(): Promise<void> {
     document.title = "App - Chronicle Book";
     const response = await this.entriesService.fetchUserEntriesByMonth(

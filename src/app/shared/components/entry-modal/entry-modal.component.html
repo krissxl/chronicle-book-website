@@ -14,8 +14,8 @@
         <span>{{ entry.time | date: "yyyy" }} </span>
         <span class="date-week-day">{{ entry.time | date: "EEEE" }}</span>
       </div>
-      <div class="title" *ngIf="entry.title" appFontPref>
-        {{ entry.title }}
+      <div class="title-block" *ngIf="entry.title">
+        <div class="title" appFontPref>{{ entry.title }}</div>
       </div>
       <div class="text" appFontPref>{{ entry.text }}</div>
       <div class="tags" *ngIf="entry.tags">
