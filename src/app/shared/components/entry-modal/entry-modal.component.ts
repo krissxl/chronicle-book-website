@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Entry } from '../../interfaces';
 import { EntryService } from '../../services/entry.service';
 import { Router } from '@angular/router';
@@ -17,6 +24,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
       ]),
     ]),
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EntryModalComponent implements OnInit {
   @Input() entry: Entry;

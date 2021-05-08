@@ -56,7 +56,8 @@
                 line-height: 1.6rem;
             }
 
-            .text, .title-block {
+            .text,
+            .title-block {
                 word-wrap: break-word;
                 padding: 3px 0;
             }
@@ -64,9 +65,46 @@
             .text {
                 margin-top: 9px;
                 overflow-y: auto;
-                white-space: pre-wrap;
                 max-height: 80%;
-                line-height: 150%;
+                line-height: 1.6;
+
+                ul,
+                ol {
+                    margin-left: 20px;
+                }
+
+                img {
+                    width: 100%;
+                }
+
+                h1 {
+                    margin: 0;
+                }
+
+                code {
+                    margin: 5px 0;
+                    background-color: $l2dark;
+                    padding: 5px;
+                    margin-right: 20px;
+                    border-radius: 5px;
+                    display: block;
+                }
+
+                blockquote {
+                    border-left: 11px solid rgba($color: #ffffff, $alpha: 0.1);
+                    border-radius: 5px;
+                    margin: 5px 0;
+                    margin-right: 20px;
+                    padding: 5px 8px;
+                    background-color: rgba($color: #ffffff, $alpha: 0.05);
+                }
+
+                hr {
+                    border: none;
+                    color: $l2dark;
+                    background-color: $l3dark; 
+                    height: 2px;
+                }
             }
 
             .tags {

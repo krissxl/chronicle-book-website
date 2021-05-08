@@ -9,6 +9,7 @@ import { EntryModalComponent } from './components/entry-modal/entry-modal.compon
 import { LoaderComponent } from './components/loader/loader.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
 import { FontPrefDirective } from './directives/font-pref.directive';
+import { MarkdownPipe } from './pipes/markdown.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FontPrefDirective } from './directives/font-pref.directive';
     EntryModalComponent,
     LoaderComponent,
     ErrorMessageComponent,
-    FontPrefDirective
+    FontPrefDirective,
+    MarkdownPipe
   ],
   imports: [CommonModule, RouterModule],
   exports: [
