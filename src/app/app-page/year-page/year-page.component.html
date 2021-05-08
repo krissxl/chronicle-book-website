@@ -28,14 +28,9 @@
             [class.light]="maxInDay / num > 4 && num !== 0"
             [class.empty]="num === -1"
             (click)="onDayClick($event, i)"
-          >
-            <div class="hover" *ngIf="num >= 0">
-              <b
-                >{{ num ? num : "No" }} {{ num === 1 ? "entry" : "entries" }}</b
-              >
-              on {{ getDayDate(i) | date }}
-            </div>
-          </div>
+            (mouseenter)="mouseEnter($event, i, num)"
+            (mouseleave)="mouseLeave($event, i, num)"
+          ></div>
         </div>
       </div>
     </div>
@@ -59,6 +54,13 @@
     <div class="not-select" *ngIf="!selectedDate">
       Select day from grid cells over this text
     </div>
+  </div>
+  <div class="hover" *ngIf="hoveredDay" #hover>
+    <b
+      >{{ hoveredDay.entriesCount ? hoveredDay.entriesCount : "No" }}
+      {{ hoveredDay.entriesCount === 1 ? "entry" : "entries" }}</b
+    >
+    on {{ hoveredDay.name | date }}
   </div>
 </div>
 

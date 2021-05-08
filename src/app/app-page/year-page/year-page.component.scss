@@ -2,7 +2,38 @@
 
 .year-page {
     overflow-x: hidden;
-    
+
+    .hover {
+        position: absolute;
+        z-index: 30;
+        width: 220px;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgba($color: #000, $alpha: 0.75);
+        visibility: hidden;
+        user-select: none;
+        pointer-events: none;
+        transform: translate(-46%, -160%);
+        transition: left 75ms, top 75ms;
+
+        &:hover {
+            display: none;
+        }
+
+        &::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top: 10px solid rgba($color: #000, $alpha: 0.75);
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
     .container {
         padding: 50px 100px;
 
@@ -68,37 +99,6 @@
                         &.selected {
                             border: 2px $dgreen solid;
                         }
-
-                        .hover {
-                            position: absolute;
-                            top: -60px;
-                            z-index: 30;
-                            width: 220px;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            text-align: center;
-                            padding: 10px;
-                            border-radius: 10px;
-                            background-color: rgba($color: #000, $alpha: 0.75);
-                            display: none;
-                            user-select: none;
-
-                            &:hover {
-                                display: none;
-                            }
-
-                            &::before {
-                                content: '';
-                                width: 0;
-                                height: 0;
-                                border: 10px solid transparent;
-                                border-top: 10px solid rgba($color: #000, $alpha: 0.75);
-                                position: absolute;
-                                bottom: -20px;
-                                left: 50%;
-                                transform: translateX(-50%);
-                            }
-                        }
                     }
                 }
             }
@@ -112,7 +112,8 @@
             }
         }
 
-        .not-select, .no-entries-on-selected {
+        .not-select,
+        .no-entries-on-selected {
             font-size: 2rem;
             font-weight: 600;
             margin-top: 30px;
@@ -129,7 +130,7 @@
                     .top {
                         width: 920px;
                     }
-    
+
                     .main {
                         grid-template-rows: repeat(9, 18px);
                         grid-template-columns: repeat(42, 18px);
@@ -139,7 +140,6 @@
             }
         }
     }
-    
 }
 
 @media screen and (max-width: 1100px) {
@@ -150,7 +150,7 @@
                     .top {
                         width: 568px;
                     }
-    
+
                     .main {
                         grid-template-rows: repeat(15, 18px);
                         grid-template-columns: repeat(26, 18px);
@@ -171,7 +171,7 @@
                     .top {
                         width: 414px;
                     }
-    
+
                     .main {
                         grid-template-rows: repeat(21, 18px);
                         grid-template-columns: repeat(19, 18px);
@@ -180,7 +180,7 @@
                 }
             }
         }
-    }   
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -194,7 +194,7 @@
                         grid-template-columns: repeat(12, 18px);
                         column-gap: 4px;
                     }
-    
+
                     .main {
                         grid-template-rows: repeat(30, 18px);
                         grid-template-columns: repeat(14, 18px);
@@ -209,7 +209,7 @@
                 }
             }
         }
-    }   
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -238,5 +238,5 @@
                 }
             }
         }
-    }   
+    }
 }

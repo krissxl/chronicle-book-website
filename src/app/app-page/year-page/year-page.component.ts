@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EntriesService } from 'src/app/shared/services/entries.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { getFullDateName } from 'src/app/shared/scripts/date';
@@ -35,6 +35,9 @@ export class YearPageComponent implements OnInit {
   startOfYear: number;
   selectedEntry: Entry;
   isLoading: boolean = false;
+  hoveredDay: { name; entriesCount };
+
+  @ViewChild('hover') hover: ElementRef;
 
   constructor(
     public entriesService: EntriesService,
@@ -42,7 +45,7 @@ export class YearPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    document.title = "Year view - Chronicle Book";
+    document.title = 'Year view - Chronicle Book';
     this.generateArrayOfDays();
   }
 
@@ -96,6 +99,25 @@ export class YearPageComponent implements OnInit {
   getDayDate(indexInArray: number): Date {
     const year = this.selectedYear.getFullYear();
     return new Date(year, 0, indexInArray - this.startOfYear + 1);
+  }
+
+  mouseEnter(event: MouseEvent, i: number, count: number) {
+    this.hoveredDay = {
+      name: this.getDayDate(i),
+      entriesCount: count,
+    };
+    if (this.hover) {
+      const target = event.target as HTMLElement;
+      const props = target.getBoundingClientRect()
+      console.log(props)
+      this.hover.nativeElement.style.left = props.left + "px"
+      this.hover.nativeElement.style.top = props.top + window.scrollY+ "px"
+      this.hover.nativeElement.style.visibility = 'visible';
+    }
+  }
+
+  mouseLeave() {
+    if (this.hover) this.hover.nativeElement.style.visibility = 'hidden';
   }
 
   // Fetch entries on selected by user day
