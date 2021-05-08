@@ -4,7 +4,7 @@ This is a Chronical Book diary website repository. On this website you can save 
 <img src="https://i.imgur.com/9XQVa3u.gif"></img>
 
 ## What stack of technologies this website uses?
-- **Angular 10** (TypeScript built-in)
+- **Angular 11** (TypeScript built-in)
 - **Firebase**
 
 ## How to run it on my computer?
